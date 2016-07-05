@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>Mac下的效率工具autojump | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="IDE 用起来总是得不到满足，Mac 适合搞开发，我也十分喜欢 Mac 系统，当然可以说喜欢 Unix/Linux 系统。今天在 .zshrc 文件中添加了这么几行快捷命令：alias gow   = &quot;cd ~/barretlee/work&quot;alias gotb  = &quot;cd ~/barretle">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Mac下的效率工具autojump | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/03/30/autojump-in-mac/">
+  <meta property="og:site_name" content="Mac下的效率工具autojump">
+  <meta property="og:description" content="IDE 用起来总是得不到满足，Mac 适合搞开发，我也十分喜欢 Mac 系统，当然可以说喜欢 Unix/Linux 系统。今天在 .zshrc 文件中添加了这么几行快捷命令：alias gow   = &quot;cd ~/barretlee/work&quot;alias gotb  = &quot;cd ~/barretle">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2015/03/31/autocomplete-in-browser/" title="干掉浏览器中的自动填充" />
+  <link rel="next" href="http://www.barretlee.com/blog/2015/03/29/mac-backup-about-xcode/" title="mac数据迁移xcode错误问题" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">Mac下的效率工具autojump</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2015-03-30 00:00:00</time>
+          <span class="aria-readonly">本文发布时间为2015年03月30日00时00分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/苹果/">苹果</a>,<a class="category-link" href="/blog/categories/苹果/工具/">工具</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/autojump/">autojump</a>, <a class="article-tag-link" href="/blog/tags/mac/">mac</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="autojump-in-mac"
+                      data-disqus-identifier="autojump-in-mac"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/03/30/autojump-in-mac/">http://www.barretlee.com/blog/2015/03/30/autojump-in-mac/</a>，<a href="http://www.barretlee.com/blog/2015/03/30/autojump-in-mac/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>IDE 用起来总是得不到满足，Mac 适合搞开发，我也十分喜欢 Mac 系统，当然可以说喜欢 Unix/Linux 系统。今天在 <code>.zshrc</code> 文件中添加了这么几行快捷命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">alias</span> gow   = <span class="string">"cd ~/barretlee/work"</span></span><br><span class="line"><span class="built_in">alias</span> gotb  = <span class="string">"cd ~/barretlee/work/tb"</span></span><br><span class="line"><span class="built_in">alias</span> gotbn = <span class="string">"cd ~/barretlee/work/tb/node"</span></span><br></pre></td></tr></table></figure>
+<p>写完之后我立马把这几行命令删掉了，这种方式似乎有点二。网上搜罗了下，找到了一个挺不错的工具 - autojump。</p>
+<p>Autojump 自己是这么描述的：</p>
+<blockquote>
+<p>autojump  is  a  faster way to navigate your filesystem.  It works by maintaining a database of the directories you use the most from the command line.</p>
+</blockquote>
+<p>通过 <code>history</code> 命令你可以找到最近用过的命令，比如</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">history</span> | grep <span class="string">"git clone"</span></span><br></pre></td></tr></table></figure>
+<p>通过上述命令就能找到近期 clone 了哪些库，省却了写一堆代码的功夫。autojump 就是通过记录你在 history 中的行为把你访问过的文件夹路径都 cache 下来，当你进行如下操作时：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">autojump node</span><br></pre></td></tr></table></figure>
+<p>他会直接跳到之前访问的 <code>~/barretlee/work/tb/node</code> 目录下。他还有一个快捷方式：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">j node</span><br></pre></td></tr></table></figure>
+<p>我很喜欢这个小工具，让我游荡于文件夹之间不费吹灰之力。</p>
+<h3 id="安装："><a href="#安装：" class="headerlink" title="安装："></a>安装：</h3><ul>
+<li>建议安装 zsh</li>
+<li>建议安装 homebrew</li>
+<li><code>brew install autojump</code></li>
+<li><p>在 <code>.zshrc</code> 中找到 <code>plugins=</code>，在后面添加 </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">plugins=(git autojump)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后继续在上述文件中添加 </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[[ <span class="operator">-s</span> $(brew --prefix)/etc/profile.d/autojump.sh ]] &amp;&amp; . $(brew --prefix)/etc/profile.d/autojump.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>source ~/.zshrc</code></p>
+</li>
+</ul>
+<p><strong>Enjoy coding. :)</strong></p>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/03/30/autojump-in-mac/">http://www.barretlee.com/blog/2015/03/30/autojump-in-mac/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/03/30/autojump-in-mac/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-03-30 00:00:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/苹果/">苹果</a>,<a class="category-link" href="/blog/categories/苹果/工具/">工具</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/autojump/">autojump</a>, <a class="article-tag-link" href="/blog/tags/mac/">mac</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-06-20 17:39:13</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="autojump-in-mac" data-title="Mac下的效率工具autojump" data-images="" data-content="IDE 用起来总是得不到满足，Mac 适合搞开发，我也十分喜欢 Mac 系统，当然可以说喜欢 Unix/Linux 系统。今天在 .zshrc 文件中添加了这么几行快捷命令：alias gow   = "cd ~/bar..." data-url="http://www.barretlee.com/blog/2015/03/30/autojump-in-mac/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2015/03/31/autocomplete-in-browser/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>干掉浏览器中的自动填充</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2015/03/29/mac-backup-about-xcode/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>mac数据迁移xcode错误问题</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2015/03/31/autocomplete-in-browser/" class="prev" title="干掉浏览器中的自动填充">
+    <i class="icon">&#xe600;</i>
+    
+    <b>干掉浏览器中的自动填充</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2015/03/29/mac-backup-about-xcode/" class="next" title="mac数据迁移xcode错误问题">
+    <i class="icon">&#x261e;</i>
+    <b>mac数据迁移xcode错误问题</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="autojump-in-mac"
+	   data-disqus-identifier="autojump-in-mac" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="autojump-in-mac" data-title="Mac下的效率工具autojump" data-url="http://www.barretlee.com/blog/2015/03/30/autojump-in-mac/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-06 »</font> </span>
+				<a href="/blog/2016/04/06/operation-not-permitted-problem-in-linux-or-unix-system/">Unix/Linux 系统中的 Operation Not Permitted 问题</a>
+				<span class="aria-readonly">发表时间为2016年04月06日</span>
+				<div><span class="aria-readonly">文章概要 </span>多次在 Mac 使用过程中遇到 Operation Not Permitted 问题，之前都是略过，今天好好摸索了一把，搞明白了道理，记录下来。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2015-03-29 »</font> </span>
+				<a href="/blog/2015/03/29/mac-backup-about-xcode/">mac数据迁移xcode错误问题</a>
+				<span class="aria-readonly">发表时间为2015年03月29日</span>
+				<div><span class="aria-readonly">文章概要 </span>在安装 Homebrew (Mac 下的软件管理工具，类似 linux 的 apt-get、yum ...</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2015-03-28 »</font> </span>
+				<a href="/blog/2015/03/28/mac-data-backup/">mac数据克隆</a>
+				<span class="aria-readonly">发表时间为2015年03月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>IT人士，尤其是前端，现在都偏爱 mac，很多人自己买了 mac，公司也给配了一台。最近因为工作需求...</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

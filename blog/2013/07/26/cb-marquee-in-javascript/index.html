@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>一个不陌生的JS效果-marquee,用css3来实现 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.关于marquee，就不多说了，可以戳这里。毕竟他是一个很古老的元素，现在的标准里头也不推荐使用这个标签了。但平时一些项目中会经常碰到这样的效果，每次都是重新写一遍，麻烦！JS类实现marquee今天倒弄了一个类，还不全，打个草稿吧~ 下次就凑合着用吧。DEMO在">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="一个不陌生的JS效果-marquee,用css3来实现 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2013/07/26/cb-marquee-in-javascript/">
+  <meta property="og:site_name" content="一个不陌生的JS效果-marquee,用css3来实现">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.关于marquee，就不多说了，可以戳这里。毕竟他是一个很古老的元素，现在的标准里头也不推荐使用这个标签了。但平时一些项目中会经常碰到这样的效果，每次都是重新写一遍，麻烦！JS类实现marquee今天倒弄了一个类，还不全，打个草稿吧~ 下次就凑合着用吧。DEMO在">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2013/08/09/cb-css-spec/" title="前端编码规范之CSS" />
+  <link rel="next" href="http://www.barretlee.com/blog/2013/07/20/cb-extend-in-jQuery/" title="解读jQuery中extend函数" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">一个不陌生的JS效果-marquee,用css3来实现</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2013-07-26 10:25:00</time>
+          <span class="aria-readonly">本文发布时间为2013年07月26日10时25分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="cb-marquee-in-javascript"
+                      data-disqus-identifier="cb-marquee-in-javascript"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2013/07/26/cb-marquee-in-javascript/">http://www.barretlee.com/blog/2013/07/26/cb-marquee-in-javascript/</a>，<a href="http://www.barretlee.com/blog/2013/07/26/cb-marquee-in-javascript/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/07/26/marquee-in-javascript.html" target="_blank">博客园</a>.</div>
+
+<p>关于marquee，就不多说了，可以<a title="marquee演示" href="http://qianduannotes.sinaapp.com/marquee/show.html" target="_blank">戳这里</a>。</p><br><p>毕竟他是一个很古老的元素，现在的标准里头也不推荐使用这个标签了。但平时一些项目中会经常碰到这样的效果，每次都是重新写一遍，麻烦！</p>
+
+
+<h3>JS类实现marquee</h3><br><p>今天倒弄了一个<strong>类</strong>，还不全，打个草稿吧~ 下次就凑合着用吧。</p><br><p>DEMO在这里，<a title="DEMO" href="http://qianduannotes.sinaapp.com/marquee/index.html" target="_blank">戳我</a></p><br><br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">* @author 靖鸣君</span><br><span class="line">* @email jingmingjun92@163.com</span><br><span class="line">* @description 滚动</span><br><span class="line">* @class Marquee</span><br><span class="line">* @param &#123;Object&#125;</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">var</span> Marquee = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.direction = <span class="string">"top"</span>;</span><br><span class="line">    <span class="keyword">this</span>.speed = <span class="number">30</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Marquee.prototype = &#123;</span><br><span class="line">    <span class="comment">//initial</span></span><br><span class="line">    init: <span class="function"><span class="keyword">function</span>(<span class="params">obj, setttings</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.obj = obj;</span><br><span class="line">        <span class="keyword">this</span>._createBox();</span><br><span class="line">        <span class="keyword">this</span>.scroll();</span><br><span class="line">        <span class="keyword">if</span>(settings)&#123;</span><br><span class="line">            settings.direction &amp;&amp; (<span class="keyword">this</span>.direction = settings.direction);</span><br><span class="line">            settings.speed &amp;&amp; (<span class="keyword">this</span>.speed = settings.speed);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    _createBox: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//create inner box A</span></span><br><span class="line">        <span class="keyword">this</span>.iBox = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">        <span class="keyword">var</span> iBox = <span class="keyword">this</span>.iBox;</span><br><span class="line">        <span class="keyword">with</span>(iBox.style)&#123;</span><br><span class="line">            width = <span class="string">"100%"</span>;</span><br><span class="line">            height = <span class="string">"100%"</span>;</span><br><span class="line">            overflow = <span class="string">"hidden"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        iBox.setAttribute(<span class="string">"id"</span>, <span class="string">"marqueeBoxA"</span>);</span><br><span class="line">        iBox.innerHTML = obj.innerHTML;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//clone inner box B</span></span><br><span class="line">        <span class="keyword">var</span> iBox2 = iBox.cloneNode(<span class="literal">true</span>);</span><br><span class="line">        iBox2.setAttribute(<span class="string">"id"</span>, <span class="string">"marqueeBoxB"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//append to obj Box</span></span><br><span class="line">        <span class="keyword">this</span>.obj.innerHTML = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">this</span>.obj.appendChild(iBox);</span><br><span class="line">        <span class="keyword">this</span>.obj.appendChild(iBox2);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//animation</span></span><br><span class="line">    scroll: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> _self = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">this</span>.timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            _self._ani();</span><br><span class="line">        &#125;, <span class="keyword">this</span>.speed);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//setInterval function</span></span><br><span class="line">    _ani: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(obj.clientHeight - obj.scrollTop &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">            obj.scrollTop = obj.offsetHeight - obj.scrollTop + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            obj.scrollTop++;</span><br><span class="line">            <span class="built_in">console</span>.log(obj.offsetHeight, obj.scrollTop);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    stop: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        clearInterval(<span class="keyword">this</span>.timer);</span><br><span class="line">    &#125;,</span><br><span class="line">    start: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.scroll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br><br><p>gists地址：<a href="https://gist.github.com/barretlee/6095976" target="_blank" rel="external">https://gist.github.com/barretlee/6095976</a></p><br><p>代码写的比较粗糙，下面说说这个<strong>思路</strong>：</p><br><p><img src="http://images.cnitblog.com/blog/387325/201307/26221029-f82024416caf481a91ad51b1576d33d0.jpg" alt=""></p><br><p>BoxA和BoxB内容相同，当BoxA滚动离开外层盒子时，把scrollTop设置成，当前的scrollTop - BoxA的高度，记得再加上一个1.</p><br><p>思路很简单，操作也很方便，我比较习惯用scrollTop来控制移动，有的人也喜欢用绝对定位和相对定位配合，但是这样写出来的插件兼容性不是很好，有些页面定位元素太多，可能会造成插件的样式乱套。</p><br><p>这个插件（楼主比较懒，还没有写完）的<strong>使用方式</strong>：</p><br><br><figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> marquee = <span class="keyword">new</span> Marquee(),</span><br><span class="line">    obj = <span class="built_in">document</span>.getElementById(<span class="string">"box"</span>);</span><br><span class="line"></span><br><span class="line">marquee.init(obj);</span><br></pre></td></tr></table></figure><br><br><p>对应的html代码：</p><br><br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Demo<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css"></span><br><span class="line">        <span class="id">#box</span> <span class="rules">&#123;</span><br><span class="line">            <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">150px</span></span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">200px</span></span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#EFEFEF</span></span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="hexcolor">#F8F8F8</span></span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span> <span class="number">20px</span></span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">22px</span></span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">overflow</span>:<span class="value">hidden</span></span>;</span><br><span class="line">        &#125;</span></span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"box"</span>&gt;</span></span><br><span class="line">        我是Barret Lee1<span class="tag">&lt;<span class="title">br</span>&gt;</span> 我是Barret Lee2<span class="tag">&lt;<span class="title">br</span>&gt;</span> 我是Barret Lee3<span class="tag">&lt;<span class="title">br</span>&gt;</span> 我是Barret Lee4<span class="tag">&lt;<span class="title">br</span>&gt;</span> 我是Barret Lee5<span class="tag">&lt;<span class="title">br</span>&gt;</span></span><br><span class="line">        我是Barret Lee1<span class="tag">&lt;<span class="title">br</span>&gt;</span> 我是Barret Lee2<span class="tag">&lt;<span class="title">br</span>&gt;</span> 我是Barret Lee3<span class="tag">&lt;<span class="title">br</span>&gt;</span> 我是Barret Lee4<span class="tag">&lt;<span class="title">br</span>&gt;</span> 我是Barret Lee5<span class="tag">&lt;<span class="title">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br><br><p>当然，给了几个<strong>接口</strong>：</p><br><br><figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="tag">marquee</span><span class="class">.init</span>(obj, &#123;</span><br><span class="line">     <span class="attribute">direction</span>: <span class="string">"xx"</span>,  <span class="comment">//这个还没写，一般就是top和left吧~</span></span><br><span class="line">     <span class="attribute">speed</span>: <span class="number">30</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><br><br><h3><strong>&nbsp;补充一个css3下marquee的知识点</strong></h3>
+
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="attribute">overflow</span><span class="value">:-webkit-marquee;</span><span class="comment">//指定溢出时滚动。</span></span><br><span class="line"></span><br><span class="line">-webkit-marquee-<span class="tag">style</span><span class="value">:scroll | slide | alternate;</span> <span class="comment">//跑马灯样式，分三种。</span></span><br><span class="line"></span><br><span class="line"><span class="value">scroll</span>，从一端滚动到另一端，内容完全滚入（消失）时重新开始。</span><br><span class="line"></span><br><span class="line">slide，从一端滚到另一端，内容接触到另一端后，立马重新开始。</span><br><span class="line"></span><br><span class="line">alternate，内容不跑到显示区域外，在里面来回碰壁反弹。这里主要用第一种。</span><br><span class="line"></span><br><span class="line">-webkit-marquee-repetition<span class="value">:infinite | number;</span><span class="comment">// 跑马灯跑的次数，infinite 为</span></span><br><span class="line"></span><br><span class="line">无限多次，不结束。或者可以用正整数设置滚动的次数。</span><br><span class="line"></span><br><span class="line">-webkit-marquee-<span class="attribute">direction</span><span class="value">:up | down | left | right;</span> <span class="comment">//跑动的方向，这个要注</span></span><br><span class="line"></span><br><span class="line">意结合实际情况，即实际你操作的标签文本流溢出在哪个方向溢出。</span><br><span class="line"></span><br><span class="line">-webkit-marquee-speed<span class="value">:slow | normal | fast;</span><span class="comment">//跑动的速度设置。</span></span><br></pre></td></tr></table></figure>
+<p>实例：</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Demo<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">type</span>=<span class="value">"text/css"</span>&gt;</span><span class="css"></span><br><span class="line">        <span class="tag">h1</span> <span class="rules">&#123;</span><br><span class="line">            <span class="rule"><span class="attribute">color</span>:<span class="value"><span class="function">rgba</span>(<span class="number">250</span>,<span class="number">100</span>,<span class="number">100</span>,<span class="number">0.7</span>)</span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">40px</span></span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">line-height</span>:<span class="value"><span class="number">40px</span></span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">400px</span></span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">overflow</span>:<span class="value"> -webkit-marquee</span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">-webkit-marquee-style</span>:<span class="value"> scroll</span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">-webkit-marquee-repetition</span>:<span class="value"> infinite</span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">-webkit-marquee-direction</span>:<span class="value"> right</span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">-webkit-marquee-speed</span>:<span class="value">normal</span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> <span class="hexcolor">#ccc</span> solid</span></span>;</span><br><span class="line">            <span class="rule"><span class="attribute">margin-top</span>:<span class="value"> <span class="number">30px</span></span></span>;</span><br><span class="line">        &#125;</span></span><br><span class="line">        <span class="tag">h1</span><span class="class">.left</span> <span class="rules">&#123;</span><br><span class="line">            <span class="rule"><span class="attribute">-webkit-marquee-direction</span>:<span class="value"> left</span></span>;</span><br><span class="line">        &#125;</span></span><br><span class="line">        <span class="tag">h1</span><span class="class">.up</span> <span class="rules">&#123;</span><br><span class="line">            <span class="rule"><span class="attribute">-webkit-marquee-direction</span>:<span class="value"> up</span></span>;</span><br><span class="line">        &#125;</span></span><br><span class="line">        <span class="tag">h1</span><span class="class">.down</span> <span class="rules">&#123;</span><br><span class="line">            <span class="rule"><span class="attribute">-webkit-marquee-direction</span>:<span class="value"> down</span></span>;</span><br><span class="line">        &#125;</span></span><br><span class="line"></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">h1</span>&gt;</span>我是Barret Lee，Barret Lee，我是Barret Lee，Barret Lee，我是Barret Lee<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">h1</span> <span class="attribute">class</span>=<span class="value">"up"</span>&gt;</span>我是Barret Lee，Barret Lee，我是Barret Lee，Barret Lee，我是Barret Lee<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">h1</span> <span class="attribute">class</span>=<span class="value">"left"</span>&gt;</span>我是Barret Lee，Barret Lee，我是Barret Lee，Barret Lee，我是Barret Lee<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">h1</span> <span class="attribute">class</span>=<span class="value">"down"</span>&gt;</span>我是Barret Lee，Barret Lee，我是Barret Lee，Barret Lee，我是Barret Lee<span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>DEMO地址：<a title="css3 marquee" href="http://qianduannotes.sinaapp.com/marquee/css3marquee.html" target="_blank">http://qianduannotes.sinaapp.com/marquee/css3marquee.html</a>&nbsp;（此属性在后续新版本中已经不提供支持了 &nbsp;修改于<strong>2013/11/09</strong>）</p><br><p>这个还是蛮实用的~做下兼容性处理，我觉得，可以直接拿过来用：)</p>
+
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/07/26/cb-marquee-in-javascript/">http://www.barretlee.com/blog/2013/07/26/cb-marquee-in-javascript/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/07/26/cb-marquee-in-javascript/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+<div class="old-article-warning">
+	本文在 <b>1076</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
+</div>
+
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-07-26 10:25:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="cb-marquee-in-javascript" data-title="一个不陌生的JS效果-marquee,用css3来实现" data-images="" data-content="本文为归档内容,原始地址在 博客园.关于marquee，就不多说了，可以戳这里。毕竟他是一个很古老的元素，现在的标准里头也不推荐使用这个标签了。但平时一些项目中会经常碰到这样的效果，每次都是重新写一遍，麻烦！JS类实现m..." data-url="http://www.barretlee.com/blog/2013/07/26/cb-marquee-in-javascript/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/08/09/cb-css-spec/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>前端编码规范之CSS</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/07/20/cb-extend-in-jQuery/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>解读jQuery中extend函数</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2013/08/09/cb-css-spec/" class="prev" title="前端编码规范之CSS">
+    <i class="icon">&#xe600;</i>
+    
+    <b>前端编码规范之CSS</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/07/20/cb-extend-in-jQuery/" class="next" title="解读jQuery中extend函数">
+    <i class="icon">&#x261e;</i>
+    <b>解读jQuery中extend函数</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="cb-marquee-in-javascript"
+	   data-disqus-identifier="cb-marquee-in-javascript" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="cb-marquee-in-javascript" data-title="一个不陌生的JS效果-marquee,用css3来实现" data-url="http://www.barretlee.com/blog/2013/07/26/cb-marquee-in-javascript/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-18 »</font> </span>
+				<a href="/blog/2016/04/18/javascript-detail/">JavaScript 被忽视的细节</a>
+				<span class="aria-readonly">发表时间为2016年04月18日</span>
+				<div><span class="aria-readonly">文章概要 </span>《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在 微博 上，稍微整理了一番，放在这里，方便阅读。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-02-20 »</font> </span>
+				<a href="/blog/2016/02/20/navigator-beacon-api/">页面跳转时，统计数据丢失问题探讨</a>
+				<span class="aria-readonly">发表时间为2016年02月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>为了更好地了解用户对产品的使用情况，业务中，我们经常会收到埋点统计的需求，比如：收集一段时间内用户光标在页面中的运动情况，包括光标移动、点击等行为统计用户滚屏行为统计用户在站点的停留时长收集页面链接的点击数量等</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>如何让你的JavaScript代码更加语义化 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.语义化这个词在 HTML 中用的比较多，即根据内容的结构化选择合适的标签。其作用不容小觑：赋予标签含义，让代码结构更加清晰，虽然我们可以在标签上添加 class 来标识，但这种通过属性来表示本体的形式会显得不够直接，而且在一定程度上也有冗余。优化搜索引擎（SEO）">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="如何让你的JavaScript代码更加语义化 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2014/08/20/cb-javascript-semantization/">
+  <meta property="og:site_name" content="如何让你的JavaScript代码更加语义化">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.语义化这个词在 HTML 中用的比较多，即根据内容的结构化选择合适的标签。其作用不容小觑：赋予标签含义，让代码结构更加清晰，虽然我们可以在标签上添加 class 来标识，但这种通过属性来表示本体的形式会显得不够直接，而且在一定程度上也有冗余。优化搜索引擎（SEO）">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2014/08/21/IE-bug-in-title-element/" title="IE下title没有childNodes" />
+  <link rel="next" href="http://www.barretlee.com/blog/2014/08/19/post-method-change-to-options/" title="POST请求失败，变成options请求" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">如何让你的JavaScript代码更加语义化</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2014-08-20 11:07:00</time>
+          <span class="aria-readonly">本文发布时间为2014年08月20日11时07分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="cb-javascript-semantization"
+                      data-disqus-identifier="cb-javascript-semantization"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2014/08/20/cb-javascript-semantization/">http://www.barretlee.com/blog/2014/08/20/cb-javascript-semantization/</a>，<a href="http://www.barretlee.com/blog/2014/08/20/cb-javascript-semantization/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/08/20/javascript-semantization.html" target="_blank">博客园</a>.</div>
+
+<p class="p1">语义化这个词在 HTML 中用的比较多，即根据内容的结构化选择合适的标签。其作用不容小觑：</p><br><ul class="ul1"><br><li class="li3">赋予标签含义，让代码结构更加清晰，虽然我们可以在标签上添加 class 来标识，但这种通过属性来表示本体的形式会显得不够直接，而且在一定程度上也有冗余。</li><br><li class="li3">优化搜索引擎（SEO），结构良好的网页对搜索引擎的亲和力是很高的，百度和 google 也给出了很多网页结构化的建议（规范），方便他们抓取网页。</li><br><li class="li3">利于设备解析，如盲人阅读器对页面的分析，目前淘宝很多网页都是支持盲人阅读的，这种体验上的优化得利于网页的良好结构和语义化表达。</li><br><li class="li3">便于开发者维护，在参加工作之前，很多程序员都是单人开发模式，单人开发无所谓代码结构，自己看得懂就差不多了，一旦走向工作岗位，会发现，以前的鄙习有点让自己捉襟见肘了。</li><br></ul><br><p class="p2">W3C Group 工作组在 web 规范上持续贡献，他们的目标也是期望整个互联网的发展态势稳定统一起来。不扯远了，回到本文需要阐述的重点：如何语义化 JavaScript 代码？</p><br><h3 class="p4"><strong>一、先看看那些不易读懂的 JavaScript 代码</strong></h3><br><p class="p2"><strong>1. 判断</strong></p>
+
+<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数据类型判断</span></span><br><span class="line"><span class="keyword">if</span><span class="comment">(Object.prototype.toString.call(str)</span> === <span class="string">"[object String]"</span>)&#123;</span><br><span class="line">    <span class="comment">// doSomething();</span></span><br><span class="line">&#125;；</span><br><span class="line"></span><br><span class="line"><span class="comment">// 文件类型判断</span></span><br><span class="line"><span class="keyword">if</span><span class="comment">(/.*\.css(?=\?|$)</span>/.test<span class="comment">(\/path/to/main.css")</span>)&#123;</span><br><span class="line">    <span class="comment">// doSomething();</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p class="p2"><strong>2. 清空一个队列</strong></p>
+
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> Queue</span> = [<span class="string">"test1"</span>, <span class="string">"test2"</span>, <span class="string">"test3"</span>];</span><br><span class="line"><span class="comment">// 常见方式</span></span><br><span class="line">Queue.length = <span class="number">0</span>;</span><br><span class="line">Queue = [];</span><br></pre></td></tr></table></figure>
+<p class="p2"><strong>3. 注册一个变量</strong></p>
+
+<figure class="highlight xquery"><table><tr><td class="code"><pre><span class="line">// 注册</span><br><span class="line">var repos = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">repos[<span class="string">"a"</span>] = &#123;</span><br><span class="line">   name: <span class="string">"a"</span>,</span><br><span class="line">   content: &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">repos[<span class="string">"b"</span>] = &#123;</span><br><span class="line">   name: <span class="string">"b"</span>,</span><br><span class="line">   content: &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p class="p2">上面几个例子倒不至于看不懂，程序都特别简单，第一个例子中，我们通过 Object 原型链上的 toString 方法来判断一个变量是否为 string 类型，以及使用正则来判断一个文件是不是 css 文件。代码写起来比较轻松，倘若我们同时需要判断多个对象是否为多个类型中的一种呢？再比如我们需要在一串代码中提取 require 依赖关系呢，是否应该思考下如何组织自己的代码？</p><br><p class="p2">在第二个例子中，将数组的长度设置为 0，或者使用空数组来重置这个变量，都是十分常见的方式，但目前的场景是清空一个队列，我们是否可以使用更加语义化的形式来呈现？比如我们只需要清空该队列的前五个和后三个 item 呢？</p><br><p class="p2">第三个例子中，变量的注册，把一堆注册放在一起，上面的形式确实也是一目了然，如果 a b c d 等都是分隔穿插在几百行代码之间呢？突然来个 repos[“x”] 这样是否显得有些不太直观。</p><br><p class="p2">为了说明本文所倡导的思想，上面的几个解释都有些含糊和牵强，请往下看。</p><br><h3 class="p4"><strong>二、提高代码语义性</strong></h3><br><p class="p2">针对上述三个案例，用更加语义化的方式来呈现代码：</p><br><p class="p2"><strong>1. 语义化变量</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 类型判断</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isType</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">o</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(o) === <span class="string">'[object '</span> + type + <span class="string">']'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> isString = isType(<span class="string">"String"</span>);</span><br><span class="line"><span class="keyword">var</span> isObject = isType(<span class="string">"Object"</span>);</span><br><span class="line"><span class="keyword">var</span> isArray = isType(<span class="string">"Array"</span>);</span><br><span class="line"></span><br><span class="line">isString(<span class="string">"I'm Barret Lee."</span>);</span><br><span class="line">isArray([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])；</span><br><span class="line">isObject(&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p class="p2">我觉得不需要太多的解释，对比</p>
+
+<figure class="highlight processing"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">Object</span>.prototype.toString.call(<span class="built_in">str</span>) === <span class="string">"[object String]"</span>)&#123;</span><br><span class="line">    <span class="comment">// code here...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显得清新多了吧。</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 提取常量</span></span><br><span class="line"><span class="keyword">var</span> isCss = <span class="regexp">/.*\.css(?=\?|$)/</span>;</span><br><span class="line">isCss.test(<span class="string">"/path/to/main.css"</span>);</span><br></pre></td></tr></table></figure>
+<p class="p2">不管 isCss 这个正则代码有多长，当我们看到 isCss 这个单词就可以顾名思义。很多人写正则都不会将正则单独提取出来使用某个有意义的变量去存储，加注释还好，要是不加注释，后续开发者就只能硬着头皮看懂正则去理解代码的含义。</p><br><p class="p2">这样的处理，实际上是增加了代码量，不过从工程角度去审视，有助于提高开发效率以及代码的组织性。</p><br><p class="p2"><strong>2. 语义化行为</strong></p>
+
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> Queue</span> = [<span class="string">"test1"</span>, <span class="string">"test2"</span>, <span class="string">"test3"</span>];</span><br><span class="line">Queue.splice(<span class="number">0</span>, Queue.length);</span><br></pre></td></tr></table></figure>
+<p class="p2">上面代码具有很强的语义性，从索引为 0 的地方开始，直到队列最后，删除 Queue 中所有的 item。这种写法的扩展性也更好：</p>
+
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">Queue.splice(<span class="number">2</span>, <span class="number">4</span>); <span class="comment">// 删除从索引为 2，往后的 4 个元素</span></span><br></pre></td></tr></table></figure>
+<p class="p2">这只是个小例子，有些行为是需要很多代码组合处理的，如果没有很好的组合同一行为的代码，整个结构就显得十分涣散，不利于阅读。</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注册</span></span><br><span class="line"><span class="keyword">var</span> repos = [];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">register</span><span class="params">(o)</span></span>&#123;</span><br><span class="line">   repos[o.name] = o;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">register(&#123;</span><br><span class="line">  name: <span class="string">"a"</span>,</span><br><span class="line">  content: &#123;&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p class="p2">对比我们之前</p>
+
+<figure class="highlight smalltalk"><table><tr><td class="code"><pre><span class="line">repos[<span class="comment">"a"</span>] = &#123;</span><br><span class="line">   <span class="method">name:</span> <span class="comment">"a"</span>,</span><br><span class="line">   <span class="method">content:</span> &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p class="p5"><span>语义化程度是不是有所提高~</span></p><br><h3 class="p4"><strong>三、小结</strong></h3><br><p class="p2">代码的优化，需要考虑的维度很多。但是代码的优化并不是减少代码量，有的时候我们需要增加代码来提高代码的可阅读性。</p><br><ul class="ul1"><br><li class="li3">正确标记变量</li><br><li class="li3">封装某个动作</li><br><li class="li3">注意函数的写法</li><br><li class="li3">不容易理解的东西，加注释</li><br></ul><br><p class="p2">本文为抛砖引玉，希望可以触发你对代码优化的敏感度的思考，写出一手别人竖拇指的代码~</p><br><p class="p2">&nbsp;</p>
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2014/08/20/cb-javascript-semantization/">http://www.barretlee.com/blog/2014/08/20/cb-javascript-semantization/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2014/08/20/cb-javascript-semantization/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-08-20 11:07:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="cb-javascript-semantization" data-title="如何让你的JavaScript代码更加语义化" data-images="" data-content="本文为归档内容,原始地址在 博客园.语义化这个词在 HTML 中用的比较多，即根据内容的结构化选择合适的标签。其作用不容小觑：赋予标签含义，让代码结构更加清晰，虽然我们可以在标签上添加 class 来标识，但这种通过属性..." data-url="http://www.barretlee.com/blog/2014/08/20/cb-javascript-semantization/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/08/21/IE-bug-in-title-element/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>IE下title没有childNodes</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/08/19/post-method-change-to-options/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>POST请求失败，变成options请求</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2014/08/21/IE-bug-in-title-element/" class="prev" title="IE下title没有childNodes">
+    <i class="icon">&#xe600;</i>
+    
+    <b>IE下title没有childNodes</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/08/19/post-method-change-to-options/" class="next" title="POST请求失败，变成options请求">
+    <i class="icon">&#x261e;</i>
+    <b>POST请求失败，变成options请求</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="cb-javascript-semantization"
+	   data-disqus-identifier="cb-javascript-semantization" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="cb-javascript-semantization" data-title="如何让你的JavaScript代码更加语义化" data-url="http://www.barretlee.com/blog/2014/08/20/cb-javascript-semantization/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-06-13 »</font> </span>
+				<a href="/blog/2016/06/13/talk-about-front-end/">谈一谈越来越难做的前端</a>
+				<span class="aria-readonly">发表时间为2016年06月13日</span>
+				<div><span class="aria-readonly">文章概要 </span>我接触前端的时间不长也不短，12 年入门，14 年初在百度实习，14 中正式参加工作，掐指一算 4 年整。然而这四年间前端的变化已经让很多人摸不着头脑。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-06-02 »</font> </span>
+				<a href="/blog/2016/06/02/thing-about-taobao-homepage/">聊一聊淘宝首页和它背后的一套</a>
+				<span class="aria-readonly">发表时间为2016年06月02日</span>
+				<div><span class="aria-readonly">文章概要 </span>从 14 年双十二结束开始接手淘宝首页，到如今差不多 1 年半时间，不久前完成了首页相关工作的交接。期间经历了两次改版和一次从 PHP 到 Node 的迁移，还是颇有感受，下面给大家分享下。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-05-30 »</font> </span>
+				<a href="/blog/2016/05/30/h5-crash-research/">H5 Crash 研究</a>
+				<span class="aria-readonly">发表时间为2016年05月30日</span>
+				<div><span class="aria-readonly">文章概要 </span>我们知道，支撑页面在 webview 上良好运转的前提是具备一个高效并且稳定的 webview 容器，而容器的高效稳定不仅仅由容器提供方来保障，也需要容器使用者遵守一些基本准则，否则就有可能出现页面 Crash 的情况，这些准则是什么？什么样的上层代码会引起容器异常退出？这是本文需要阐述的内容。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

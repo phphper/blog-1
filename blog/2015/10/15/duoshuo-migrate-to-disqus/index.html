@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>三步，将多说评论迁移到 disqus | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="关于多说，我不想多说什么，看看这两篇文章 http://www.barretlee.com/blog/2015/09/15/hei-duoshuo-what-is-wrong/ https://imququ.com/post/back-to-disqus.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="三步，将多说评论迁移到 disqus | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/10/15/duoshuo-migrate-to-disqus/">
+  <meta property="og:site_name" content="三步，将多说评论迁移到 disqus">
+  <meta property="og:description" content="关于多说，我不想多说什么，看看这两篇文章 http://www.barretlee.com/blog/2015/09/15/hei-duoshuo-what-is-wrong/ https://imququ.com/post/back-to-disqus.html">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2015/10/22/hsts-intro/" title="你所不知道的 HSTS" />
+  <link rel="next" href="http://www.barretlee.com/blog/2015/10/14/a-incredible-bug-in-taobao-homepage/" title="记一次淘宝首页奇葩的渲染问题" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">三步，将多说评论迁移到 disqus</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2015-10-15 15:59:57</time>
+          <span class="aria-readonly">本文发布时间为2015年10月15日15时59分57秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/disqus/">disqus</a>, <a class="article-tag-link" href="/blog/tags/多说/">多说</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="duoshuo-migrate-to-disqus"
+                      data-disqus-identifier="duoshuo-migrate-to-disqus"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/10/15/duoshuo-migrate-to-disqus/">http://www.barretlee.com/blog/2015/10/15/duoshuo-migrate-to-disqus/</a>，<a href="http://www.barretlee.com/blog/2015/10/15/duoshuo-migrate-to-disqus/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>关于多说，我不想多说什么，看看这两篇文章：</p>
+<ul>
+<li><a href="http://www.barretlee.com/blog/2015/09/15/hei-duoshuo-what-is-wrong/">嘿，多说，你咋了？要不咱换成 DISQUS 吧~</a></li>
+<li><a href="https://imququ.com/post/back-to-disqus.html" target="_blank" rel="external">Disqus，我又回来了！</a></li>
+</ul>
+<a id="more"></a>
+<p>开始在网上搜罗了一番，没找到好用的，很多都是 python 写的，表示没学过 python，网上找了 <a href="http://blog.jamespan.me/2015/04/21/the-duoshuo-migrator/" target="_blank" rel="external">一个方案</a> 试用，出了好几个问题，最终还是没有搞定。所以自己重新捯饬了一个 nodejs 版本的：</p>
+<ul>
+<li>仓库地址：<a href="https://github.com/barretlee/duoshuo-migrate-to-disqus" target="_blank" rel="external">https://github.com/barretlee/duoshuo-migrate-to-disqus</a></li>
+<li>参考文档：<a href="https://help.disqus.com/customer/portal/articles/472150-custom-xml-import-format" target="_blank" rel="external">disqus 格式文档</a></li>
+<li>参考文档：<a href="http://dev.duoshuo.com/docs/500fc3cdb17b12d24b00000a" target="_blank" rel="external">多说格式文档</a></li>
+</ul>
+<h4 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h4><p><strong>第一步</strong></p>
+<p>进入到你的多说后台，导出多说数据</p>
+<figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line"><span class="symbol">http:</span>/<span class="regexp">/&#123;YOUR_DUOSHUO_NAME&#125;.duoshuo.com/admin</span><span class="regexp">/tools/export</span><span class="regexp">/</span></span><br></pre></td></tr></table></figure>
+<p><strong>第二步</strong></p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/barretlee/duoshuo-migrate-to-disqus.git</span><br><span class="line">cd duoshuo-migrate-to-disqus</span><br><span class="line">npm install</span><br><span class="line"><span class="keyword">node</span><span class="identifier"> </span><span class="title">migrate</span></span><br></pre></td></tr></table></figure>
+<p><strong>第三步</strong></p>
+<p>进入你的 disqus 后台，将数据导入</p>
+<figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line"><span class="symbol">https:</span>/<span class="regexp">/&#123;YOUR_DISQUS_NAME&#125;.disqus.com/admin</span><span class="regexp">/discussions/import</span><span class="regexp">/platform/generic</span><span class="regexp">/</span></span><br></pre></td></tr></table></figure>
+<p>如果操作过程中遇到什么问题，可以在本文留言。</p>
+<p>如果导入到 disqus 无效，有可能是格式存在问题，或者某个字段的格式不对，这大多是因为多说导出的数据就不对。可以在 <code>disqus.ejs</code> 中加些判断，自己做过滤。</p>
+<p>多说这种自杀式的行为颇为可耻！</p>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/10/15/duoshuo-migrate-to-disqus/">http://www.barretlee.com/blog/2015/10/15/duoshuo-migrate-to-disqus/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/10/15/duoshuo-migrate-to-disqus/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-10-15 15:59:57</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/disqus/">disqus</a>, <a class="article-tag-link" href="/blog/tags/多说/">多说</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="duoshuo-migrate-to-disqus" data-title="三步，将多说评论迁移到 disqus" data-images="" data-content="关于多说，我不想多说什么，看看这两篇文章：嘿，多说，你咋了？要不咱换成 DISQUS 吧~Disqus，我又回来了！" data-url="http://www.barretlee.com/blog/2015/10/15/duoshuo-migrate-to-disqus/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2015/10/22/hsts-intro/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>你所不知道的 HSTS</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2015/10/14/a-incredible-bug-in-taobao-homepage/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>记一次淘宝首页奇葩的渲染问题</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2015/10/22/hsts-intro/" class="prev" title="你所不知道的 HSTS">
+    <i class="icon">&#xe600;</i>
+    
+    <b>你所不知道的 HSTS</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2015/10/14/a-incredible-bug-in-taobao-homepage/" class="next" title="记一次淘宝首页奇葩的渲染问题">
+    <i class="icon">&#x261e;</i>
+    <b>记一次淘宝首页奇葩的渲染问题</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="duoshuo-migrate-to-disqus"
+	   data-disqus-identifier="duoshuo-migrate-to-disqus" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="duoshuo-migrate-to-disqus" data-title="三步，将多说评论迁移到 disqus" data-url="http://www.barretlee.com/blog/2015/10/15/duoshuo-migrate-to-disqus/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-05-20 »</font> </span>
+				<a href="/blog/2016/05/20/kindle-book-maker/">Kindle 电子书生成工具</a>
+				<span class="aria-readonly">发表时间为2016年05月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>花了两个晚上把 OPF 和 epub 格式整明白了，准备把订阅的 RSS 内容抓取下来做成电子书推到 kindle 中阅读。后续也会把自己博客整成电子书，提供给习惯 kindle 阅读的朋友。研究这些东西目的还是想回到比较纯粹的阅读设备上，毕竟手机屏小干扰多，看久了眼睛也有点不舒服。本项目旨在写一个 Kindle 电子书的构建工具，从互联网上抓取数据，合并整合都生成一本小巧的 .mobi 电子书。而使用这个工具，你只需要编辑下配置文件，或者直接运行命令行工具。项目地址：https://github.com/barretlee/kindleBookMaker基本原理：根据 OPF 规范生成 KF8 格式的 .mobi 电子书</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-09 »</font> </span>
+				<a href="/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/">多 SSH Key 管理技巧与 Git 多账户登录问题</a>
+				<span class="aria-readonly">发表时间为2016年03月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>对很多开发者，尤其是手握几台甚至几十台机器的同学而言，登录到远程机器处理事务应该是家常便饭。如果你也是其中一员，悄悄问一句，你平时是如何记住一堆帐号、机器地址以及一些附加登录选项的呢？或许你也是这么干的：</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>玩转正则之highlight高亮 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.　　程序员在编写代码的时候少不了和字符串以及\查询”打交道，两者的交集中有一个叫做正则表达式的的东西，这家伙用好了可以提高编程效率，用不好的话…你可以先去好好学一学。　　关于正则的使用，举个简单的例子：var m = location.href.match(/(\">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="玩转正则之highlight高亮 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/">
+  <meta property="og:site_name" content="玩转正则之highlight高亮">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.　　程序员在编写代码的时候少不了和字符串以及\查询”打交道，两者的交集中有一个叫做正则表达式的的东西，这家伙用好了可以提高编程效率，用不好的话…你可以先去好好学一学。　　关于正则的使用，举个简单的例子：var m = location.href.match(/(\">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2013/10/31/cb-learning-in-front-end/" title="前端学习的那些往事" />
+  <link rel="next" href="http://www.barretlee.com/blog/2013/09/26/cb-mianshi-alibaba/" title="阿里面试的一点感受" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">玩转正则之highlight高亮</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2013-10-07 05:16:00</time>
+          <span class="aria-readonly">本文发布时间为2013年10月07日05时16分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="cb-javascript-regexp"
+                      data-disqus-identifier="cb-javascript-regexp"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/">http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/</a>，<a href="http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/10/07/javascript-regexp.html" target="_blank">博客园</a>.</div>
+
+<p>　　程序员在编写代码的时候少不了和字符串以及\查询”打交道，两者的交集中有一个叫做正则表达式的的东西，这家伙用好了可以提高编程效率，用不好的话…你可以先去好好学一学。</p><br><p>　　关于正则的使用，举个简单的例子：</p>
+
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">m</span> = location.href.<span class="literal">match</span>(/(\w+:)\/&#123;0,3&#125;([^\/]+)(?:(\/[^\?#]*))?(?:(\?[^#]+|.+))?(?:(#.*))?/);</span><br><span class="line"><span class="keyword">var</span> res = &#123;</span><br><span class="line">    protocol: <span class="keyword">m</span>[1],</span><br><span class="line">    host: <span class="keyword">m</span>[2],</span><br><span class="line">    path: <span class="keyword">m</span>[3],</span><br><span class="line">    <span class="keyword">search</span>: <span class="keyword">m</span>[4],</span><br><span class="line">    hash: <span class="keyword">m</span>[5]</span><br><span class="line">&#125;;</span><br><span class="line">console.<span class="literal">log</span>(res);</span><br></pre></td></tr></table></figure>
+<p>　　憋了几分钟= =||，我也觉得这个正则不是特别好理解（红黑相间了，应该稍微清晰点），有些朋友可能不知道（?:content）是什么意思，还有类似（?!content）和(?=content)分组和前瞻的知识，建议去问问<a title="javascript 正则" href="http://www.baidu.com/s?wd=javascript+%E6%AD%A3%E5%88%99" target="_blank">度哥</a>和<a title="javascript 正则" href="https://www.google.com.hk/search?q=javascript+%E6%AD%A3%E5%88%99" target="_blank">谷娘</a>。</p>
+
+
+<h3><strong>一. 正则应用<strong>小</strong>DEMO示例</strong></h3><br><p>下面是一串随手写的代码，放在textarea中：</p><br><p><textarea id="barret-codes" readonly="readonly">/<strong><br><em> @author barret lee
+</em> @date   2013-10-06<br><em> @email  barret.china@gmail.com
+</em>/<br><br>//outer var<br>var a = “this id outer string”;<br><br>//closure<br>function b() {<br>  //inner var<br>  var a = “this is inner string”;<br>  var g = a.replace(/this is inner string/g, function() {<br>    return new Function(“/<em>clousure</em>/this.a”)();<br>  });<br><br>  /</strong><br>  <em> @description closure - regExp test
+  </em> @author barret lee<br>  */<br>  function c() {<br>    return {<br>      a: a,<br>      g: g<br>    }<br>  }<br><br>  return c;<br>}<br><br>var s = b()(); //s.a, s.g<br></textarea></p><br><br><br><p>正则匹配，处理上面那堆字符串的小DEMO：</p><br><div><br><div id="barret-container">&nbsp;</div><br><div id="barret-note"><a onclick="showBtn.autorun();return false;" href="javascript:void(0);" target="_blank" rel="external">点击开始演示</a></div><br></div><br><br><br><br><br><p><strong>博客园引入个js文件还真罗嗦，有时候会报XSS（跨站脚本攻击）相关的错误，（如果木有正常显示，刷新下试试）。</strong></p><br><p><strong>如果还是没有，可以看另外一个demo：<a href="http://qianduannotes.sinaapp.com/highlight/" target="_blank">SAE/highlight</a></strong></p><br><p>跟着提示，下一步下一步多点几下，可以看出效果还是可以滴。主要是这里的正则略微的麻烦，处理一个色变得琢磨老半天。</p><br><p><em>P.S：上面这玩意儿只是一个小测试，代码相当不健壮，拿着学习正则练手～</em></p><br><br><br><h3><strong>二. 需要注意的地方</strong></h3>
+
+<figure class="highlight tex"><table><tr><td class="code"><pre><span class="line">//step config</span><br><span class="line">var config = <span class="special">&#123;</span></span><br><span class="line">    regs: <span class="special">[</span></span><br><span class="line">        /^<span class="command">\s</span>+|<span class="command">\s</span>+<span class="formula">$/g,</span><br><span class="line">        /(<span class="special">[</span>"'<span class="special">]</span>)(?:<span class="command">\\</span>.|<span class="special">[</span>^<span class="command">\\</span><span class="command">\n</span><span class="special">]</span>)*?\1/g,</span><br><span class="line">        /<span class="command">\/</span>(?!<span class="command">\*</span>|span).+<span class="command">\/</span>(?!span)<span class="special">[</span>gim<span class="special">]</span>*/g,</span><br><span class="line">        /(<span class="command">\/</span><span class="command">\/</span>.*|<span class="command">\/</span><span class="command">\*</span><span class="special">[</span><span class="command">\S</span><span class="command">\s</span><span class="special">]</span>+?<span class="command">\*</span><span class="command">\/</span>)/g,</span><br><span class="line">        /(<span class="command">\*</span><span class="command">\s*</span>)(@<span class="command">\w</span>+)(?=<span class="command">\s*</span>)/g,</span><br><span class="line">        /<span class="command">\b</span>...<span class="command">\b</span>/g</span><br><span class="line">    <span class="special">]</span>,　　//...<span class="special">&#125;</span>;</span></span><br></pre></td></tr></table></figure>
+<p>这些正则我是分开来写的，主要是为了做上面那个demo，方便单步显示。但是把这些正则分开写是相当不合理的，放在textarea中的是一串没有任何标签的字符串，为了着色，每处理一个正则都会在codes中插入一些标签（我这里用的是span），当我们处理下一个正则的时候就必须得考虑上一步加入的标签，这样会很大程度提高开发难度，最好的做法是把这些正则都放到一坨，然后用|隔开：</p>
+
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">var reg = (/^\s+|<span class="string">\s+$/)</span>|<span class="string">(/(["'])(?:\\.</span>|<span class="string">[^\\\n])*?\1/)</span>|<span class="string">(/\/(?!\*</span>|<span class="string">span).+\/(?!span)[gim]*/)</span>|<span class="string">(/(\/\/.*</span>|<span class="string">\/\*[\S\s]+?\*\/)/)</span>|<span class="string">(/(\*\s*)(@\w+)(?=\s*)/)</span>|<span class="string">(/\b(break</span>|<span class="string">continue</span>|<span class="string">do</span>|<span class="string">for</span>|<span class="string">in</span>|<span class="string">function</span>|<span class="string">if</span>|<span class="string">else</span>|<span class="string">return</span>|<span class="string">switch</span>|<span class="string">throw</span>|<span class="string">try</span>|<span class="string">catch</span>|<span class="string">finally</span>|<span class="string">var</span>|<span class="string">while</span>|<span class="string">with</span>|<span class="string">case</span>|<span class="string">new</span>|<span class="string">typeof</span>|<span class="string">instance</span>|<span class="string">delete</span>|<span class="string">void</span>|<span class="string">Object</span>|<span class="string">Array</span>|<span class="string">String</span>|<span class="string">Number</span>|<span class="string">Boolean</span>|<span class="string">Function</span>|<span class="string">RegExp</span>|<span class="string">Date</span>|<span class="string">Math</span>|<span class="string">window</span>|<span class="string">document</span>|<span class="string">navigator</span>|<span class="string">location</span>|<span class="string">true</span>|<span class="string">false</span>|<span class="string">null</span>|<span class="string">undefined</span>|<span class="string">NaN)\b)</span></span><br></pre></td></tr></table></figure>
+<p>这样放的好处是可以直接</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">codes.replace(reg, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>一次性处理，不用担心插入标签影响最后的结果，因为标签是同一时间插入的，不会有干扰。</p><br><p>代码高亮插件highlight的基本原理也差不多，只不过他的容错机制和代码健壮性这块做的更加完善，我在代码里头加了一个配置文件，</p>
+
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line"><span class="built_in">var</span> colors = &#123;</span><br><span class="line">    <span class="built_in">string</span>: <span class="string">"#FFA0A0"</span>,</span><br><span class="line">    reg: <span class="string">"#16E916"</span>,</span><br><span class="line">    note: <span class="string">"#888"</span>,</span><br><span class="line">    <span class="built_in">tag</span>: <span class="string">"orange"</span>,</span><br><span class="line">    keywords: <span class="string">"#B0B0FF"</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>按照自己的喜好，也可以加以修改，类似这样的扩展，我们在写代码的时候稍微注意下，多留几个接口就好了。（不过这些活儿干起来都还挺辛苦的～）</p><br><p>没有做成插件，也没这个必要，知道基本原理然后动手实践下就差不多了。</p>
+
+
+<p></p><h3><strong>三. 小结</strong></h3><p></p>
+<p>类似很多的前端模板，<a href="https://github.com/aui/artTemplate/blob/master/template.js" target="_blank">artTemplate</a>，<a href="https://github.com/wangxiao/BaiduTemplate/blob/master/baiduTemplate.js" target="_blank">baiduTemplate</a>等都是对正则表达式的绝伦应用，很值得去看看源码，好好钻研人家都考虑了那些容易出错的点，源码都不长，两三百行。了解一个大概比较容易，但是当自己动手的时候总会发现很多细节问题处理不好，我那上面几个正则就倒弄了半天= =</p><br><p>另外一个配色方案，随便弄的，戳这里<a href="http://qianduannotes.sinaapp.com/highlight/" target="_blank">SAE/highlight</a>。</p><br><p>正则表达式，用起来还是挺方便的。正则技能，你值得拥有～</p>
+
+
+<script type="text/javascript" src="http://files.cnblogs.com/hustskyking/reg-demo.js?v=1"></script>
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/">http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+<div class="old-article-warning">
+	本文在 <b>1003</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
+</div>
+
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-10-07 05:16:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="cb-javascript-regexp" data-title="玩转正则之highlight高亮" data-images="" data-content="本文为归档内容,原始地址在 博客园.　　程序员在编写代码的时候少不了和字符串以及\查询”打交道，两者的交集中有一个叫做正则表达式的的东西，这家伙用好了可以提高编程效率，用不好的话…你可以先去好好学一学。　　关于正则的使用..." data-url="http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/10/31/cb-learning-in-front-end/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>前端学习的那些往事</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/09/26/cb-mianshi-alibaba/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>阿里面试的一点感受</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2013/10/31/cb-learning-in-front-end/" class="prev" title="前端学习的那些往事">
+    <i class="icon">&#xe600;</i>
+    
+    <b>前端学习的那些往事</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/09/26/cb-mianshi-alibaba/" class="next" title="阿里面试的一点感受">
+    <i class="icon">&#x261e;</i>
+    <b>阿里面试的一点感受</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="cb-javascript-regexp"
+	   data-disqus-identifier="cb-javascript-regexp" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="cb-javascript-regexp" data-title="玩转正则之highlight高亮" data-url="http://www.barretlee.com/blog/2013/10/07/cb-javascript-regexp/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-18 »</font> </span>
+				<a href="/blog/2016/04/18/javascript-detail/">JavaScript 被忽视的细节</a>
+				<span class="aria-readonly">发表时间为2016年04月18日</span>
+				<div><span class="aria-readonly">文章概要 </span>《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在 微博 上，稍微整理了一番，放在这里，方便阅读。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-02-20 »</font> </span>
+				<a href="/blog/2016/02/20/navigator-beacon-api/">页面跳转时，统计数据丢失问题探讨</a>
+				<span class="aria-readonly">发表时间为2016年02月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>为了更好地了解用户对产品的使用情况，业务中，我们经常会收到埋点统计的需求，比如：收集一段时间内用户光标在页面中的运动情况，包括光标移动、点击等行为统计用户滚屏行为统计用户在站点的停留时长收集页面链接的点击数量等</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>走进 phantomjs 嵌入式测试 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="Google 上搜索了下 phantomjs 关键词，展示最多的是测试和截屏相关的内容。phantomjs 提供了大量的 API，让我们可以操作 webkit 网页沙箱中的内容，也可以将网页中的信息输出到外层，进行分析处理。而本文着重要讲述的是，如何更好的与 webkit 网页沙箱交互，如何注入脚本，如何修改请求。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="走进 phantomjs 嵌入式测试 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/">
+  <meta property="og:site_name" content="走进 phantomjs 嵌入式测试">
+  <meta property="og:description" content="Google 上搜索了下 phantomjs 关键词，展示最多的是测试和截屏相关的内容。phantomjs 提供了大量的 API，让我们可以操作 webkit 网页沙箱中的内容，也可以将网页中的信息输出到外层，进行分析处理。而本文着重要讲述的是，如何更好的与 webkit 网页沙箱交互，如何注入脚本，如何修改请求。">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2015/09/29/new-application-snippet/" title="新应用上线 Snippet" />
+  <link rel="next" href="http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/" title="使用 JavaScript 截屏" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">走进 phantomjs 嵌入式测试</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2015-09-25 10:21:30</time>
+          <span class="aria-readonly">本文发布时间为2015年09月25日10时21分30秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>,<a class="category-link" href="/blog/categories/工具/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/工具/前端杂烩/网络交互/">网络交互</a>,<a class="category-link" href="/blog/categories/工具/前端杂烩/网络交互/JavaScript/">JavaScript</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/phantomjs/">phantomjs</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="move-on-phantomjs"
+                      data-disqus-identifier="move-on-phantomjs"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/">http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/</a>，<a href="http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>Google 上搜索了下 phantomjs 关键词，展示最多的是测试和截屏相关的内容。phantomjs 提供了大量的 API，让我们可以操作 webkit 网页沙箱中的内容，也可以将网页中的信息输出到外层，进行分析处理。而本文着重要讲述的是，如何更好的与 webkit 网页沙箱交互，如何注入脚本，如何修改请求。</p>
+<a id="more"></a>
+<p>QA 测试最烦恼的是 UI 测试，包括网页元素的正确呈现，网页交互之后的元素变化等，人工测试很容易疏忽一些问题，并且 UI 层面的测试用例也不好写，这让人很头痛。为了让程序能够很好地分析页面 UI，也有很多人做了图片对比工具，通过 phantomjs 提供的 screen capture 功能，定时抓取页面截图，或者在不同的场景下抓取同一个页面的截图，在时间维度和空间维度上对页面图片做对比分析，做监控警报等。技术成本不是很高，但是为了个性需求需要做很多额外的工作。</p>
+<h3 id="事件就是精确插入点"><a href="#事件就是精确插入点" class="headerlink" title="事件就是精确插入点"></a>事件就是精确插入点</h3><p>为了能够在精确的时间点注入测试脚本，我们需要了解下 phantomjs 在请求资源时会发生哪些事件，毕竟它也是一个事件驱动模型。</p>
+<ul>
+<li><code>onInitialized</code> 类似于我们发送 ajax 请求，状态为 0 的时候</li>
+<li><code>onLoadStarted</code> 准备加载网页，此时页面的 <code>page.content</code> 是存在的，内容为 <code>&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;</code></li>
+<li><code>onLoadFinished</code> 页面加载完成，是 <code>DOMContentLoaded</code> 还是 <code>window.onload</code>，我稍微测试了下，感觉应该是后者</li>
+<li><code>onResourceRequested</code> 请求资源，如 css、js 等</li>
+<li><code>onResourceReceived</code> 请求的资源已到达</li>
+<li><code>onClosing</code> 关闭页面</li>
+<li><code>onConsoleMessage</code> 沙箱内的 console 内容是不会出现到外层的，通过这个函数可以输出</li>
+</ul>
+<p>还有很多，具体可以翻阅文档: <a href="http://phantomjs.org/api/webpage/" target="_blank" rel="external">http://phantomjs.org/api/webpage/</a>。这些事件都是打开一个页面之后的实例化对象上的：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> page = <span class="built_in">require</span>(<span class="string">'webpage'</span>).create();</span><br><span class="line"><span class="comment">// 事件监听</span></span><br><span class="line">page.onxxxx();</span><br><span class="line">page.open(url, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p>用惯了 nodejs 的同学，可能会很自然的在代码里头写 </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> page = <span class="built_in">require</span>(<span class="string">'webpage'</span>).create();</span><br><span class="line"><span class="comment">// phantomjs API 没有这些东西</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br></pre></td></tr></table></figure>
+<p>我们需要搞清楚的是 phantomjs 是一个基于 webkit 内核的 JS API，webkit 包含两方面，一个是 webCore 解析 html，一个是 V8 解析和运行 javascipt，phantomjs 包含了 webkit 和基于 webkit 的 js 封装，相比单纯的 webkit 它提供了更多的 API。而 nodejs 是对 v8 的封装，在 v8 上做了一些上层建筑。要搞清楚 phantomjs 和 nodejs 之间的界限。</p>
+<p>实际上，phantomjs 自己也做了一些类似 nodejs 的 API 包装，比如 webserver、child_process、FileSystem 等等，这些 API 可以让我们很方便的操作网络 IO 和系统进程。</p>
+<h3 id="注入代码测试"><a href="#注入代码测试" class="headerlink" title="注入代码测试"></a>注入代码测试</h3><p>嵌入式指的是，将测试代码嵌入到 phantomjs 的沙箱之中，然后通过它提供的 API 将测试数据导出来，那么，如何将数据插入进去？</p>
+<p><strong>1. includeJS/injectJS注入文件</strong></p>
+<p>两个函数都可以网沙箱内注入代码，区别是 <code>includeJS</code> 主要用于注入一个远程的脚本，如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> webPage = <span class="built_in">require</span>(<span class="string">'webpage'</span>);</span><br><span class="line"><span class="keyword">var</span> page = webPage.create();</span><br><span class="line"></span><br><span class="line">page.includeJs(<span class="string">'http://code.jquery.com/jquery-1.10.2.min.js'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 模拟登录</span></span><br><span class="line">  <span class="keyword">var</span> $testForm = $(<span class="string">'form#login'</span>);</span><br><span class="line">  $testForm.find(<span class="string">'input[name="username"]'</span>).value(<span class="string">'barret'</span>);</span><br><span class="line">  $testForm.find(<span class="string">'input[name="password"]'</span>).value(<span class="string">'1234'</span>);</span><br><span class="line">  $testForm.submit();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>2. evaluate注入代码</strong></p>
+<p>而 <code>injectJS</code> 主要用于注入本地的文件，在做测试的时候，这个函数的使用频率稍高一些。很多的测试平台都是在线的，并且支持在线编写测试用例，最后生成的脚本地址当然也是网络可访问的，那么这个时候用 <code>includeJS</code> 就略微方便一些啦。</p>
+<p>上面两种方式是想容器内注入可执行稳紧啊。除此之外，我们还可以使用 <code>evaluate</code> 直接注入可执行的脚本内容，如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> webPage = <span class="built_in">require</span>(<span class="string">'webpage'</span>);</span><br><span class="line"><span class="keyword">var</span> page = webPage.create();</span><br><span class="line"></span><br><span class="line">page.open(<span class="string">'http://www.taobao.com'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">status</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> title = page.evaluate(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.title;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="built_in">console</span>.log(title);</span><br><span class="line">  phantom.exit();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这种方式有点类似于我们在 chrome devtoos 的控制台中输入代码进行测试。</p>
+<h3 id="搬出数据"><a href="#搬出数据" class="headerlink" title="搬出数据"></a>搬出数据</h3><p>注入代码拿到输出之后，我们需要将数据拿出来，在运行的环境中，可以通过如下手段将数据搬出来。</p>
+<p><strong>1. 多开几个 webserver</strong></p>
+<p>上面提到，phantomjs 提供了 webserver 方面的 API，我们可以在注入的代码中：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// part of inject.js</span></span><br><span class="line">$.post(<span class="string">"http://localhost:10220"</span>, data, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">// code..</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>向外部通讯，而我们在外部也准备好了接驾代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// part of server.js</span></span><br><span class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'webserver'</span>).create();</span><br><span class="line"><span class="keyword">var</span> port = <span class="number">10220</span>;</span><br><span class="line">server.listen(port, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(req, <span class="literal">null</span>, <span class="number">2</span>));</span><br><span class="line">  <span class="comment">// coding...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>所以 http 是个好东西，我们可以控制 web 的 server（沙箱外） 和 client（沙箱内），那么数据通讯就不是问题了。</p>
+<p><strong>2. callPhantom 函数</strong></p>
+<p>phantomjs 的 webpage 对象提供了一个 <code>onCallback</code> 函数，这个函数能够听到沙箱内一个叫做 <code>callPhantom</code> 函数的呐喊。<code>callPhantom</code> 是 phantomjs 在 window 上扩展的函数，他的使用：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> page = <span class="built_in">require</span>(<span class="string">"webpage"</span>).create();</span><br><span class="line">page.onCallback = <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"这是沙箱说的话: "</span> + msg);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"嘿，沙箱，我听到了！"</span>;</span><br><span class="line">&#125;;</span><br><span class="line">page.evaluate(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Return-value of the "onCallback" handler arrive here</span></span><br><span class="line">    <span class="keyword">var</span> callbackResponse = <span class="built_in">window</span>.callPhantom(<span class="string">"嘿，外壳，我是沙箱~"</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"这是外壳说的话: "</span> + callbackResponse);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>所以一切都是那么简单！知道了这些之后，还有啥事我们办不成的呢？！</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><code>Jasmine</code> 和 <code>QUnit</code> 是两套用的比较多的测试框架，我们可以使用上面任一种方式进行测试开发。</p>
+<p>自动化测试少不了这些有用的工具，这些工具能够让我们在网页初始化的任何阶段注入测试代码，所以我们可以写好一堆测试用例，作为持续集成的测试库，让上线的代码更安全、更干净！</p>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/">http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-09-25 10:21:30</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>,<a class="category-link" href="/blog/categories/工具/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/工具/前端杂烩/网络交互/">网络交互</a>,<a class="category-link" href="/blog/categories/工具/前端杂烩/网络交互/JavaScript/">JavaScript</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/phantomjs/">phantomjs</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="move-on-phantomjs" data-title="走进 phantomjs 嵌入式测试" data-images="" data-content="Google 上搜索了下 phantomjs 关键词，展示最多的是测试和截屏相关的内容。phantomjs 提供了大量的 API，让我们可以操作 webkit 网页沙箱中的内容，也可以将网页中的信息输出到外层，进行分析处理。而本文着重要讲述的是，如何更好的与 webkit 网页沙箱交互，如何注入脚本，如何修改请求。" data-url="http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2015/09/29/new-application-snippet/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>新应用上线 Snippet</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2015/09/24/screenshot-with-javascript/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>使用 JavaScript 截屏</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2015/09/29/new-application-snippet/" class="prev" title="新应用上线 Snippet">
+    <i class="icon">&#xe600;</i>
+    
+    <b>新应用上线 Snippet</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2015/09/24/screenshot-with-javascript/" class="next" title="使用 JavaScript 截屏">
+    <i class="icon">&#x261e;</i>
+    <b>使用 JavaScript 截屏</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="move-on-phantomjs"
+	   data-disqus-identifier="move-on-phantomjs" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="move-on-phantomjs" data-title="走进 phantomjs 嵌入式测试" data-url="http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-05-20 »</font> </span>
+				<a href="/blog/2016/05/20/kindle-book-maker/">Kindle 电子书生成工具</a>
+				<span class="aria-readonly">发表时间为2016年05月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>花了两个晚上把 OPF 和 epub 格式整明白了，准备把订阅的 RSS 内容抓取下来做成电子书推到 kindle 中阅读。后续也会把自己博客整成电子书，提供给习惯 kindle 阅读的朋友。研究这些东西目的还是想回到比较纯粹的阅读设备上，毕竟手机屏小干扰多，看久了眼睛也有点不舒服。本项目旨在写一个 Kindle 电子书的构建工具，从互联网上抓取数据，合并整合都生成一本小巧的 .mobi 电子书。而使用这个工具，你只需要编辑下配置文件，或者直接运行命令行工具。项目地址：https://github.com/barretlee/kindleBookMaker基本原理：根据 OPF 规范生成 KF8 格式的 .mobi 电子书</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-09 »</font> </span>
+				<a href="/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/">多 SSH Key 管理技巧与 Git 多账户登录问题</a>
+				<span class="aria-readonly">发表时间为2016年03月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>对很多开发者，尤其是手握几台甚至几十台机器的同学而言，登录到远程机器处理事务应该是家常便饭。如果你也是其中一员，悄悄问一句，你平时是如何记住一堆帐号、机器地址以及一些附加登录选项的呢？或许你也是这么干的：</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>使用 JavaScript 截屏 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="经常在微博上看到很多内容使用的什么长微博截图，并且截图上还附加了很多其他的信息。之前对纯前端截图有些研究，正好本博客有这个需求，今天就把这东西实现了下。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="使用 JavaScript 截屏 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/">
+  <meta property="og:site_name" content="使用 JavaScript 截屏">
+  <meta property="og:description" content="经常在微博上看到很多内容使用的什么长微博截图，并且截图上还附加了很多其他的信息。之前对纯前端截图有些研究，正好本博客有这个需求，今天就把这东西实现了下。">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/" title="走进 phantomjs 嵌入式测试" />
+  <link rel="next" href="http://www.barretlee.com/blog/2015/09/22/ok-today-its-my-birthday/" title="好吧，今天是我的生日" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">使用 JavaScript 截屏</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2015-09-24 22:27:13</time>
+          <span class="aria-readonly">本文发布时间为2015年09月24日22时27分13秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/前端杂烩/JavaScript/">JavaScript</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/JavaScript/">JavaScript</a>, <a class="article-tag-link" href="/blog/tags/html2cavans/">html2cavans</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="screenshot-with-javascript"
+                      data-disqus-identifier="screenshot-with-javascript"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/">http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/</a>，<a href="http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>经常在微博上看到很多内容使用的什么长微博截图，并且截图上还附加了很多其他的信息。之前对纯前端截图有些研究，正好本博客有这个需求，今天就把这东西实现了下。</p>
+<a id="more"></a>
+<p>需要声明的是，JavaScript 目前还不能实现网页截屏，就算以后能够实现，也一定是浏览器提供了相关接口，JS 去调用这些接口。既然不能截屏，那我们能做的只有通过拿到像素点的信息来”拼凑”图片。</p>
+<h3 id="先说说我们看到的截屏方式"><a href="#先说说我们看到的截屏方式" class="headerlink" title="先说说我们看到的截屏方式"></a>先说说我们看到的截屏方式</h3><p>用过 phantomJS 的同学都知道，它提供了一个截屏函数，通过它可以整屏获取页面截图，而且他支持的格式也比较多：JPG/PNG/GIF/PDF。通过简单的两句命令就可以把一个网页截取下来：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// render.js</span></span><br><span class="line"><span class="keyword">var</span> webPage = <span class="built_in">require</span>(<span class="string">'webpage'</span>);</span><br><span class="line"><span class="keyword">var</span> page = webPage.create();</span><br><span class="line"></span><br><span class="line">page.viewportSize = &#123; width: <span class="number">1920</span>, height: <span class="number">1080</span> &#125;;</span><br><span class="line">page.open(<span class="string">"http://www.taobao.com"</span>, <span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params">status</span>) </span>&#123;</span><br><span class="line">  page.render(<span class="string">'taobao_home.jpeg'</span>, &#123;format: <span class="string">'jpeg'</span>, quality: <span class="string">'100'</span>&#125;);</span><br><span class="line">  phantom.exit();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>安装 phantomjs 之后执行下上面的文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">phantomjs render.js</span><br></pre></td></tr></table></figure>
+<p>你会发现，一张宽度很窄的淘宝首页图就保存到了同目录下的 <code>taobao_home.jpeg</code> 中。也有同学使用 phantomjs 做了很多有意思的东西，比如每隔 100ms 截图，然后对比图像之间的差异，分析网页的加载情况和性能问题，甚至做网页的监控。好吧，话题收回来，继续说说其他的截屏方式，关于 phantomjs 可以移步到<a href="http://phantomjs.org/" target="_blank" rel="external">官网</a>学习。</p>
+<h3 id="前端截屏方案"><a href="#前端截屏方案" class="headerlink" title="前端截屏方案"></a>前端截屏方案</h3><p>能够导出图片的，目前只有 canvas。页面上的元素，除了图片、视音频、SVG等，其他都是文字，都可以使用 css 样式变换出来。我们知道，在 canvas 中是可以绘制图片和文字的，那么问题就很好解决了。</p>
+<ul>
+<li>遍历页面的所有元素，提取DOM数</li>
+<li>获取渲染之后的每个 DOM 节点的内联、外链 CSS 属性</li>
+<li>将样式转换成 canvas 的属性，利用 offset 等属性辅助摆放位置，将节点对应到 canvas 上</li>
+</ul>
+<p>这个方案比较粗糙，但是对于简单的页面，以上操作就能导出一张几乎与原状一模一样的图片。当然，我们想到的，也有人实现出来了，<code>html2canvas</code> 就是一个关注度很高的 js 截屏库，它考虑的内容会更多更全面。比如：</p>
+<p><img src="http://www.barretlee.com/blogimgs/2015/09/20150904_0187d488.jpg" alt="截屏分享"></p>
+<p>我博客左侧的微博小图标，hover 上去有一个微博分享，这里我就使用了这个库截取博客全文视图（考虑小屏手机，我把宽度设置成 480，比较窄），其实现是很简单的：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">html2canvas(<span class="built_in">document</span>.body).then(<span class="function"><span class="keyword">function</span>(<span class="params">canvas</span>) </span>&#123;</span><br><span class="line">   canvas.id = <span class="string">'screenshotCanvas'</span>;</span><br><span class="line">   <span class="built_in">document</span>.body.appendChild(canvas);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>此时，页面的截图已经 append 到了 body 中。canvas 提供了导出图片的函数：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> can = documeng.getElementById(<span class="string">"screenshotCanvas"</span>);</span><br><span class="line"><span class="keyword">var</span> imgDataURI = can.toDataURL(<span class="string">'image/png'</span>);</span><br></pre></td></tr></table></figure>
+<p>我们也可以将到处的内容转化成一个 blob 流，这样就能直接通过 URI 地址来访问了。</p>
+<h3 id="原始需求是将图片分享出去"><a href="#原始需求是将图片分享出去" class="headerlink" title="原始需求是将图片分享出去"></a>原始需求是将图片分享出去</h3><p>无论是 dataURI 还是还是 blob 流，他们都没办法当做一个 URL 在网络上访问，所以当我使用微博分享（附加图片分享）的时候，图片总是拿不到。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> shareUrl = <span class="string">"http://service.weibo.com/share/share.php?appkey=YOUR_APP_KEY&amp;title="</span> </span><br><span class="line">    + title + <span class="string">"&amp;url="</span> + url + <span class="string">"&amp;searchPic=false&amp;style=simple&amp;pic="</span> </span><br><span class="line">    + picUrl;</span><br></pre></td></tr></table></figure>
+<p>这里的 picUrl 必须是一个 http 可请求到的地址，实在是无奈呀，在 <a href="http://coding.net" target="_blank" rel="external">coding.net</a> 写了一个小应用，用来临时储存图片（10分钟之后删除上传图片），有需要的可以试用下：</p>
+<ul>
+<li>源码地址：<a href="https://github.com/demo-platform/resolve-blob" target="_blank" rel="external">https://github.com/demo-platform/resolve-blob</a></li>
+<li>Demo地址：<a href="http://tmpfile.coding.io" target="_blank" rel="external">http://tmpfile.coding.io</a></li>
+</ul>
+<p>JQuery 用户可以这样搞：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fd = <span class="keyword">new</span> FormData();</span><br><span class="line">fd.append(<span class="string">"img"</span>, imgBlob);</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">  type: <span class="string">"POST"</span>,</span><br><span class="line">  url: <span class="string">"http://tmpfile.coding.io/img"</span>,</span><br><span class="line">  dataType: <span class="string">'json'</span>,</span><br><span class="line">  data: fd,</span><br><span class="line">  crossDomain: <span class="literal">true</span>,</span><br><span class="line">  processData: <span class="literal">false</span>,</span><br><span class="line">  contentType: <span class="literal">false</span>,</span><br><span class="line">  success: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(data &amp;&amp; data.path) &#123;    </span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"http://tmpfile.coding.io/tmp"</span> + data.path);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>只要能拿到原始图，之后的加工处理都是比较简单的。比如如何实现画框截取某个区域的图形，思路就是截取整图，记住鼠标按下和抬起的两个点，然后从整图中抠出来就搞定了。在 QQ 空间发表说说的地方有提供截屏工具，这是因为腾讯在电脑上安装了插件，并且提供了对应的 JS 接口，JS 是没有能力直接截屏的。</p>
+<p>好吧，了解原理就好，人家有现成的库可以用，咱们不要动不动就造轮子，不好玩。</p>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/">http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-09-24 22:27:13</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/前端杂烩/">前端杂烩</a>,<a class="category-link" href="/blog/categories/前端杂烩/JavaScript/">JavaScript</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/JavaScript/">JavaScript</a>, <a class="article-tag-link" href="/blog/tags/html2cavans/">html2cavans</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:37:28</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="screenshot-with-javascript" data-title="使用 JavaScript 截屏" data-images="" data-content="经常在微博上看到很多内容使用的什么长微博截图，并且截图上还附加了很多其他的信息。之前对纯前端截图有些研究，正好本博客有这个需求，今天就把这东西实现了下。" data-url="http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2015/09/25/move-on-phantomjs/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>走进 phantomjs 嵌入式测试</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2015/09/22/ok-today-its-my-birthday/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>好吧，今天是我的生日</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2015/09/25/move-on-phantomjs/" class="prev" title="走进 phantomjs 嵌入式测试">
+    <i class="icon">&#xe600;</i>
+    
+    <b>走进 phantomjs 嵌入式测试</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2015/09/22/ok-today-its-my-birthday/" class="next" title="好吧，今天是我的生日">
+    <i class="icon">&#x261e;</i>
+    <b>好吧，今天是我的生日</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="screenshot-with-javascript"
+	   data-disqus-identifier="screenshot-with-javascript" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="screenshot-with-javascript" data-title="使用 JavaScript 截屏" data-url="http://www.barretlee.com/blog/2015/09/24/screenshot-with-javascript/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-06-13 »</font> </span>
+				<a href="/blog/2016/06/13/talk-about-front-end/">谈一谈越来越难做的前端</a>
+				<span class="aria-readonly">发表时间为2016年06月13日</span>
+				<div><span class="aria-readonly">文章概要 </span>我接触前端的时间不长也不短，12 年入门，14 年初在百度实习，14 中正式参加工作，掐指一算 4 年整。然而这四年间前端的变化已经让很多人摸不着头脑。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-06-02 »</font> </span>
+				<a href="/blog/2016/06/02/thing-about-taobao-homepage/">聊一聊淘宝首页和它背后的一套</a>
+				<span class="aria-readonly">发表时间为2016年06月02日</span>
+				<div><span class="aria-readonly">文章概要 </span>从 14 年双十二结束开始接手淘宝首页，到如今差不多 1 年半时间，不久前完成了首页相关工作的交接。期间经历了两次改版和一次从 PHP 到 Node 的迁移，还是颇有感受，下面给大家分享下。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-05-30 »</font> </span>
+				<a href="/blog/2016/05/30/h5-crash-research/">H5 Crash 研究</a>
+				<span class="aria-readonly">发表时间为2016年05月30日</span>
+				<div><span class="aria-readonly">文章概要 </span>我们知道，支撑页面在 webview 上良好运转的前提是具备一个高效并且稳定的 webview 容器，而容器的高效稳定不仅仅由容器提供方来保障，也需要容器使用者遵守一些基本准则，否则就有可能出现页面 Crash 的情况，这些准则是什么？什么样的上层代码会引起容器异常退出？这是本文需要阐述的内容。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

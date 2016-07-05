@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript操控光标，你会么？ | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.QQ群里经常有人问怎么设置textarea中光标的位置，所见即所得中如果选中文本。如果你也不会，请往下看：关键词：javascript 光标 位置 鼠标取词 createRange getSelectiongetPosition先上代码，你也可以测试下效果。&amp;#1">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="JavaScript操控光标，你会么？ | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2013/04/11/cb-set_and_get_cursor_position/">
+  <meta property="og:site_name" content="JavaScript操控光标，你会么？">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.QQ群里经常有人问怎么设置textarea中光标的位置，所见即所得中如果选中文本。如果你也不会，请往下看：关键词：javascript 光标 位置 鼠标取词 createRange getSelectiongetPosition先上代码，你也可以测试下效果。&amp;#1">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2013/04/13/cb-readyState_3_interactive/" title="利用XMLHttpRequest响应头部的Date来做倒计时" />
+  <link rel="next" href="http://www.barretlee.com/blog/2013/04/11/cb-options_add_and_remove/" title="摸透select和他的儿子们options" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">JavaScript操控光标，你会么？</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2013-04-11 05:15:00</time>
+          <span class="aria-readonly">本文发布时间为2013年04月11日05时15分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="cb-set_and_get_cursor_position"
+                      data-disqus-identifier="cb-set_and_get_cursor_position"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2013/04/11/cb-set_and_get_cursor_position/">http://www.barretlee.com/blog/2013/04/11/cb-set_and_get_cursor_position/</a>，<a href="http://www.barretlee.com/blog/2013/04/11/cb-set_and_get_cursor_position/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/04/11/set_and_get_cursor_position.html" target="_blank">博客园</a>.</div>
+
+<p>QQ群里经常有人问怎么设置textarea中光标的位置，所见即所得中如果选中文本。如果你也不会，请往下看：</p><br><p><strong>关键词</strong>：javascript 光标 位置 鼠标取词 createRange getSelection</p>
+
+
+<h3>getPosition</h3><br><p>先上代码，你也可以测试下效果。</p><br><br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10;&#60;!DOCTYPE HTML&#62;&#10;&#60;html&#62;&#10;&#60;head&#62;&#10;    &#60;meta charset=&#34;UTF-8&#34;&#62;&#10;    &#60;title&#62;&#27979;&#35797;&#60;/title&#62;&#10;    &#60;style type=&#34;text/css&#34;&#62;&#10;    &#60;/style&#62;&#10;    &#60;script type=&#34;text/javascript&#34;&#62;&#10;    //&#60;![[&#10;       function getPosition() &#123;&#10;            var startPos = endPos = 0;&#10;            var element = document.getElementById(&#34;box&#34;);&#10;            if( document.selection ) &#123;&#10;                var range  = document.selection.createRange();&#10;                var drange = range.duplicate();&#10;                drange.moveToElementText( element );&#10;                drange.setEndPoint( &#34;EndToEnd&#34;, range );&#10;                startPos = drange.text.length - range.text.length;&#10;                endPos   = startPos + range.text.length;&#10;            &#125;else if( window.getSelection ) &#123;&#10;                startPos = element.selectionStart;&#10;                endPos   = element.selectionEnd;&#10;            &#125;&#10;            return &#123;&#10;                &#34;start&#34; : startPos,&#10;                &#34;end&#34;   : endPos&#10;            &#125;&#10;        &#125;&#10;&#10;        window.onload = function()&#123;&#10;            var element = document.getElementById(&#34;box&#34;);&#10;&#10;            element.onmouseup = function()&#123;&#10;                var pos = getPosition(),&#10;                    val = element.value.toString();&#10;&#10;                console.log(val.substring(pos.start, pos.end) || &#34;&#27809;&#26377;&#36873;&#20013;&#34;);&#10;            &#125;&#10;        &#125;&#10;    //]]&#62;&#10;    &#60;/script&#62;&#10;&#60;/head&#62;&#10;&#10;&#60;body&#62;&#10;    &#60;textarea id=&#34;box&#34;&#62;&#26408;&#23376;Vs&#31435;&#38738;&#65292;&#24615;&#21035;&#30007;&#65292;&#29233;&#22909;&#22899;&#65292;&#21333;&#36523;&#12290;&#60;/textarea&#62;&#10;&#60;/body&#62;&#10;&#60;/html&#62;</span><br></pre></td></tr></table></figure><br><br><script type="text/javascript">// &lt;![CDATA[<br>function getPosition() {<br>  var startPos = endPos = 0;<br>  var element = document.getElementById(“skyking-box”);<br>  if (document.selection) {<br>    var range = document.selection.createRange();<br>    var drange = range.duplicate();<br>    drange.moveToElementText(element);<br>    drange.setEndPoint(“EndToEnd”, range);<br>    startPos = drange.text.length - range.text.length;<br>    endPos = startPos + range.text.length;<br>  } else if (window.getSelection) {<br>    startPos = element.selectionStart;<br>    endPos = element.selectionEnd;<br>  }<br>  return {<br>    “start”: startPos,<br>    “end”: endPos<br>  }<br>}<br>function log(str) {<br>  var lb = document.getElementById(“skyking-log-box”);<br>  lb.innerHTML = lb.innerHTML + “<br /><strong style="color: blue;">&gt;</strong> “ + str;<br>}<br>function showLog() {<br>    var pos = getPosition(),<br>        val = element.value.toString();<br>    log(val.substring(pos.start, pos.end) || “没有选中”);<br>};<br>// ]]&gt;</script><br><br><br><h3>selection &lt;&nbsp;getSelection</h3><br><p>IE下的选择方式：判断方式（<strong>document.selection</strong>）</p><br><br><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取选取var range  = document.selection.createRange();</span></span><br><span class="line"><span class="keyword">var</span> drange = <span class="keyword">range</span>.duplicate();</span><br><span class="line">drange.moveToElementText( element );</span><br><span class="line">drange.setEndPoint( <span class="string">"EndToEnd"</span>, <span class="keyword">range</span> );<span class="comment">//获取position</span></span><br><span class="line">startPos = drange.text.length - <span class="keyword">range</span>.text.length;</span><br><span class="line">endPos   = startPos + <span class="keyword">range</span>.text.length;</span><br></pre></td></tr></table></figure><br><br><p>比较啰嗦，这代码也没啥意思，看了就忘，所以得多看多写，熟练了就好了。</p><br><p>下面是非IE的选择方式：判断方式（<strong>window.getSelection</strong>）</p><br><br><figure class="highlight dns"><table><tr><td class="code"><pre><span class="line">startPos = element.selectionStart<span class="comment">;</span></span><br><span class="line">endPos   = element.selectionEnd<span class="comment">;</span></span><br></pre></td></tr></table></figure><br><br><p>简练多了，是吧~</p><br><br><br><h3>设置光标位置</h3><br><p>这个就比较简单了，<strong>把 start 和 end 的值设置成一样就搞定了！</strong></p><br><p>chrome下：</p><br><br><figure class="highlight dns"><table><tr><td class="code"><pre><span class="line">element.selectionStart = 5<span class="comment">;</span></span><br><span class="line">element.selectionEnd = 5<span class="comment">;</span></span><br><span class="line">element.focus()<span class="comment">;</span></span><br></pre></td></tr></table></figure><br><br><p>IE下：</p><br><br><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">range</span> = document.selection.createRange();</span><br><span class="line"><span class="keyword">range</span>.collapse(<span class="constant">true</span>);</span><br><span class="line"><span class="keyword">range</span>.moveEnd(<span class="string">'character'</span>, <span class="number">5</span>);</span><br><span class="line"><span class="keyword">range</span>.moveStart(<span class="string">'character'</span>, <span class="number">5</span>);</span><br><span class="line">element.focus();</span><br></pre></td></tr></table></figure><br><br><p>给他们一个focus的目的就是为了聚焦到textarea上去，以便清晰看到光标已经成功设置了。</p><br><p>Demo我就不写了，相信应该有了大概的了解。</p><br><br><br><h3>写个Class，方便使用</h3>
+
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#10;var getObj = function ( id ) &#123;&#10;    //&#33719;&#21462;&#23545;&#35937;&#10;    var ele = document.getElementById(id);&#10;    //&#36820;&#22238;&#32467;&#26524;&#10;    return &#123;&#10;        element: ele,&#10;        startPos: 0,&#10;        endPos: 0,&#10;        init: function()&#123;&#10;            var _this = this;&#10;            if( !(&#34;__proto__&#34; in &#123;&#125;) )&#123;&#10;                this.element.attachEvent(&#34;onmouseup&#34;, _this.getPos);&#10;            &#125;else&#123;&#10;                this.element.addEventListener(&#34;mouseup&#34;, _this.getPos, false);&#10;            &#125;&#10;            return this;&#10;        &#125;,&#10;        getPos: function () &#123;&#10;            var _this = this;&#10;            if( document.selection ) &#123;&#10;                try&#123;&#10;                    var range  = document.selection.createRange();&#10;                    var drange = range.duplicate();&#10;                    drange.moveToElementText( _this.element );&#10;                    drange.setEndPoint( &#34;EndToEnd&#34;, range );&#10;                    this.startPos = drange.text.length - range.text.length;&#10;                    this.endPos   = this.startPos + range.text.length;&#10;                &#125;catch(e)&#123;&#10;&#10;                &#125;&#10;            &#125;else if( window.getSelection )&#123;&#10;                try&#123;&#10;                    this.startPos = this.element.selectionStart;&#10;                    this.endPos   = this.element.selectionEnd;&#10;                &#125;catch(e)&#123;&#10;                    //throw new Error(&#34;getPos error&#34;);&#10;                &#125;&#10;            &#125;&#10;            return this;&#10;        &#125;,&#10;        setPos: function ( m, n ) &#123;&#10;            var arg2 = n || m;&#10;            if( document.selection ) &#123;&#10;                var range = document.selection.createRange();&#10;                range.collapse(true);&#10;                range.moveEnd(&#39;character&#39;, arg2);&#10;                range.moveStart(&#39;character&#39;, m);&#10;                this.element.focus();&#10;            &#125;else if( window.getSelection )&#123;&#10;                this.startPos = this.element.selectionStart = m;&#10;                this.endPos   = this.element.selectionEnd = arg2;&#10;                this.element.focus();&#10;            &#125;&#10;        &#125;,&#10;        getStr: function( m, n )&#123;&#10;            this.getPos( m, n );&#10;            return this.element.value.toString().slice(this.startPos, this.endPos);&#10;        &#125;&#10;    &#125;;&#10;&#125;;</span><br></pre></td></tr></table></figure>
+<p>很受伤，下次接着弄。<em>你也可以试试哈~</em></p><br><p>函数调用方式：</p><br><p>1. 初始化init()</p>
+
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> t</span> = getObj(<span class="string">"box"</span>).init();</span><br></pre></td></tr></table></figure>
+<p>2. setPos()</p>
+
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="comment">//选中从m到n之间的内容</span></span><br><span class="line">t.setPos(<span class="keyword">m</span>, <span class="keyword">n</span>);</span><br><span class="line"><span class="comment">//一个参数就是设置光标位置</span></span><br><span class="line">t.setPos(<span class="keyword">m</span>);</span><br></pre></td></tr></table></figure>
+<p>3. getPos()</p>
+
+<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">//这个算是一个内置函数，每次选择都自动调用了，可以不管</span></span><br><span class="line">t.getPos<span class="comment">()</span>;</span><br></pre></td></tr></table></figure>
+<p>4. getStr()</p>
+
+<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取选中的字符串</span></span><br><span class="line">t.getStr<span class="comment">()</span>;</span><br></pre></td></tr></table></figure>
+<p>5. invoke()</p>
+
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line"><span class="comment">//执行你送入的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">yourFun</span><span class="params">()</span><span class="comment">&#123;&#125;</span></span><br><span class="line"><span class="comment">//这个方法还没加进去，感觉用处也不大，原理就是使用call</span></span><br><span class="line"><span class="title">t</span>.<span class="title">invoke</span><span class="params">(yourFun)</span>;</span></span><br></pre></td></tr></table></figure>
+<p>主要是不很了解IE的API，纠结了半天，又不愿意去看别人写的文档，先晾在这里，下次不全~</p><br><p><strong>本文未完，待续…</strong></p>
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/04/11/cb-set_and_get_cursor_position/">http://www.barretlee.com/blog/2013/04/11/cb-set_and_get_cursor_position/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/04/11/cb-set_and_get_cursor_position/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+<div class="old-article-warning">
+	本文在 <b>1182</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
+</div>
+
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-04-11 05:15:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="cb-set_and_get_cursor_position" data-title="JavaScript操控光标，你会么？" data-images="" data-content="本文为归档内容,原始地址在 博客园.QQ群里经常有人问怎么设置textarea中光标的位置，所见即所得中如果选中文本。如果你也不会，请往下看：关键词：javascript 光标 位置 鼠标取词 createRange g..." data-url="http://www.barretlee.com/blog/2013/04/11/cb-set_and_get_cursor_position/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/04/13/cb-readyState_3_interactive/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>利用XMLHttpRequest响应头部的Date来做倒计时</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/04/11/cb-options_add_and_remove/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>摸透select和他的儿子们options</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2013/04/13/cb-readyState_3_interactive/" class="prev" title="利用XMLHttpRequest响应头部的Date来做倒计时">
+    <i class="icon">&#xe600;</i>
+    
+    <b>利用XMLHttpRequest响应头部的Date来做倒计时</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/04/11/cb-options_add_and_remove/" class="next" title="摸透select和他的儿子们options">
+    <i class="icon">&#x261e;</i>
+    <b>摸透select和他的儿子们options</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="cb-set_and_get_cursor_position"
+	   data-disqus-identifier="cb-set_and_get_cursor_position" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="cb-set_and_get_cursor_position" data-title="JavaScript操控光标，你会么？" data-url="http://www.barretlee.com/blog/2013/04/11/cb-set_and_get_cursor_position/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-18 »</font> </span>
+				<a href="/blog/2016/04/18/javascript-detail/">JavaScript 被忽视的细节</a>
+				<span class="aria-readonly">发表时间为2016年04月18日</span>
+				<div><span class="aria-readonly">文章概要 </span>《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在 微博 上，稍微整理了一番，放在这里，方便阅读。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-02-20 »</font> </span>
+				<a href="/blog/2016/02/20/navigator-beacon-api/">页面跳转时，统计数据丢失问题探讨</a>
+				<span class="aria-readonly">发表时间为2016年02月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>为了更好地了解用户对产品的使用情况，业务中，我们经常会收到埋点统计的需求，比如：收集一段时间内用户光标在页面中的运动情况，包括光标移动、点击等行为统计用户滚屏行为统计用户在站点的停留时长收集页面链接的点击数量等</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

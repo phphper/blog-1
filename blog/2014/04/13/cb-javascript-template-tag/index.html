@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>换个标签写前端模板 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.前端模板中，我们通常使用 script/textarea 来存放模板代码，然后使用 innerHTML/value 属性来获取模板内容进行解析和拼装。&amp;lt;script type=&quot;text/x-template&quot; id=&quot;tpl&quot;&amp;gt;    &amp;lt;h1&amp;">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="换个标签写前端模板 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/">
+  <meta property="og:site_name" content="换个标签写前端模板">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.前端模板中，我们通常使用 script/textarea 来存放模板代码，然后使用 innerHTML/value 属性来获取模板内容进行解析和拼装。&amp;lt;script type=&quot;text/x-template&quot; id=&quot;tpl&quot;&amp;gt;    &amp;lt;h1&amp;">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2014/04/20/valueof-and-tostring/" title="array 不等于 array" />
+  <link rel="next" href="http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/" title="npm穿墙" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">换个标签写前端模板</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2014-04-13 02:21:00</time>
+          <span class="aria-readonly">本文发布时间为2014年04月13日02时21分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="cb-javascript-template-tag"
+                      data-disqus-identifier="cb-javascript-template-tag"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/">http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/</a>，<a href="http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2014/04/13/javascript-template-tag.html" target="_blank">博客园</a>.</div>
+
+<p>前端模板中，我们通常使用 script/textarea 来存放模板代码，然后使用 innerHTML/value 属性来获取模板内容进行解析和拼装。</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/x-template"</span> <span class="attribute">id</span>=<span class="value">"tpl"</span>&gt;</span><span class="handlebars"><span class="xml"></span><br><span class="line">    <span class="tag">&lt;<span class="title">h1</span>&gt;</span><span class="tag">&lt;<span class="title">%=data.title%</span>&gt;</span><span class="tag">&lt;/<span class="title">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">%=data.content%</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"></span></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="keyword">var</span> htmlTpl = <span class="built_in">document</span>.getElementById(<span class="string">"tpl"</span>).innerHTML;</span><br><span class="line">    tplEngine(htmlTpl, &#123;</span><br><span class="line">        title: <span class="string">"This is title"</span>,</span><br><span class="line">        content: <span class="string">"This is content"</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>关于 tplEngine 这个 Javascript 模板引擎，之前也写了篇 <a href="http://www.cnblogs.com/hustskyking/p/principle-of-javascript-template.html" target="_blank">文章</a> 介绍过，这里就不赘述了。除了使用 script 标签，textarea 也可以达到同样的效果，但是本文叙述的重点并不是如何去解析一个 JavaScript 模板。</p><br><p>W3C工作组在 HTML 中加入了一个新的标签 &mdash;&mdash;TEMPLATE。他提供了一个可以定义 HTML 代码片段的机制，下面就来详细说说这个 TEMPLATE 标签。</p><br><p>本文地址：<a href="http://www.cnblogs.com/hustskyking/p/javascript-template-tag.html，转载请注明源地址。" target="_blank" rel="external">http://www.cnblogs.com/hustskyking/p/javascript-template-tag.html，转载请注明源地址。</a></p><br><h3>一、先看 DEMO</h3><br><p>运行下面的 demo，或许你已经知道了一些东西了。</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">ul</span> <span class="attribute">id</span>=<span class="value">"list"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- TEMPLATE 模板 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">template</span> <span class="attribute">id</span>=<span class="value">"tpl"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span> - <span class="tag">&lt;<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">"btn"</span>&gt;</span>见证奇迹的时刻→<span class="tag">&lt;/<span class="title">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="actionscript"></span><br><span class="line">    <span class="keyword">var</span> datas = [</span><br><span class="line">        &#123;name:<span class="string">"李靖"</span>, age:<span class="string">"21"</span>&#125;,</span><br><span class="line">        &#123;name:<span class="string">"Barret Lee"</span>, age:<span class="string">"21"</span>&#125;</span><br><span class="line">    ];</span><br><span class="line">    btn.onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, len = datas.length; i &lt; len; i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> data = datas[i];</span><br><span class="line">            <span class="comment">// 获取模板代码</span></span><br><span class="line">            <span class="keyword">var</span> htmlTpl = tpl.content.cloneNode(<span class="literal">true</span>);</span><br><span class="line">            <span class="comment">// 插入数据</span></span><br><span class="line">            <span class="keyword">var</span> spans = htmlTpl.querySelectorAll(<span class="string">"span"</span>);</span><br><span class="line">            spans[<span class="number">0</span>].textContent = data.name;</span><br><span class="line">            spans[<span class="number">1</span>].textContent = data.age;</span><br><span class="line">            <span class="comment">// 插入到 DOM 中</span></span><br><span class="line">            list.appendChild(htmlTpl);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里使用的 template 标签，标签的内容没有被解析，我们并没有也使用 innerHTML 这种暴力手段获取模板内容。</p><br><h3>二、template 标签特性</h3><br><ol><br><li>这个标签可以被定义在任何位置：head 中、body中、甚至是一个 frame 中。</li><br><li>标签内容不会显示出来</li><br><li>Template 标签不被当做 document 的一部分，你可以去试试弹出 <code>document.getElementById(“tpl”).length</code>, 或者看看他其他的属性，得到的结果都是 undefined。</li><br><li>标签内容在被应用之前，都是 inactive 状态，也就是说模板中的 img、audio、script 标签都不会执行（加载）</li><br></ol><br><h3>三、浏览器对 template 标签的解析</h3><br><p>每一个 template 元素都会和一个 DocumentFragment 对象关联，当一个 template 元素被创建时，浏览器会运行如下操作：</p><br><ol><br><li><span class="translator" title="Let doc be the template element's ownerDocument's appropriate template contents owner document.">让文档（doc）是模板元素的ownerDocument的相应的模板内容拥有者文档（owerDocument）。</span></li><br><li><span class="translator" title="Create a DocumentFragment object whose ownerDocument is doc.">创建一个 DocumentFragment 对象，这个对象的拥有者文档（owerDocument）为 doc</span></li><br><li><span class="translator" title="Set the template element's template contents to the newly created DocumentFragment object.">将模板文档的 content 内容放到上述新创建的 DocumentFragment 中</span></li><br></ol><br><p>上面的过程我是翻译 w3c 的规范文档，读起来相当晦涩，如果你了解 <a href="http://www.zhihu.com/question/22326250/answer/21686102" target="_blank">shadowDOM</a>,那理解起来就轻松了，template 在解析是，其内容被解析成一个 shadowDOM，我们只能使用 content 属性来获取到这个 shadowDOM 的内容。</p><br><h3>四、兼容性与需要注意的地方</h3><br><p>很可惜，这玩意儿虽然好用，但 IE 目前还不支持，当然 Chrome 32+ | Firefox 25+ 都提供了支持。</p><br><h4>1. 克隆节点而不是直接使用</h4><br><p>从上面的 demo 中，可以发现，获取 template 标签的内容，其方式是：</p>
+
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">document.<span class="function"><span class="title">getElementById</span><span class="params">(<span class="string">"tpl"</span>)</span></span>.<span class="attribute">content</span></span><br></pre></td></tr></table></figure>
+<p>但是我并不是直接将 content 赋值给 htmlTpl，而是：</p>
+
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="setting">htmlTpl = <span class="value">tpl.content.cloneNode(<span class="keyword">true</span>);</span></span></span><br></pre></td></tr></table></figure>
+<p>为什么要这么做呢？如果你不是用 cloneNode，而是直接将内容 appendChild 到 DOM 树中，documentFragment 内的内容就会被清空，上面我们说了 template 标签内容就是一个 documentFragment 的 shadowDOM，所以应该使用 cloneNode 或者 importNode 方法将内容复制到 DOM 中，这样才能保证这个 shadowDOM 内容不被清空，从而可以复用（你可以把上面 demo 的 cloneNode 函数去掉，看看结果如何）。</p><br><h4>2. 不支持 template 标签的降级处理</h4><br><p>其实也没有比较好的降级处理方案，如果你在 template 中放了 script 或者 img 节点，这些内容都会被解析出来，你阻止不了，所以如果你的程序要兼容所有的浏览器，暂时就不要用了。当然，你可以做这样的判断：</p>
+
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="string">"content"</span> <span class="keyword">in</span> <span class="built_in">document</span>.createElement(<span class="string">"template"</span>))&#123;</span><br><span class="line">    <span class="comment">// code here..</span></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p></p><h4>3. 模板中嵌入模板</h4><p></p>
+<p>在 script 标签中嵌入一个 script 标签，这个几乎是不可能的事情吧，但是 template 可以：</p>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">template</span> <span class="attribute">id</span>=<span class="value">"ulList"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">strong</span>&gt;</span><span class="tag">&lt;<span class="title">%=content%</span>&gt;</span><span class="tag">&lt;/<span class="title">%=content%</span>&gt;</span><span class="tag">&lt;/<span class="title">strong</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">template</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">%=detail%</span>&gt;</span><span class="tag">&lt;/<span class="title">%=detail%</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>至于插入之后是个什么效果，读者可以自己去浏览器中查看。这种插入方式是有使用场景的，很多时候我们都是给需要应用模板的元素设置一个 id 或者 class ，方便找到他们，而这种直接插入的方式，我们可以利用模板代码直接找到需要应用模板的元素，如：</p>
+
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="variable"><span class="keyword">var</span> tpl</span> = ulList.getElementsByTagName(<span class="string">"template"</span>)[<span class="number">0</span>]; <span class="comment">// 获取模板</span></span><br><span class="line"><span class="variable"><span class="keyword">var</span> toBox</span> = tpl.parentNode; <span class="comment">// 直接定位要插入的位置</span></span><br><span class="line">toBox.appendChild(tpl.content.cloneNode(<span class="literal">true</span>)); <span class="comment">// 插入</span></span><br></pre></td></tr></table></figure>
+<p></p><h3>五、拓展 web components</h3><p></p>
+<p></p><p>Web Components 是一些规范，旨在以浏览器原生的方式向外提供组件，它的规范如下:</p><p></p>
+<ul><br><li>模板（Templates）可以将不必立即渲染的元素，不必立即执行的脚本放入这里。</li><br><li>装饰器（Decorators）</li><br><li>Shadow DOM</li><br><li>自定义元素（Custom Elements），实现自定义html标签，及属性。拥有同原生组件一样的生命周期</li><br><li>Imports, 指定引入的组件文档及类型</li><br></ul><br><p>其实本文提到的内容就是 web components 的冰山一角，感兴趣的童鞋可以去读一读相关的内容。</p><br><ul><br><li><a href="http://www.html5rocks.com/zh/tutorials/webcomponents/imports/" target="_blank">http://www.html5rocks.com/zh/tutorials/webcomponents/imports/</a> HTML Imports</li><br><li><a href="http://www.w3.org/TR/components-intro/" target="_blank">http://www.w3.org/TR/components-intro/</a> w3c components</li><br><li><a href="http://www.html5rocks.com/zh/search?q=web+components" target="_blank">http://www.html5rocks.com/zh/search?q=web+components</a> search</li><br></ul><br><h3>六、小结</h3><br><p>本文稀里哗啦说了一大串，主要是简单介绍 web components 中的 template 标签，用以替换模板代码容器 script/textarea，web components 肯定是 web 发展的一个大头，尤其是移动开发上，很有必要深入研究。</p><br><h3>七、参考资料</h3><br><ul><br><li><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage//scripting-1.html#the-template-element" target="_blank">http://www.whatwg.org/specs/web-apps/current-work/multipage//scripting-1.html#the-template-element</a> W3C</li><br><li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template" target="_blank">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template</a> MDN</li><br><li><a href="http://www.c-sharpcorner.com/UploadFile/370e35/template-tag-in-html5/" target="_blank">http://www.c-sharpcorner.com/UploadFile/370e35/template-tag-in-html5/</a> Sunny Kumar</li><br></ul>
+
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/">http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+<div class="old-article-warning">
+	本文在 <b>815</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
+</div>
+
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-04-13 02:21:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="cb-javascript-template-tag" data-title="换个标签写前端模板" data-images="" data-content="本文为归档内容,原始地址在 博客园.前端模板中，我们通常使用 script/textarea 来存放模板代码，然后使用 innerHTML/value 属性来获取模板内容进行解析和拼装。&lt;script type="..." data-url="http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/04/20/valueof-and-tostring/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>array 不等于 array</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/03/31/npm-cross-wall/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>npm穿墙</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2014/04/20/valueof-and-tostring/" class="prev" title="array 不等于 array">
+    <i class="icon">&#xe600;</i>
+    
+    <b>array 不等于 array</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/03/31/npm-cross-wall/" class="next" title="npm穿墙">
+    <i class="icon">&#x261e;</i>
+    <b>npm穿墙</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="cb-javascript-template-tag"
+	   data-disqus-identifier="cb-javascript-template-tag" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="cb-javascript-template-tag" data-title="换个标签写前端模板" data-url="http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-18 »</font> </span>
+				<a href="/blog/2016/04/18/javascript-detail/">JavaScript 被忽视的细节</a>
+				<span class="aria-readonly">发表时间为2016年04月18日</span>
+				<div><span class="aria-readonly">文章概要 </span>《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在 微博 上，稍微整理了一番，放在这里，方便阅读。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-02-20 »</font> </span>
+				<a href="/blog/2016/02/20/navigator-beacon-api/">页面跳转时，统计数据丢失问题探讨</a>
+				<span class="aria-readonly">发表时间为2016年02月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>为了更好地了解用户对产品的使用情况，业务中，我们经常会收到埋点统计的需求，比如：收集一段时间内用户光标在页面中的运动情况，包括光标移动、点击等行为统计用户滚屏行为统计用户在站点的停留时长收集页面链接的点击数量等</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>对系统链路问题排查的一些看法 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="整个链路的自动化检测思路。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="对系统链路问题排查的一些看法 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2016/03/19/problem-debugging/">
+  <meta property="og:site_name" content="对系统链路问题排查的一些看法">
+  <meta property="og:description" content="整个链路的自动化检测思路。">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2016/03/31/personality-in-taobao-home-page/" title="一起来看看淘宝首页的个性化" />
+  <link rel="next" href="http://www.barretlee.com/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/" title="多 SSH Key 管理技巧与 Git 多账户登录问题" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">对系统链路问题排查的一些看法</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2016-03-19 15:21:56</time>
+          <span class="aria-readonly">本文发布时间为2016年03月19日15时21分56秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/网络交互/">网络交互</a>,<a class="category-link" href="/blog/categories/网络交互/网络技术/">网络技术</a>,<a class="category-link" href="/blog/categories/网络交互/网络技术/观点和感想/">观点和感想</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/链路问题排查/">链路问题排查</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="problem-debugging"
+                      data-disqus-identifier="problem-debugging"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2016/03/19/problem-debugging/">http://www.barretlee.com/blog/2016/03/19/problem-debugging/</a>，<a href="http://www.barretlee.com/blog/2016/03/19/problem-debugging/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>页面上发现几个模块展示比较缓慢，白了大约 5s 之后展示兜底，显然，是接口请求超时了，打开控制台一看，果然，接口挂了。看了下相关页面，因为大量用到这个接口，模块也都加载超时了。换一台电脑看了下，存在一样的问题，确认是接口挂了。</p>
+<a id="more"></a>
+<p>10 min 左右后接口却又恢复正常。于是出现下面系列流程：</p>
+<ul>
+<li>联系相应的同学，最后找到能排查问题的人。</li>
+<li>查看监控平台，发现确实没有数据过来。</li>
+<li>查看服务器日志，发现确实没有日志进来，确认监控数据未出错。</li>
+<li>结论是平台无错误。</li>
+</ul>
+<p>继续溯源，</p>
+<ul>
+<li>平台上一层是统一接入，查看 lvs，发现没有流量进来</li>
+<li>查看机器系统日志，lvs 有人在调试</li>
+</ul>
+<p>当然，问题在这里已经找到了。如果这一步还没有找到，就需要继续溯源，看看域名解析是否有问题，DNS 解析是否有问题了。</p>
+<h3 id="自动化的检测"><a href="#自动化的检测" class="headerlink" title="自动化的检测"></a>自动化的检测</h3><p>当用户发现网页模块超时加载后，</p>
+<ul>
+<li>前端系统警报</li>
+<li>触发对应接口的链路查询</li>
+<li>检查 DNS 解析是否正常</li>
+<li>检查证书是否过期，是否正确部署</li>
+<li>检查统一接入层是否有流量异常</li>
+<li>检查平台监控数据是否异常</li>
+<li>检查服务器日志是否异常</li>
+<li>检查程序是否报错</li>
+</ul>
+<p>而这条链路也可以在平时正向冒烟测试，定期检查是否存在问题，提早发现问题，这样才能发挥监控的价值。</p>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2016/03/19/problem-debugging/">http://www.barretlee.com/blog/2016/03/19/problem-debugging/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2016/03/19/problem-debugging/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2016-03-19 15:21:56</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/网络交互/">网络交互</a>,<a class="category-link" href="/blog/categories/网络交互/网络技术/">网络技术</a>,<a class="category-link" href="/blog/categories/网络交互/网络技术/观点和感想/">观点和感想</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/链路问题排查/">链路问题排查</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="problem-debugging" data-title="对系统链路问题排查的一些看法" data-images="" data-content="页面上发现几个模块展示比较缓慢，白了大约 5s 之后展示兜底，显然，是接口请求超时了，打开控制台一看，果然，接口挂了。看了下相关页面，因为大量用到这个接口，模块也都加载超时了。换一台电脑看了下，存在一样的问题，确认是接口挂了。" data-url="http://www.barretlee.com/blog/2016/03/19/problem-debugging/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2016/03/31/personality-in-taobao-home-page/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>一起来看看淘宝首页的个性化</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>多 SSH Key 管理技巧与 Git 多账户登录问题</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2016/03/31/personality-in-taobao-home-page/" class="prev" title="一起来看看淘宝首页的个性化">
+    <i class="icon">&#xe600;</i>
+    
+    <b>一起来看看淘宝首页的个性化</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/" class="next" title="多 SSH Key 管理技巧与 Git 多账户登录问题">
+    <i class="icon">&#x261e;</i>
+    <b>多 SSH Key 管理技巧与 Git 多账户登录问题</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="problem-debugging"
+	   data-disqus-identifier="problem-debugging" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="problem-debugging" data-title="对系统链路问题排查的一些看法" data-url="http://www.barretlee.com/blog/2016/03/19/problem-debugging/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-24 »</font> </span>
+				<a href="/blog/2016/04/24/detail-about-ca-and-certs/">细说 CA 和证书</a>
+				<span class="aria-readonly">发表时间为2016年04月24日</span>
+				<div><span class="aria-readonly">文章概要 </span>CA，Catificate Authority，它的作用就是提供证书（即服务器证书，由域名、公司信息、序列号和签名信息组成）加强服务端和客户端之间信息交互的安全性，以及证书运维相关服务。任何个体/组织都可以扮演 CA 的角色，只不过难以得到客户端的信任，能够受浏览器默认信任的 CA 大厂商有很多，其中 TOP5 是 Symantec、Comodo、Godaddy、GolbalSign 和 Digicert。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-09 »</font> </span>
+				<a href="/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/">多 SSH Key 管理技巧与 Git 多账户登录问题</a>
+				<span class="aria-readonly">发表时间为2016年03月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>对很多开发者，尤其是手握几台甚至几十台机器的同学而言，登录到远程机器处理事务应该是家常便饭。如果你也是其中一员，悄悄问一句，你平时是如何记住一堆帐号、机器地址以及一些附加登录选项的呢？或许你也是这么干的：</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-05 »</font> </span>
+				<a href="/blog/2016/03/05/steps-of-web-content-accessibility/">认识网页无障碍</a>
+				<span class="aria-readonly">发表时间为2016年03月05日</span>
+				<div><span class="aria-readonly">文章概要 </span>最近忙里偷闲坚持了好几个星期网页无障碍相关的学习和研究，看了很多文档，也在 Google 中寻觅了不少博客文章，总的来说就一个感受：规范文档太细节太长，博客指导性不强。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-02-23 »</font> </span>
+				<a href="/blog/2016/02/23/wifi-key/">WiFi 万能钥匙原理和危害探究</a>
+				<span class="aria-readonly">发表时间为2016年02月23日</span>
+				<div><span class="aria-readonly">文章概要 </span>本文不会从代码角度分析 WiFi 万能钥匙这个软件是如何「破解」密码的，主要从使用这个软件后的感受出发，分析它可能会用到的手段以及可能存在的风险。</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

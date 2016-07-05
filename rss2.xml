@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/css" href="/public/css/rss.css" ?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title><![CDATA[小胡子哥的个人网站]]></title>
+    <link>http://www.barretlee.com/</link>
+    <script xmlns="http://www.w3.org/1999/xhtml" src="/public/js/rss.js"></script>
+    <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
+    <description><![CDATA[想法，随笔，思考，感叹，瞬间，笔记...]]></description>
+    <pubDate>Tue Jun 28 2016 20:13:17 GMT+0800 (CST)</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[谈一谈越来越难做的前端]]></title>
+      <link>http://www.barretlee.com/blog/2016/06/13/talk-about-front-end/</link>
+      <guid>http://www.barretlee.com/blog/2016/06/13/talk-about-front-end/</guid>
+      <pubDate>Mon Jun 13 2016 00:10:34 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[我接触前端的时间不长也不短，13 年入门，14 年初在百度实习，14 中正式参加工作，掐指一算 4 年整。然而这四年间前端的变化已经让很多人摸不着头脑。]]>
+      
+      </description>
+      <content:encoded><![CDATA[我接触前端的时间不长也不短，13 年入门，14 年初在百度实习，14 中正式参加工作，掐指一算 4 年整。然而这四年间前端的变化已经让很多人摸不着头脑。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/06/13/talk-about-front-end/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[聊一聊淘宝首页和它背后的一套]]></title>
+      <link>http://www.barretlee.com/blog/2016/06/02/thing-about-taobao-homepage/</link>
+      <guid>http://www.barretlee.com/blog/2016/06/02/thing-about-taobao-homepage/</guid>
+      <pubDate>Thu Jun 02 2016 12:00:00 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[从 14 年双十二结束开始接手淘宝首页，到如今差不多 1 年半时间，不久前完成了首页相关工作的交接。期间经历了两次改版和一次从 PHP 到 Node 的迁移，还是颇有感受，下面给大家分享下。]]>
+      
+      </description>
+      <content:encoded><![CDATA[从 14 年双十二结束开始接手淘宝首页，到如今差不多 1 年半时间，不久前完成了首页相关工作的交接。期间经历了两次改版和一次从 PHP 到 Node 的迁移，还是颇有感受，下面给大家分享下。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/06/02/thing-about-taobao-homepage/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[H5 Crash 研究]]></title>
+      <link>http://www.barretlee.com/blog/2016/05/30/h5-crash-research/</link>
+      <guid>http://www.barretlee.com/blog/2016/05/30/h5-crash-research/</guid>
+      <pubDate>Mon May 30 2016 00:30:12 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[我们知道，支撑页面在 webview 上良好运转的前提是具备一个高效并且稳定的 webview 容器，而容器的高效稳定不仅仅由容器提供方来保障，也需要容器使用者遵守一些基本准则，否则就有可能出现页面 Crash 的情况，这些准则是什么？什么样的上层代码会引起容器异常退出？这是本文需要阐述的内容]]>
+      
+      </description>
+      <content:encoded><![CDATA[我们知道，支撑页面在 webview 上良好运转的前提是具备一个高效并且稳定的 webview 容器，而容器的高效稳定不仅仅由容器提供方来保障，也需要容器使用者遵守一些基本准则，否则就有可能出现页面 Crash 的情况，这些准则是什么？什么样的上层代码会引起容器异常退出？这是本文需要阐述的内容]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/05/30/h5-crash-research/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Kindle 电子书生成工具]]></title>
+      <link>http://www.barretlee.com/blog/2016/05/20/kindle-book-maker/</link>
+      <guid>http://www.barretlee.com/blog/2016/05/20/kindle-book-maker/</guid>
+      <pubDate>Fri May 20 2016 12:01:20 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[本项目旨在写一个 Kindle 电子书的构建工具，从互联网上抓取数据，合并整合都生成一本小巧的 `.mobi` 电子书。而使用这个工具，你只需要编辑下配置文件，或者直接运行命令行工具。]]>
+      
+      </description>
+      <content:encoded><![CDATA[本项目旨在写一个 Kindle 电子书的构建工具，从互联网上抓取数据，合并整合都生成一本小巧的 `.mobi` 电子书。而使用这个工具，你只需要编辑下配置文件，或者直接运行命令行工具。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/05/20/kindle-book-maker/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[JavaScript 代码执行效率对比工具]]></title>
+      <link>http://www.barretlee.com/blog/2016/04/28/javascript-performance-tester/</link>
+      <guid>http://www.barretlee.com/blog/2016/04/28/javascript-performance-tester/</guid>
+      <pubDate>Thu Apr 28 2016 20:00:23 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[JavaScript 代码执行效率对比工具，对比多个程序在一段时间内执行的次数，和性能差异。]]>
+      
+      </description>
+      <content:encoded><![CDATA[JavaScript 代码执行效率对比工具，对比多个程序在一段时间内执行的次数，和性能差异。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/04/28/javascript-performance-tester/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[元素选择器 - Mini Query]]></title>
+      <link>http://www.barretlee.com/blog/2016/04/28/mini-query/</link>
+      <guid>http://www.barretlee.com/blog/2016/04/28/mini-query/</guid>
+      <pubDate>Thu Apr 28 2016 12:00:00 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。]]>
+      
+      </description>
+      <content:encoded><![CDATA[寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/04/28/mini-query/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[细说 CA 和证书]]></title>
+      <link>http://www.barretlee.com/blog/2016/04/24/detail-about-ca-and-certs/</link>
+      <guid>http://www.barretlee.com/blog/2016/04/24/detail-about-ca-and-certs/</guid>
+      <pubDate>Sun Apr 24 2016 00:56:47 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[看了不少文章，对 CA 和证书相关的知识做了一些总结，可能不全面，也可能存在表述错误或者知识性错误，欢迎拍砖！]]>
+      
+      </description>
+      <content:encoded><![CDATA[看了不少文章，对 CA 和证书相关的知识做了一些总结，可能不全面，也可能存在表述错误或者知识性错误，欢迎拍砖！]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/04/24/detail-about-ca-and-certs/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[JavaScript 被忽视的细节]]></title>
+      <link>http://www.barretlee.com/blog/2016/04/18/javascript-detail/</link>
+      <guid>http://www.barretlee.com/blog/2016/04/18/javascript-detail/</guid>
+      <pubDate>Mon Apr 18 2016 00:51:12 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在微博上，稍微整理了一番，放在这里，方便阅读。]]>
+      
+      </description>
+      <content:encoded><![CDATA[《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在微博上，稍微整理了一番，放在这里，方便阅读。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/04/18/javascript-detail/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Unix/Linux 系统中的 Operation Not Permitted 问题]]></title>
+      <link>http://www.barretlee.com/blog/2016/04/06/operation-not-permitted-problem-in-linux-or-unix-system/</link>
+      <guid>http://www.barretlee.com/blog/2016/04/06/operation-not-permitted-problem-in-linux-or-unix-system/</guid>
+      <pubDate>Wed Apr 06 2016 12:20:20 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[多次在 Mac 使用过程中遇到 Operation Not Permitted 问题，之前都是略过，今天好好摸索了一把，搞明白了道理，记录下来。]]>
+      
+      </description>
+      <content:encoded><![CDATA[多次在 Mac 使用过程中遇到 Operation Not Permitted 问题，之前都是略过，今天好好摸索了一把，搞明白了道理，记录下来。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/04/06/operation-not-permitted-problem-in-linux-or-unix-system/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[淘宝首页性能优化实践]]></title>
+      <link>http://www.barretlee.com/blog/2016/04/01/optimization-in-taobao-homepage/</link>
+      <guid>http://www.barretlee.com/blog/2016/04/01/optimization-in-taobao-homepage/</guid>
+      <pubDate>Fri Apr 01 2016 20:11:00 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[代码的性能优化是一个精细活，如果你要在一个庞大的未经优化的页面上做性能优化，可能会面临一次重构代码。本文从淘宝首页个性化引出的问题出发，从微观到宏观讲述了页面的优化实践，提出了几条可以借鉴的「黄金法则」，希望对你有所启发，后续会继续给大家带来淘宝首页稳定性保障的分享。]]>
+      
+      </description>
+      <content:encoded><![CDATA[代码的性能优化是一个精细活，如果你要在一个庞大的未经优化的页面上做性能优化，可能会面临一次重构代码。本文从淘宝首页个性化引出的问题出发，从微观到宏观讲述了页面的优化实践，提出了几条可以借鉴的「黄金法则」，希望对你有所启发，后续会继续给大家带来淘宝首页稳定性保障的分享。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/04/01/optimization-in-taobao-homepage/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[一起来看看淘宝首页的个性化]]></title>
+      <link>http://www.barretlee.com/blog/2016/03/31/personality-in-taobao-home-page/</link>
+      <guid>http://www.barretlee.com/blog/2016/03/31/personality-in-taobao-home-page/</guid>
+      <pubDate>Thu Mar 31 2016 13:55:00 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[随着互联网技术以及软硬件技术的快速发展，网络已经成为人们生活中不可或缺的一部分，在长期的互联网冲浪中，网民对网络信息的辨识度日益增进，网络信息提供方也必须与时俱进，抓住用户的要害。]]>
+      
+      </description>
+      <content:encoded><![CDATA[随着互联网技术以及软硬件技术的快速发展，网络已经成为人们生活中不可或缺的一部分，在长期的互联网冲浪中，网民对网络信息的辨识度日益增进，网络信息提供方也必须与时俱进，抓住用户的要害。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/03/31/personality-in-taobao-home-page/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[对系统链路问题排查的一些看法]]></title>
+      <link>http://www.barretlee.com/blog/2016/03/19/problem-debugging/</link>
+      <guid>http://www.barretlee.com/blog/2016/03/19/problem-debugging/</guid>
+      <pubDate>Sat Mar 19 2016 15:21:56 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[整个链路的自动化检测思路。]]>
+      
+      </description>
+      <content:encoded><![CDATA[整个链路的自动化检测思路。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/03/19/problem-debugging/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[多 SSH Key 管理技巧与 Git 多账户登录问题]]></title>
+      <link>http://www.barretlee.com/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/</link>
+      <guid>http://www.barretlee.com/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/</guid>
+      <pubDate>Wed Mar 09 2016 19:59:06 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[对很多开发者，尤其是手握几台甚至几十台机器的同学而言，登录到远程机器处理事务应该是家常便饭。如果你也是其中一员，悄悄问一句，你平时是如何记住一堆帐号、机器地址以及一些附加登录选项的呢？或许你也是这么干的...]]>
+      
+      </description>
+      <content:encoded><![CDATA[对很多开发者，尤其是手握几台甚至几十台机器的同学而言，登录到远程机器处理事务应该是家常便饭。如果你也是其中一员，悄悄问一句，你平时是如何记住一堆帐号、机器地址以及一些附加登录选项的呢？或许你也是这么干的...]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[认识网页无障碍]]></title>
+      <link>http://www.barretlee.com/blog/2016/03/05/steps-of-web-content-accessibility/</link>
+      <guid>http://www.barretlee.com/blog/2016/03/05/steps-of-web-content-accessibility/</guid>
+      <pubDate>Sat Mar 05 2016 16:26:23 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[网页无障碍相关的学习和研究已经坚持了好几个星期了，看了不少文档，也在 Google 中寻觅了不少博客文章，总的来说就一个感受：文档太细节太长，博客指导性不强。文本主要从网页无障碍的思路上做了一些阐述，可能不严谨，也可能有表述不当的地方，如果你对这方面有研究，欢迎提出你的观点，也期待更多人关注网页无障碍化。]]>
+      
+      </description>
+      <content:encoded><![CDATA[网页无障碍相关的学习和研究已经坚持了好几个星期了，看了不少文档，也在 Google 中寻觅了不少博客文章，总的来说就一个感受：文档太细节太长，博客指导性不强。文本主要从网页无障碍的思路上做了一些阐述，可能不严谨，也可能有表述不当的地方，如果你对这方面有研究，欢迎提出你的观点，也期待更多人关注网页无障碍化。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/03/05/steps-of-web-content-accessibility/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[信息无障碍不是献爱心更不是做公益慈善]]></title>
+      <link>http://www.barretlee.com/blog/2016/02/28/step-in-aria/</link>
+      <guid>http://www.barretlee.com/blog/2016/02/28/step-in-aria/</guid>
+      <pubDate>Sun Feb 28 2016 23:20:42 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[很多人以为盲人就是拿着一根拐杖，四处探路，等着被人帮助。你可能还不知道，很多盲人都在使用电脑和手机，并且也会做股票、在淘宝开店等，当然，他们用的很痛苦。技术本可以让视障人士同我们一样，自由穿梭在互联网的每个角落，而这个互联网的搭建者们，似乎还没有意识到，有这么一个群里，期待被我们关注，期待我们把信息无障碍植入到网络中。]]>
+      
+      </description>
+      <content:encoded><![CDATA[很多人以为盲人就是拿着一根拐杖，四处探路，等着被人帮助。你可能还不知道，很多盲人都在使用电脑和手机，并且也会做股票、在淘宝开店等，当然，他们用的很痛苦。技术本可以让视障人士同我们一样，自由穿梭在互联网的每个角落，而这个互联网的搭建者们，似乎还没有意识到，有这么一个群里，期待被我们关注，期待我们把信息无障碍植入到网络中。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/02/28/step-in-aria/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[谈一谈博客的著作版权问题]]></title>
+      <link>http://www.barretlee.com/blog/2016/02/27/about-cc/</link>
+      <guid>http://www.barretlee.com/blog/2016/02/27/about-cc/</guid>
+      <pubDate>Sat Feb 27 2016 23:19:00 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[大家都知道，技术内容是在不断革新的，上半年还在流行的东西，下半年可能就已经淹没在历史洪流之中。博客文章中的表述可能存在诸多错误或者一段时间后内容过时了，当作者发现这些错误的时候，便会对内容做修改，copy 方式的转载最大的问题就是没法即时与原文保持同步，倘若转载时还不保留原文地址，信息的传递就会出现断层，一些错误的表述和内容，容易对刚入门的新人造成负面的刻板印象，这一点是需要各位朋友在转载文章的时候注意的！]]>
+      
+      </description>
+      <content:encoded><![CDATA[大家都知道，技术内容是在不断革新的，上半年还在流行的东西，下半年可能就已经淹没在历史洪流之中。博客文章中的表述可能存在诸多错误或者一段时间后内容过时了，当作者发现这些错误的时候，便会对内容做修改，copy 方式的转载最大的问题就是没法即时与原文保持同步，倘若转载时还不保留原文地址，信息的传递就会出现断层，一些错误的表述和内容，容易对刚入门的新人造成负面的刻板印象，这一点是需要各位朋友在转载文章的时候注意的！]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/02/27/about-cc/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[WiFi 万能钥匙原理和危害探究]]></title>
+      <link>http://www.barretlee.com/blog/2016/02/23/wifi-key/</link>
+      <guid>http://www.barretlee.com/blog/2016/02/23/wifi-key/</guid>
+      <pubDate>Tue Feb 23 2016 23:21:11 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[本文不会从代码角度分析 WiFi 万能钥匙这个软件是如何「破解」密码的，主要从使用这个软件后的感受出发，分析它可能会用到的手段以及可能存在的风险。]]>
+      
+      </description>
+      <content:encoded><![CDATA[本文不会从代码角度分析 WiFi 万能钥匙这个软件是如何「破解」密码的，主要从使用这个软件后的感受出发，分析它可能会用到的手段以及可能存在的风险。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/02/23/wifi-key/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[页面跳转时，统计数据丢失问题探讨]]></title>
+      <link>http://www.barretlee.com/blog/2016/02/20/navigator-beacon-api/</link>
+      <guid>http://www.barretlee.com/blog/2016/02/20/navigator-beacon-api/</guid>
+      <pubDate>Sat Feb 20 2016 23:08:56 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[很多问题，我们绞尽脑汁，可能很少会考虑，这个问题是不是应该有我们来解决，或者说这个问题交给谁处理是最恰当的。本文的探讨可以看到，浏览器本身才是最好的问题解决方，当网站流量变大之后，上面提到的丢失问题就更加明显，这也迫使浏览器本身做了改善，自然也在情理之中。]]>
+      
+      </description>
+      <content:encoded><![CDATA[很多问题，我们绞尽脑汁，可能很少会考虑，这个问题是不是应该有我们来解决，或者说这个问题交给谁处理是最恰当的。本文的探讨可以看到，浏览器本身才是最好的问题解决方，当网站流量变大之后，上面提到的丢失问题就更加明显，这也迫使浏览器本身做了改善，自然也在情理之中。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/02/20/navigator-beacon-api/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[当前端也拥有 Server 的能力]]></title>
+      <link>http://www.barretlee.com/blog/2016/02/16/when-fe-has-the-power-of-server/</link>
+      <guid>http://www.barretlee.com/blog/2016/02/16/when-fe-has-the-power-of-server/</guid>
+      <pubDate>Tue Feb 16 2016 20:00:00 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[今天看了不少文章，比较感兴趣的是 Cache API。它是浏览器 Request/Response 的缓存管理工具，其使用风格和运用场景让我瞬间联想到了 ServiceWorker 和 Fetch API，相信很多同学也多次看到过这两个东西，本文会对它们做一个简洁的介绍，并谈一谈我对这些新玩具的看法。]]>
+      
+      </description>
+      <content:encoded><![CDATA[今天看了不少文章，比较感兴趣的是 Cache API。它是浏览器 Request/Response 的缓存管理工具，其使用风格和运用场景让我瞬间联想到了 ServiceWorker 和 Fetch API，相信很多同学也多次看到过这两个东西，本文会对它们做一个简洁的介绍，并谈一谈我对这些新玩具的看法。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/02/16/when-fe-has-the-power-of-server/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[开启命令行下的社交]]></title>
+      <link>http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/</link>
+      <guid>http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/</guid>
+      <pubDate>Sun Feb 14 2016 10:00:00 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[前段时间把手机上的 QQ 给卸载了，希望可以把时间凝聚在更加有价值的位置，今天突然又想起了这个软件，突发奇想，在命令行下玩弄 QQ。]]>
+      
+      </description>
+      <content:encoded><![CDATA[前段时间把手机上的 QQ 给卸载了，希望可以把时间凝聚在更加有价值的位置，今天突然又想起了这个软件，突发奇想，在命令行下玩弄 QQ。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[2016，低版本浏览器活不过这一年]]></title>
+      <link>http://www.barretlee.com/blog/2016/01/14/update-your-browser/</link>
+      <guid>http://www.barretlee.com/blog/2016/01/14/update-your-browser/</guid>
+      <pubDate>Thu Jan 14 2016 21:56:08 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[对低版本浏览器的兼容，不仅仅让前端工程师头疼，也让很多运维同学和安全同学苦恼，因为低版本的浏览器不支持 HSTS（出现对 https 的劫持攻击问题）、前向加密（RSA 交换的密钥未来可以被破解）、TLS1.2、SNI、session ticket、OCSP stapling 等特性。]]>
+      
+      </description>
+      <content:encoded><![CDATA[对低版本浏览器的兼容，不仅仅让前端工程师头疼，也让很多运维同学和安全同学苦恼，因为低版本的浏览器不支持 HSTS（出现对 https 的劫持攻击问题）、前向加密（RSA 交换的密钥未来可以被破解）、TLS1.2、SNI、session ticket、OCSP stapling 等特性。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/01/14/update-your-browser/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[简述 OAuth 2.0 的运作流程]]></title>
+      <link>http://www.barretlee.com/blog/2016/01/10/oauth2-introduce/</link>
+      <guid>http://www.barretlee.com/blog/2016/01/10/oauth2-introduce/</guid>
+      <pubDate>Sun Jan 10 2016 23:56:33 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[本文将以用户使用 github 登录网站留言为例，简述 OAuth 2.0 的运作流程。]]>
+      
+      </description>
+      <content:encoded><![CDATA[本文将以用户使用 github 登录网站留言为例，简述 OAuth 2.0 的运作流程。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/01/10/oauth2-introduce/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[简述淘宝团队的技术沉淀和对外分享]]></title>
+      <link>http://www.barretlee.com/blog/2016/01/08/share-in-team/</link>
+      <guid>http://www.barretlee.com/blog/2016/01/08/share-in-team/</guid>
+      <pubDate>Fri Jan 08 2016 10:54:22 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[去年下半年开始，我负责团队的对外运营，比较重要的点就是「团队博客」，坚持了三个多月的每日一文，让很多朋友不禁惊叹，“你们实在太高产！”。]]>
+      
+      </description>
+      <content:encoded><![CDATA[去年下半年开始，我负责团队的对外运营，比较重要的点就是「团队博客」，坚持了三个多月的每日一文，让很多朋友不禁惊叹，“你们实在太高产！”。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/01/08/share-in-team/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[时间都去哪儿了？]]></title>
+      <link>http://www.barretlee.com/blog/2016/01/03/where-is-time-goning/</link>
+      <guid>http://www.barretlee.com/blog/2016/01/03/where-is-time-goning/</guid>
+      <pubDate>Sun Jan 03 2016 23:14:12 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[我到现在还以为自己是去年毕业的，仔细回忆，中间其实还隔了一年。晃晃悠悠的，时间都去哪里了？我又从这些时间的夹缝中获得了什么？]]>
+      
+      </description>
+      <content:encoded><![CDATA[我到现在还以为自己是去年毕业的，仔细回忆，中间其实还隔了一年。晃晃悠悠的，时间都去哪里了？我又从这些时间的夹缝中获得了什么？]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/01/03/where-is-time-goning/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[近几年前端技术盘点以及 2016 年技术发展方向]]></title>
+      <link>http://www.barretlee.com/blog/2015/12/10/after-framework-we-gonna-to-hug-data/</link>
+      <guid>http://www.barretlee.com/blog/2015/12/10/after-framework-we-gonna-to-hug-data/</guid>
+      <pubDate>Thu Dec 10 2015 22:46:55 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[本文会从多个角度，解读近几年前端技术的发展，同时也会盘点从 09 年开始到 15 年间前端技术的革新，其中穿插了若干对前端演进的拙见。]]>
+      
+      </description>
+      <content:encoded><![CDATA[本文会从多个角度，解读近几年前端技术的发展，同时也会盘点从 09 年开始到 15 年间前端技术的革新，其中穿插了若干对前端演进的拙见。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/12/10/after-framework-we-gonna-to-hug-data/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[换新的输入法，Rime]]></title>
+      <link>http://www.barretlee.com/blog/2015/11/20/new-input-methed-rime/</link>
+      <guid>http://www.barretlee.com/blog/2015/11/20/new-input-methed-rime/</guid>
+      <pubDate>Fri Nov 20 2015 18:25:21 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[使用 Mac 快两年时间了，码字错误率提高了 200%。国内两款输入法 百度／搜狗，其实都挺好用的，但是有几个毛病：1. 不流畅，有的时候感觉跟不上我的速度; 2. 在部分软件内输入存在问题，卡死或者 CPU 飙高; 3. 半角全角不好控制.]]>
+      
+      </description>
+      <content:encoded><![CDATA[使用 Mac 快两年时间了，码字错误率提高了 200%。国内两款输入法 百度／搜狗，其实都挺好用的，但是有几个毛病：1. 不流畅，有的时候感觉跟不上我的速度; 2. 在部分软件内输入存在问题，卡死或者 CPU 飙高; 3. 半角全角不好控制.]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/11/20/new-input-methed-rime/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[图片脚本懒加载 - Lazyload]]></title>
+      <link>http://www.barretlee.com/blog/2015/11/16/lazyload-component/</link>
+      <guid>http://www.barretlee.com/blog/2015/11/16/lazyload-component/</guid>
+      <pubDate>Mon Nov 16 2015 22:30:59 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[写了一个轻巧的小程序 - Lazyload，100 行代码。加上一个 `data-src` 属性，能够让页面中的图片懒加载、textarea 中的脚本懒执行，有需要的可以拿过去用用，代码逻辑比较简单，也可以自己增强点功能，比如动态添加懒加载监听等等。]]>
+      
+      </description>
+      <content:encoded><![CDATA[写了一个轻巧的小程序 - Lazyload，100 行代码。加上一个 `data-src` 属性，能够让页面中的图片懒加载、textarea 中的脚本懒执行，有需要的可以拿过去用用，代码逻辑比较简单，也可以自己增强点功能，比如动态添加懒加载监听等等。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/11/16/lazyload-component/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[淘宝 UED 前端团队究竟好不好？值得去吗？]]></title>
+      <link>http://www.barretlee.com/blog/2015/11/13/taobao-fed-come-on/</link>
+      <guid>http://www.barretlee.com/blog/2015/11/13/taobao-fed-come-on/</guid>
+      <pubDate>Fri Nov 13 2015 14:44:26 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[在知乎上回答了一个问题：『淘宝 UED 前端团队究竟好不好？值得去吗？』]]>
+      
+      </description>
+      <content:encoded><![CDATA[在知乎上回答了一个问题：『淘宝 UED 前端团队究竟好不好？值得去吗？』]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/11/13/taobao-fed-come-on/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[将你家里的电脑连上广域网]]></title>
+      <link>http://www.barretlee.com/blog/2015/11/07/put-your-computer-to-internet/</link>
+      <guid>http://www.barretlee.com/blog/2015/11/07/put-your-computer-to-internet/</guid>
+      <pubDate>Sat Nov 07 2015 12:12:14 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[很多人买电脑半年一年之后，都会遇到这样一个问题：硬盘已经装不下？尤其是有些爱折腾的朋友喜欢安装多个系统，或者爱把各种美剧批量下载到本地，渐渐地，也只好去网上搜罗个硬盘。现在四五百就能买到一个 1TB 的硬盘，也不算很贵，可是电脑边上总挂着一坨东西，不仅不方便也不好看。]]>
+      
+      </description>
+      <content:encoded><![CDATA[很多人买电脑半年一年之后，都会遇到这样一个问题：硬盘已经装不下？尤其是有些爱折腾的朋友喜欢安装多个系统，或者爱把各种美剧批量下载到本地，渐渐地，也只好去网上搜罗个硬盘。现在四五百就能买到一个 1TB 的硬盘，也不算很贵，可是电脑边上总挂着一坨东西，不仅不方便也不好看。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/11/07/put-your-computer-to-internet/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[你所不知道的 HSTS]]></title>
+      <link>http://www.barretlee.com/blog/2015/10/22/hsts-intro/</link>
+      <guid>http://www.barretlee.com/blog/2015/10/22/hsts-intro/</guid>
+      <pubDate>Thu Oct 22 2015 17:48:26 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[本文简单说明了 HSTS 的基本原理和相关内容，他在全站 https 下有一个较大的正向作用，推荐使用。]]>
+      
+      </description>
+      <content:encoded><![CDATA[本文简单说明了 HSTS 的基本原理和相关内容，他在全站 https 下有一个较大的正向作用，推荐使用。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2015/10/22/hsts-intro/#disqus_thread</comments>
+    </item>
+    
+  </channel>
+</rss>

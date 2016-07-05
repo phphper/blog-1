@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>这两天说到的苹果软件中毒是个什么情况？ | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="今天逛微博，看到了有人发现 apple 手机中的部分软件存在盗取账户信息的问题，网上搜罗了下信息，把大概的原因和处理方案说下。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="这两天说到的苹果软件中毒是个什么情况？ | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/09/18/what-is-wrong-with-apple/">
+  <meta property="og:site_name" content="这两天说到的苹果软件中毒是个什么情况？">
+  <meta property="og:description" content="今天逛微博，看到了有人发现 apple 手机中的部分软件存在盗取账户信息的问题，网上搜罗了下信息，把大概的原因和处理方案说下。">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2015/09/19/jquery-plugin-for-alert-img/" title="jQuery插件 - 文章图片弹出放大效果" />
+  <link rel="next" href="http://www.barretlee.com/blog/2015/09/16/backup-solution-at-big-traffic/" title="大流量的下兜底容灾方案" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">这两天说到的苹果软件中毒是个什么情况？</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2015-09-18 22:37:50</time>
+          <span class="aria-readonly">本文发布时间为2015年09月18日22时37分50秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/网络安全/">网络安全</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/苹果中毒/">苹果中毒</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="what-is-wrong-with-apple"
+                      data-disqus-identifier="what-is-wrong-with-apple"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/09/18/what-is-wrong-with-apple/">http://www.barretlee.com/blog/2015/09/18/what-is-wrong-with-apple/</a>，<a href="http://www.barretlee.com/blog/2015/09/18/what-is-wrong-with-apple/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>今天逛微博，看到了有人发现 apple 手机中的部分软件存在盗取账户信息的问题，网上搜罗了下信息，把大概的原因和处理方案说下。本文的阐述会比较浅显易懂。</p>
+<a id="more"></a>
+<h3 id="如何被感染的"><a href="#如何被感染的" class="headerlink" title="如何被感染的"></a>如何被感染的</h3><p>大家对这些盗取账户信息的行为称之为手机中毒，简单的说就是使用的软件中被非软件方通过某些手段植入了程序本不该有的代码，这些代码可以获取用户的信息，甚至会伪造对话，比如下载某个音乐的时候提示要输入 app store 密码方能下载。之所以会中毒源自信任。</p>
+<p>我们都知道，开发一个软件，需要工具，写代码的工具、编译代码的工具等等。而开发苹果手机上的软件需要苹果提供的编译和执行代码的工具，它叫做 xcode。 xcode 文件比较大，由于苹果在中国（好像）没有服务器，程序员下载 xcode 的速度就会很慢，而这个文件跟普通电影似的，可以被放到各种网盘中。所以就有人把下载好的 xcode 放到了网盘或者其他国内下载速度很快的服务器上。</p>
+<p>问题就出在这里，这个非官方下载的 xcode 可能就被人调包了，可能是在下载之前就已经调包，也可能是在下载之时调包的。工程师使用这种被调包的 xcode 编写程序，最后编译阶段会被植入恶意程序。</p>
+<p>打个比方，网易云音乐的开发工程师从非官网渠道下载了一个 xcode，他们开发好 iphone 的网易云音乐播放器之后，上传到 app store，那么实际上，我们下载的网易云音乐就是包含病毒的，它能够窃取你在使用网易云音乐时的操作信息，当然，可以蹦出一个提示框，让你输入 app store 密码，甚至可以做出一些更加危险，比如获取你的信用卡资金等操作。</p>
+<h3 id="如何预防和防御"><a href="#如何预防和防御" class="headerlink" title="如何预防和防御"></a>如何预防和防御</h3><p>据了解，黑客把收集到的信息都上传到了一个网址为 init.icloud-analysis.com 的服务器上，目前这个网址已经被封了，但是不能判定黑客是否还保留了其他的渠道。</p>
+<p>从上面的分析，我们可以知道，即便是 app store 上的软件也是不安全的，更不论有些童鞋是直接从非官方渠道下载的软件。所以：</p>
+<ul>
+<li>软件工程师在开发的时候一定要从官网下载 xcode，或者使用校验工具检查下 sha1 码是否准确，有问题的 xcode6.4.dmg 的 sha1 是 <code>a836d8fa0fce198e061b7b38b826178b44c053a8</code>，没有问题的是 <code>672e3dcb7727fc6db071e5a8528b70aa03900bb0</code>。</li>
+<li>用户应该关注下安全信息，把存在问题的软件即时删除，或者下载官方确定的靠谱版本软件</li>
+<li>修改 app store 密码和信用卡密码</li>
+</ul>
+<p>最好的防御是苹果公司能够提供抵挡这个程序运行的方案，比如快速提供一个新版的苹果系统让用户即时升级。</p>
+<h3 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h3><ul>
+<li>白帽子说事儿 <a href="http://drops.wooyun.org/news/8864" target="_blank" rel="external">http://drops.wooyun.org/news/8864</a></li>
+<li>关注知乎 <a href="http://www.zhihu.com/question/35721299" target="_blank" rel="external">http://www.zhihu.com/question/35721299</a></li>
+</ul>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/09/18/what-is-wrong-with-apple/">http://www.barretlee.com/blog/2015/09/18/what-is-wrong-with-apple/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/09/18/what-is-wrong-with-apple/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-09-18 22:37:50</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/网络安全/">网络安全</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/苹果中毒/">苹果中毒</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="what-is-wrong-with-apple" data-title="这两天说到的苹果软件中毒是个什么情况？" data-images="" data-content="今天逛微博，看到了有人发现 apple 手机中的部分软件存在盗取账户信息的问题，网上搜罗了下信息，把大概的原因和处理方案说下。本文的阐述会比较浅显易懂。" data-url="http://www.barretlee.com/blog/2015/09/18/what-is-wrong-with-apple/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2015/09/19/jquery-plugin-for-alert-img/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>jQuery插件 - 文章图片弹出放大效果</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2015/09/16/backup-solution-at-big-traffic/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>大流量的下兜底容灾方案</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2015/09/19/jquery-plugin-for-alert-img/" class="prev" title="jQuery插件 - 文章图片弹出放大效果">
+    <i class="icon">&#xe600;</i>
+    
+    <b>jQuery插件 - 文章图片弹出放大效果</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2015/09/16/backup-solution-at-big-traffic/" class="next" title="大流量的下兜底容灾方案">
+    <i class="icon">&#x261e;</i>
+    <b>大流量的下兜底容灾方案</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="what-is-wrong-with-apple"
+	   data-disqus-identifier="what-is-wrong-with-apple" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="what-is-wrong-with-apple" data-title="这两天说到的苹果软件中毒是个什么情况？" data-url="http://www.barretlee.com/blog/2015/09/18/what-is-wrong-with-apple/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-24 »</font> </span>
+				<a href="/blog/2016/04/24/detail-about-ca-and-certs/">细说 CA 和证书</a>
+				<span class="aria-readonly">发表时间为2016年04月24日</span>
+				<div><span class="aria-readonly">文章概要 </span>CA，Catificate Authority，它的作用就是提供证书（即服务器证书，由域名、公司信息、序列号和签名信息组成）加强服务端和客户端之间信息交互的安全性，以及证书运维相关服务。任何个体/组织都可以扮演 CA 的角色，只不过难以得到客户端的信任，能够受浏览器默认信任的 CA 大厂商有很多，其中 TOP5 是 Symantec、Comodo、Godaddy、GolbalSign 和 Digicert。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-06 »</font> </span>
+				<a href="/blog/2016/04/06/operation-not-permitted-problem-in-linux-or-unix-system/">Unix/Linux 系统中的 Operation Not Permitted 问题</a>
+				<span class="aria-readonly">发表时间为2016年04月06日</span>
+				<div><span class="aria-readonly">文章概要 </span>多次在 Mac 使用过程中遇到 Operation Not Permitted 问题，之前都是略过，今天好好摸索了一把，搞明白了道理，记录下来。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-02-23 »</font> </span>
+				<a href="/blog/2016/02/23/wifi-key/">WiFi 万能钥匙原理和危害探究</a>
+				<span class="aria-readonly">发表时间为2016年02月23日</span>
+				<div><span class="aria-readonly">文章概要 </span>本文不会从代码角度分析 WiFi 万能钥匙这个软件是如何「破解」密码的，主要从使用这个软件后的感受出发，分析它可能会用到的手段以及可能存在的风险。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-01-14 »</font> </span>
+				<a href="/blog/2016/01/14/update-your-browser/">2016，低版本浏览器活不过这一年</a>
+				<span class="aria-readonly">发表时间为2016年01月14日</span>
+				<div><span class="aria-readonly">文章概要 </span>公司在 15 年下半年完成了全站的 https 升级工作，完成时对外宣称「我们是目前为止唯一一家全站启用 https 的电商公司」，这是一份荣誉，全站 https 意味着在技术上更大程度地保障了消费者的信息和交易安全。有一个消息也点燃了大家心中的另一个激情：“所有证书供应商从 16 年 1 月 1 日开始不再签发 SHA-1 签名的证书”，我们很早就看到 https 网页在 Firefox 的控制台中一堆黄色警报，警告 SHA-1 证书不安全。但是升级到 SHA-256 之后，会出现一些问题，部分浏览器会打不开网页，只能引导这些用户升级他们的浏览器。但是让用户升级浏览器，何止这一个理由呀！</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

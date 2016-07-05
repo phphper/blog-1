@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>npm穿墙 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="GWF 很给力，很多东西都能墙掉，但是把 npm 也纳入黑名单，不知道 GWFer 是怎么想的。翻墙翻了好多年了，原理其实也挺简单的，proxy 嘛！» 方法一A) 国内源，http://cnpmjs.org使用方式，你可以在 cmd 中键入 npm install -g cnpm，然后出去吃个饭，">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="npm穿墙 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/">
+  <meta property="og:site_name" content="npm穿墙">
+  <meta property="og:description" content="GWF 很给力，很多东西都能墙掉，但是把 npm 也纳入黑名单，不知道 GWFer 是怎么想的。翻墙翻了好多年了，原理其实也挺简单的，proxy 嘛！» 方法一A) 国内源，http://cnpmjs.org使用方式，你可以在 cmd 中键入 npm install -g cnpm，然后出去吃个饭，">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2014/04/13/cb-javascript-template-tag/" title="换个标签写前端模板" />
+  <link rel="next" href="http://www.barretlee.com/blog/2014/03/31/tap-highlight-in-webview/" title="webview中的点击高亮问题" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">npm穿墙</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2014-03-31 00:00:00</time>
+          <span class="aria-readonly">本文发布时间为2014年03月31日00时00分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/网络交互/">网络交互</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/npm/">npm</a>, <a class="article-tag-link" href="/blog/tags/proxy/">proxy</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="npm-cross-wall"
+                      data-disqus-identifier="npm-cross-wall"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/">http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/</a>，<a href="http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>GWF 很给力，很多东西都能墙掉，但是把 npm 也纳入黑名单，不知道 GWFer 是怎么想的。翻墙翻了好多年了，原理其实也挺简单的，proxy 嘛！</p>
+<h3 id="»-方法一"><a href="#»-方法一" class="headerlink" title="» 方法一"></a>» 方法一</h3><p><strong>A)</strong> 国内源，<a href="http://cnpmjs.org" target="_blank" rel="external">http://cnpmjs.org</a></p>
+<p>使用方式，你可以在 cmd 中键入 <code>npm install -g cnpm</code>，然后出去吃个饭，如果还没有安装好，那就换个方式：</p>
+<pre><code>npm install -g cnpm --registry=http://r.cnpmjs.org
+</code></pre><p>registry 参数的作用就是指向需要 download 的仓库。 cnpm 跟国外的 npm 是同步的，只要 npm 有更新，cnpm 就会跟着一起更新。</p>
+<p>当然，你也可以简单点搞：</p>
+<pre><code>npm config set registry=&quot;http://r.cnpmjs.org&quot;
+</code></pre><p>在配置中直接指定源头，下次就没有必要使用 <code>--registry</code> 参数了。配置好了之后，npm 就指向了国内的仓库。</p>
+<p><strong>B)</strong> 当然，你也可以安装 cnpm，安装好了之后使用 cnpm 来下载文件，其实原理跟上面是一样的，于是你就可以这样了：</p>
+<pre><code>cnpm install -g package_name
+</code></pre><h3 id="»-方法二"><a href="#»-方法二" class="headerlink" title="» 方法二"></a>» 方法二</h3><p>代理，在配置中设置代理参数：</p>
+<pre><code># 全局路径，也就是 npm install -g，这里 -g 的意义
+npm config set prefix=&quot;c:\nodejs&quot;
+
+# 一般使用 goagent 翻墙，他的默认端口是 8087
+npm config set proxy=http://127.0.0.1:8087
+
+# 设置 https 的代理
+npm config set https_proxy=http://127.0.0.1:8087
+
+# 这个地方记得设置下，别搞了个代理，结果在国内源下载
+npm config set registry=http://registry.npmjs.org
+</code></pre><p>这样配置好了之后，打开你的 goagent ，记得一定要打开，不然 npm 必然报错。上面写了一堆，其实没必要跟着写这么多，一句话就可以搞定：</p>
+<pre><code>npm config set proxy=http://127.0.0.1:8087
+</code></pre><p>为啥呢，npm -g 没必要自己去配置， registry 默认就是 <code>http://registry.npmjs.org</code>，不配置 https_proxy，也走的通，所以就只剩下上面这条命令了。</p>
+<h3 id="»-方法三"><a href="#»-方法三" class="headerlink" title="» 方法三"></a>» 方法三</h3><p>直接下载到本地。</p>
+<p>实在是怕麻烦，就直接把文件 download 下来，然后放到 node_module 之中就行了。如果是全局模块，找到全局 node_module 的位置，然后解压放进去就行了。</p>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/">http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+<div class="old-article-warning">
+	本文在 <b>828</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
+</div>
+
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2014-03-31 00:00:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/网络交互/">网络交互</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/npm/">npm</a>, <a class="article-tag-link" href="/blog/tags/proxy/">proxy</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="npm-cross-wall" data-title="npm穿墙" data-images="" data-content="GWF 很给力，很多东西都能墙掉，但是把 npm 也纳入黑名单，不知道 GWFer 是怎么想的。翻墙翻了好多年了，原理其实也挺简单的，proxy 嘛！» 方法一A) 国内源，http://cnpmjs.org使用方式，你..." data-url="http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2014/04/13/cb-javascript-template-tag/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>换个标签写前端模板</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2014/03/31/tap-highlight-in-webview/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>webview中的点击高亮问题</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2014/04/13/cb-javascript-template-tag/" class="prev" title="换个标签写前端模板">
+    <i class="icon">&#xe600;</i>
+    
+    <b>换个标签写前端模板</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2014/03/31/tap-highlight-in-webview/" class="next" title="webview中的点击高亮问题">
+    <i class="icon">&#x261e;</i>
+    <b>webview中的点击高亮问题</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="npm-cross-wall"
+	   data-disqus-identifier="npm-cross-wall" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="npm-cross-wall" data-title="npm穿墙" data-url="http://www.barretlee.com/blog/2014/03/31/npm-cross-wall/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-24 »</font> </span>
+				<a href="/blog/2016/04/24/detail-about-ca-and-certs/">细说 CA 和证书</a>
+				<span class="aria-readonly">发表时间为2016年04月24日</span>
+				<div><span class="aria-readonly">文章概要 </span>CA，Catificate Authority，它的作用就是提供证书（即服务器证书，由域名、公司信息、序列号和签名信息组成）加强服务端和客户端之间信息交互的安全性，以及证书运维相关服务。任何个体/组织都可以扮演 CA 的角色，只不过难以得到客户端的信任，能够受浏览器默认信任的 CA 大厂商有很多，其中 TOP5 是 Symantec、Comodo、Godaddy、GolbalSign 和 Digicert。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-19 »</font> </span>
+				<a href="/blog/2016/03/19/problem-debugging/">对系统链路问题排查的一些看法</a>
+				<span class="aria-readonly">发表时间为2016年03月19日</span>
+				<div><span class="aria-readonly">文章概要 </span>页面上发现几个模块展示比较缓慢，白了大约 5s 之后展示兜底，显然，是接口请求超时了，打开控制台一看，果然，接口挂了。看了下相关页面，因为大量用到这个接口，模块也都加载超时了。换一台电脑看了下，存在一样的问题，确认是接口挂了。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-09 »</font> </span>
+				<a href="/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/">多 SSH Key 管理技巧与 Git 多账户登录问题</a>
+				<span class="aria-readonly">发表时间为2016年03月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>对很多开发者，尤其是手握几台甚至几十台机器的同学而言，登录到远程机器处理事务应该是家常便饭。如果你也是其中一员，悄悄问一句，你平时是如何记住一堆帐号、机器地址以及一些附加登录选项的呢？或许你也是这么干的：</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-05 »</font> </span>
+				<a href="/blog/2016/03/05/steps-of-web-content-accessibility/">认识网页无障碍</a>
+				<span class="aria-readonly">发表时间为2016年03月05日</span>
+				<div><span class="aria-readonly">文章概要 </span>最近忙里偷闲坚持了好几个星期网页无障碍相关的学习和研究，看了很多文档，也在 Google 中寻觅了不少博客文章，总的来说就一个感受：规范文档太细节太长，博客指导性不强。</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

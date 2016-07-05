@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>开启命令行下的社交 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="前段时间把手机上的 QQ 给卸载了，希望可以把时间凝聚在更加有价值的位置，今天突然又想起了这个软件，突发奇想，在命令行下玩弄 QQ。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="开启命令行下的社交 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/">
+  <meta property="og:site_name" content="开启命令行下的社交">
+  <meta property="og:description" content="前段时间把手机上的 QQ 给卸载了，希望可以把时间凝聚在更加有价值的位置，今天突然又想起了这个软件，突发奇想，在命令行下玩弄 QQ。">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2016/02/16/when-fe-has-the-power-of-server/" title="当前端也拥有 Server 的能力" />
+  <link rel="next" href="http://www.barretlee.com/blog/2016/01/14/update-your-browser/" title="2016，低版本浏览器活不过这一年" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">开启命令行下的社交</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2016-02-14 10:00:00</time>
+          <span class="aria-readonly">本文发布时间为2016年02月14日10时00分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>,<a class="category-link" href="/blog/categories/工具/网络技术/">网络技术</a>,<a class="category-link" href="/blog/categories/工具/网络技术/Linux/">Linux</a>,<a class="category-link" href="/blog/categories/工具/网络技术/Linux/随笔/">随笔</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/IRC/">IRC</a>, <a class="article-tag-link" href="/blog/tags/Mojo-WebQQ/">Mojo-WebQQ</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="mojo-webqq-and-irc"
+                      data-disqus-identifier="mojo-webqq-and-irc"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/">http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/</a>，<a href="http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>最近一直在命令行下工作，除了 Google Chrome，几乎很少接触 GUI 相关的软件。前段时间把手机上的 QQ 给卸载了，希望可以把时间凝聚在更加有价值的位置，今天突然又想起了这个软件，突发奇想，在命令行下玩弄 QQ。</p>
+<a id="more"></a>
+<p>在知乎和 V2ex 上搜了一番，在 github 上找到了一个还比较满意的开源项目，使用 perl 语言编写的，虽然不动 perl ，但是人家提供了丰富的 API 可以调用，于是就深入了解了下。</p>
+<p><img src="http://www.barretlee.com/blogimgs/2016/02/20160202_f7aea0c0.png" alt="img"></p>
+<h3 id="Mojo-Webqq-的安装和使用"><a href="#Mojo-Webqq-的安装和使用" class="headerlink" title="Mojo-Webqq 的安装和使用"></a>Mojo-Webqq 的安装和使用</h3><p>项目名称叫做 Mojo-Webqq，它应该算是 smartQQ 的客户端非 GUI 框架，前几年玩 Linux 的人可能对 smartQQ 比较了解，就是一个网页上跑的 QQ，不过现在已经更名为 WebQQ 了，玩耍地址：<a href="http://web2.qq.com/" target="_blank" rel="external">http://web2.qq.com/</a>。</p>
+<p>估计作者也是一个 Linux 玩家，所有的安装指南都是 Linux 上的说明，我用的 mac，也尝试按照 ReadMe 文档安装了下。</p>
+<p>1.首先配置 cpan，直接在命令行输入 cpan 按照提示选择默认配置即可。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cpan</span><br></pre></td></tr></table></figure>
+<p>2.然后安装 cpanm 工具</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ can -i App:coanminus</span><br></pre></td></tr></table></figure>
+<p>3.使用 cpanm 在线安装 Mojo:Webqq 模块</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cpanm -v Mojo::Webqq</span><br></pre></td></tr></table></figure>
+<p>不了解 Perl 语言，也不知道 cpanm 是个什么东西，估计跟 Nodejs 的 npm 是一样的，包管理工具。</p>
+<p>如果期间安装失败，很可能是某个依赖包安装不成功，这个时候多留意下错误提示，然后 google 搜索怎样安装才是正确的姿势。</p>
+<p>使用方式就比较简单了，创建一个实例跑起来：</p>
+<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env perl</span></span><br><span class="line"><span class="keyword">use</span> Mojo::Webqq;</span><br><span class="line"><span class="keyword">my</span> (<span class="variable">$qq</span>,<span class="variable">$host</span>,<span class="variable">$port</span>,<span class="variable">$post_api</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$qq</span> = <span class="number">12345678</span>;    <span class="comment">#修改为你自己的实际QQ号码</span></span><br><span class="line"><span class="variable">$host</span> = <span class="string">"0.0.0.0"</span>; <span class="comment">#发送消息接口监听地址，修改为自己希望监听的地址</span></span><br><span class="line"><span class="variable">$port</span> = <span class="number">5000</span>;      <span class="comment">#发送消息接口监听端口，修改为自己希望监听的端口</span></span><br><span class="line"><span class="variable">$post_api</span> = <span class="string">'http://xxxx'</span>;  <span class="comment">#接收到的消息上报接口，如果不需要接收消息上报，可以删除此行</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span> <span class="variable">$client</span> = Mojo::Webqq-&gt;new(<span class="string">qq=&gt;</span><span class="variable">$qq</span>);</span><br><span class="line"><span class="variable">$client</span>-&gt;login();</span><br><span class="line"><span class="variable">$client</span>-&gt;load(<span class="string">"ShowMsg"</span>);</span><br><span class="line"><span class="variable">$client</span>-&gt;load(<span class="string">"Openqq"</span>,<span class="string">data=&gt;</span>&#123;<span class="string">listen=&gt;</span>[&#123;<span class="string">host=&gt;</span><span class="variable">$host</span>,<span class="string">port=&gt;</span><span class="variable">$port</span>&#125;], <span class="string">post_api=&gt;</span><span class="variable">$post_api</span>&#125;);</span><br><span class="line"><span class="variable">$client</span>-&gt;run();</span><br></pre></td></tr></table></figure>
+<p>上述代码保存成 xxxx.pl 文件，然后使用 perl 来运行，就会完成 QQ 登录并在本机产生一个监听指定地址端口的 http server，发送好友消息的接口调用示例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl http://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">5000</span>/openqq/send_message?qq=xxxxx&amp;content=hello</span><br></pre></td></tr></table></figure>
+<p>具体可以翻阅 <a href="https://github.com/sjdy521/Mojo-Webqq/blob/master/README.md" target="_blank" rel="external">文档说明</a></p>
+<h3 id="IRC-相关学习"><a href="#IRC-相关学习" class="headerlink" title="IRC 相关学习"></a>IRC 相关学习</h3><p>以前玩 Linux 的时候就接触过一些 IRC 的客户端，当时感觉找到了这个世界对程序员开放的窗口，各种技术 Channel，各种交流，很是激动（当然，现在不以为然）。</p>
+<p>Google 找了下网上的推荐，一般都是使用 Weechat 或者 irssi。两个软件的安装都比较麻烦，依赖了很多软件包，不说安装和编译时间，就依赖软件包的下载时间就有半小时。</p>
+<p>先选用的 Weechat ，安装好了之后，死活调不好中文设置，不知道这样是不是正确的：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">/charset <span class="keyword">decode</span> GB2312</span><br></pre></td></tr></table></figure>
+<p>反正我是没搞好，但是学会了 IRC 的基本使用。后面还是改用成 irssi，展示没有 weechat 友好，不过默认支持中文输入。</p>
+<p>IRC 的使用，我觉得也不用太多地去看文档，进入交互命令行之后，键入 <code>/help</code>，系统会把所有的命令都打印出来，然后你感觉应该用哪个就去继续学习就行了，比如连接到一个频道，可以键入</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">/<span class="operator"><span class="keyword">help</span> <span class="keyword">server</span></span></span><br></pre></td></tr></table></figure>
+<p>或者 </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">/<span class="operator"><span class="keyword">help</span> <span class="keyword">connect</span></span></span><br></pre></td></tr></table></figure>
+<p>这些关键词都是从 <code>/help</code> 中找到的，以 weechat 为例，给出几个设置命令以供入门。</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"># 添加一个 <span class="built_in">server</span></span><br><span class="line">/<span class="built_in">server</span> add free node chat.freenode.net</span><br><span class="line"># 自动链接到 freenode</span><br><span class="line">/<span class="keyword">set</span> irc.<span class="built_in">server</span>.freenode.autoconnect <span class="keyword">on</span></span><br><span class="line"># 设置 nicks，username，realname</span><br><span class="line">/<span class="keyword">set</span> irc.<span class="built_in">server</span>.freenode.nicks “nickname”</span><br><span class="line">/<span class="keyword">set</span> irc.<span class="built_in">server</span>.freenode.username “username”</span><br><span class="line">/<span class="keyword">set</span> irc.<span class="built_in">server</span>.freenode.realname “realname”</span><br></pre></td></tr></table></figure>
+<p>输入框中键入 <code>/connect freenode</code> 就可连接到 freenode 的服务器,输入 <code>/join #javascript</code> 就可以加入到 #javascript 群组里了。</p>
+<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="preprocessor"># 自动认证 nickname</span></span><br><span class="line">/<span class="keyword">set</span> irc.server.freenode.command <span class="string">"/msg nickserv identify xxxxxx"</span></span><br><span class="line"><span class="preprocessor"># 自动加入群组</span></span><br><span class="line">/<span class="keyword">set</span> irc.server.freenode.autojoin <span class="string">"#channel1,#channel2"</span></span><br></pre></td></tr></table></figure>
+<p>对鼠标的支持：</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动鼠标支持</span></span><br><span class="line">/moune enable</span><br><span class="line"><span class="comment"># 打开时就支持</span></span><br><span class="line">/<span class="keyword">set</span> weechat.look.mouse <span class="function_start"><span class="keyword">on</span></span></span><br></pre></td></tr></table></figure>
+<p>更多文档，可以在 google 中检索下。</p>
+<p>有好多天没有码字了，今天学习的主题是 Mojo-Webqq 和 IRC，就先说这么多，后续会把每天学习和关注的知识点都记录下，方便自己，也方便他人。</p>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/">http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2016-02-14 10:00:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>,<a class="category-link" href="/blog/categories/工具/网络技术/">网络技术</a>,<a class="category-link" href="/blog/categories/工具/网络技术/Linux/">Linux</a>,<a class="category-link" href="/blog/categories/工具/网络技术/Linux/随笔/">随笔</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/IRC/">IRC</a>, <a class="article-tag-link" href="/blog/tags/Mojo-WebQQ/">Mojo-WebQQ</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:37:28</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="mojo-webqq-and-irc" data-title="开启命令行下的社交" data-images="" data-content="最近一直在命令行下工作，除了 Google Chrome，几乎很少接触 GUI 相关的软件。前段时间把手机上的 QQ 给卸载了，希望可以把时间凝聚在更加有价值的位置，今天突然又想起了这个软件，突发奇想，在命令行下玩弄 QQ。" data-url="http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2016/02/16/when-fe-has-the-power-of-server/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>当前端也拥有 Server 的能力</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2016/01/14/update-your-browser/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>2016，低版本浏览器活不过这一年</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2016/02/16/when-fe-has-the-power-of-server/" class="prev" title="当前端也拥有 Server 的能力">
+    <i class="icon">&#xe600;</i>
+    
+    <b>当前端也拥有 Server 的能力</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2016/01/14/update-your-browser/" class="next" title="2016，低版本浏览器活不过这一年">
+    <i class="icon">&#x261e;</i>
+    <b>2016，低版本浏览器活不过这一年</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="mojo-webqq-and-irc"
+	   data-disqus-identifier="mojo-webqq-and-irc" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="mojo-webqq-and-irc" data-title="开启命令行下的社交" data-url="http://www.barretlee.com/blog/2016/02/14/mojo-webqq-and-irc/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-05-20 »</font> </span>
+				<a href="/blog/2016/05/20/kindle-book-maker/">Kindle 电子书生成工具</a>
+				<span class="aria-readonly">发表时间为2016年05月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>花了两个晚上把 OPF 和 epub 格式整明白了，准备把订阅的 RSS 内容抓取下来做成电子书推到 kindle 中阅读。后续也会把自己博客整成电子书，提供给习惯 kindle 阅读的朋友。研究这些东西目的还是想回到比较纯粹的阅读设备上，毕竟手机屏小干扰多，看久了眼睛也有点不舒服。本项目旨在写一个 Kindle 电子书的构建工具，从互联网上抓取数据，合并整合都生成一本小巧的 .mobi 电子书。而使用这个工具，你只需要编辑下配置文件，或者直接运行命令行工具。项目地址：https://github.com/barretlee/kindleBookMaker基本原理：根据 OPF 规范生成 KF8 格式的 .mobi 电子书</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-09 »</font> </span>
+				<a href="/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/">多 SSH Key 管理技巧与 Git 多账户登录问题</a>
+				<span class="aria-readonly">发表时间为2016年03月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>对很多开发者，尤其是手握几台甚至几十台机器的同学而言，登录到远程机器处理事务应该是家常便饭。如果你也是其中一员，悄悄问一句，你平时是如何记住一堆帐号、机器地址以及一些附加登录选项的呢？或许你也是这么干的：</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

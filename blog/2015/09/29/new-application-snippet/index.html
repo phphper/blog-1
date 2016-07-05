@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>新应用上线 Snippet | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="Snippet 是一款代码收集工具，经过一天三夜的开发终于上线了。应用地址：http://snippets.barretlee.com ，源码地址：https://github.com/barretlee/snippets">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="新应用上线 Snippet | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2015/09/29/new-application-snippet/">
+  <meta property="og:site_name" content="新应用上线 Snippet">
+  <meta property="og:description" content="Snippet 是一款代码收集工具，经过一天三夜的开发终于上线了。应用地址：http://snippets.barretlee.com ，源码地址：https://github.com/barretlee/snippets">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2015/09/30/confusion-about-for-loop-var/" title="JavaScript 关于 for 循环中的疑问" />
+  <link rel="next" href="http://www.barretlee.com/blog/2015/09/25/move-on-phantomjs/" title="走进 phantomjs 嵌入式测试" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">新应用上线 Snippet</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2015-09-29 07:15:05</time>
+          <span class="aria-readonly">本文发布时间为2015年09月29日07时15分05秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/snippets/">snippets</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="new-application-snippet"
+                      data-disqus-identifier="new-application-snippet"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2015/09/29/new-application-snippet/">http://www.barretlee.com/blog/2015/09/29/new-application-snippet/</a>，<a href="http://www.barretlee.com/blog/2015/09/29/new-application-snippet/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>Snippet 是一款代码片段收集工具，经过一天三夜的开发终于上线了。</p>
+<p><img src="http://www.barretlee.com/blogimgs/2015/09/20150902_2774c376.jpg" alt="Snippet应用"></p>
+<ul>
+<li>应用地址：<a href="http://snippets.barretlee.com" target="_blank" rel="external">snippets.barretlee.com</a></li>
+<li>源码地址：<a href="https://github.com/barretlee/snippets" target="_blank" rel="external">barretlee/snippets</a></li>
+</ul>
+<p>由于使用原生 JS 开发，效果利用 CSS3 实现，所以如果想有一个好的视觉体验，请使用 Chrome/FireFox 预览（后续会持续优化）。</p>
+<a id="more"></a>
+<h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><p>代码片段收集工具？你说的是 gist 么？这东西有用？昨天我在社交平台发上线预告的时候，有几个朋友提出来疑问。二话不多说，先去看<a href="http://snippets.barretlee.com" target="_blank" rel="external">线上效果</a>。</p>
+<p>本应用使用 <a href="https://jekyllrb.com" target="_blank" rel="external">Jekyll</a> 构建，托管在 <a href="https://github.com/barretlee/snippets" target="_blank" rel="external">github</a> 上，提供了如下基本功能：</p>
+<ul>
+<li>Snippet 按照文件夹储存分类呈现</li>
+<li>整合在一起之后，单页面预览所有 Snippet</li>
+<li>提供了快捷的<strong>搜索功能</strong></li>
+<li>每个 Snippet 对应 github 直接编辑的地址</li>
+<li>提供了一个添加  Snippet 的快捷入口</li>
+<li>Snippet 的语法就是 markdown ，当然也可以跟写博客似的写 snipet，嵌入 demo，嵌入说明等。</li>
+</ul>
+<p>所以只要有 github 权限，可以直接编辑代码，立即生效。</p>
+<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><p>一个小东西，硬生生开发了十几个小时。我对很多小细节扣的比较多，虽然自己不是设计出身，但是要求自己设计出来的东西能看、好看，所以常常走简约路线，复杂的设计搞不定。为了体验更好一些，我在页面上添加了几个小功能：</p>
+<p><strong>1. 添加 snippet</strong></p>
+<p><img src="http://www.barretlee.com/blogimgs/2015/09/20150902_469e5db8.jpg" alt="add snippet"></p>
+<p>进入页面之后，你可能看清楚了，左上角位置有个不是很明显的加号，点进去就会跑到 github 页面，由于是我的仓库，只有我能够直接编辑，其他人如果想添加代码段，需要 fork 过去之后，提交 PR，后续我会开发一个工具，方便其他人直接提交代码。</p>
+<p><img src="http://www.barretlee.com/blogimgs/2015/09/snippet.gif" alt="github add snippet"></p>
+<p>新建文件夹十分方便，输入 <code>/foldName</code> 然后回车，github 就会自动建立一个文件夹，当然，如果文件夹存在，就会是进入文件夹。</p>
+<p><strong>2. 搜索 snippet</strong></p>
+<p><img src="http://www.barretlee.com/blogimgs/2015/09/20150902_94f84521.jpg" alt="search snippet"></p>
+<p>当我做完之后，发现找到一个自己收藏的 snippet 可真难，于是很自然的开发了一个搜索工具，搜索的范围是所有 snippet 的 title 名称，如果匹配到了就展示出来（当然，需要你点击 Enter 按钮）。</p>
+<p><strong>3. 编辑 snippet</strong></p>
+<p><img src="http://www.barretlee.com/blogimgs/2015/09/20150902_d775b963.jpg" alt="edit snippet"></p>
+<p>这个快捷入口直达该 snippet 的编辑地址，可以线上编辑，commit 之后立即生效。</p>
+<p><img src="http://www.barretlee.com/blogimgs/2015/09/20150902_f7fa36e1.jpg" alt="github editor"></p>
+<p>这也是我为什么不使用 hexo 本地构建而使用 Jekyll 让 github 自动构建的目的（hexo 写插件用的语言是 nodejs，而 jekyll 是 ruby，所以各有利弊，本博客使用的就是 hexo 构建）。如果你喜欢这个 snippet ，可以点击编辑按钮左侧的小红心，哈哈~</p>
+<h3 id="后续开发"><a href="#后续开发" class="headerlink" title="后续开发"></a>后续开发</h3><p>整个应用的开发，相对还是比较仓促的，存在比较多大的问题，所以后续有空也会不断优化它，直到我和大家用的都爽~ 那么，后续需要做的事情有：</p>
+<ul>
+<li>响应式预览页面</li>
+<li>收集 snippet 的工具</li>
+<li>补充更多类型 snippet，提升完整度</li>
+<li>github 访问较慢，托管到 <a href="https://gitcafe.com" target="_blank" rel="external">gitcafe</a> 或者 <a href="https://coding.net/" target="_blank" rel="external">coding</a></li>
+</ul>
+<p>好了，如果大家喜欢这个应用，就去 <a href="https://github.com/barretlee/snippets" target="_blank" rel="external">github</a> 上 start/fork 并且提交你的 snippet 吧！！</p>
+<h3 id="贡献代码"><a href="#贡献代码" class="headerlink" title="贡献代码"></a>贡献代码</h3><p>如果你想贡献代码，可以执行如下操作：</p>
+<ul>
+<li>fork <a href="https://github.com/barretlee/snippets.git" target="_blank" rel="external">barretlee/snippets</a> 仓库</li>
+<li>然后执行如下命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/&#123;YOUR_GITHUB_NAME&#125;/snippets.git</span><br><span class="line"><span class="built_in">cd</span> snippets</span><br><span class="line">git chechout -b gh-pages</span><br><span class="line"><span class="built_in">cd</span> snippets</span><br><span class="line"><span class="comment"># 选择你想提交的文件类型，比如 html</span></span><br><span class="line"><span class="built_in">cd</span> html</span><br><span class="line">touch &#123;YOUR_CONTRIBUTE_FILE_NAME&#125;.snippet</span><br></pre></td></tr></table></figure>
+<p>其中，<code>{YOUR_CONTRIBUTE_FILE_NAME}.snippet</code> 的格式为：</p>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="bullet">---</span><br><span class="line"></span><span class="header">title: &#123;NAME&#125;</span><br><span class="line">---</span></span><br><span class="line"></span><br><span class="line">&#123;CONTENT&#125;</span><br></pre></td></tr></table></figure>
+<p>可以使用 markdown 语法。</p>
+<ul>
+<li>提交代码</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">git add <span class="comment">--all</span></span><br><span class="line">git <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"add file html/&#123;YOUR_CONTRIBUTE_FILE_NAME&#125;.snippet"</span></span><br><span class="line">git push origin gh-pages</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>然后在你的 <a href="https://github.com/{YOUR_GITHUB_NAME}/snippets/pulls" target="_blank" rel="external">PR</a> 页面提交一个 PR 到 <code>barretlee/snippets</code> 的仓库</li>
+</ul>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/09/29/new-application-snippet/">http://www.barretlee.com/blog/2015/09/29/new-application-snippet/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/09/29/new-application-snippet/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2015-09-29 07:15:05</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/工具/">工具</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/snippets/">snippets</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:37:28</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="new-application-snippet" data-title="新应用上线 Snippet" data-images="" data-content="Snippet 是一款代码片段收集工具，经过一天三夜的开发终于上线了。应用地址：snippets.barretlee.com源码地址：barretlee/snippets由于使用原生 JS 开发，效果利用 CSS3 实现，所以如果想有一个好的视觉体验，请使用 Chrome/FireFox 预览（后续会持续优化）。" data-url="http://www.barretlee.com/blog/2015/09/29/new-application-snippet/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2015/09/30/confusion-about-for-loop-var/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>JavaScript 关于 for 循环中的疑问</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2015/09/25/move-on-phantomjs/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>走进 phantomjs 嵌入式测试</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2015/09/30/confusion-about-for-loop-var/" class="prev" title="JavaScript 关于 for 循环中的疑问">
+    <i class="icon">&#xe600;</i>
+    
+    <b>JavaScript 关于 for 循环中的疑问</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2015/09/25/move-on-phantomjs/" class="next" title="走进 phantomjs 嵌入式测试">
+    <i class="icon">&#x261e;</i>
+    <b>走进 phantomjs 嵌入式测试</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="new-application-snippet"
+	   data-disqus-identifier="new-application-snippet" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="new-application-snippet" data-title="新应用上线 Snippet" data-url="http://www.barretlee.com/blog/2015/09/29/new-application-snippet/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-05-20 »</font> </span>
+				<a href="/blog/2016/05/20/kindle-book-maker/">Kindle 电子书生成工具</a>
+				<span class="aria-readonly">发表时间为2016年05月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>花了两个晚上把 OPF 和 epub 格式整明白了，准备把订阅的 RSS 内容抓取下来做成电子书推到 kindle 中阅读。后续也会把自己博客整成电子书，提供给习惯 kindle 阅读的朋友。研究这些东西目的还是想回到比较纯粹的阅读设备上，毕竟手机屏小干扰多，看久了眼睛也有点不舒服。本项目旨在写一个 Kindle 电子书的构建工具，从互联网上抓取数据，合并整合都生成一本小巧的 .mobi 电子书。而使用这个工具，你只需要编辑下配置文件，或者直接运行命令行工具。项目地址：https://github.com/barretlee/kindleBookMaker基本原理：根据 OPF 规范生成 KF8 格式的 .mobi 电子书</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-09 »</font> </span>
+				<a href="/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/">多 SSH Key 管理技巧与 Git 多账户登录问题</a>
+				<span class="aria-readonly">发表时间为2016年03月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>对很多开发者，尤其是手握几台甚至几十台机器的同学而言，登录到远程机器处理事务应该是家常便饭。如果你也是其中一员，悄悄问一句，你平时是如何记住一堆帐号、机器地址以及一些附加登录选项的呢？或许你也是这么干的：</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>WiFi 万能钥匙原理和危害探究 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文不会从代码角度分析 WiFi 万能钥匙这个软件是如何「破解」密码的，主要从使用这个软件后的感受出发，分析它可能会用到的手段以及可能存在的风险。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="WiFi 万能钥匙原理和危害探究 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2016/02/23/wifi-key/">
+  <meta property="og:site_name" content="WiFi 万能钥匙原理和危害探究">
+  <meta property="og:description" content="本文不会从代码角度分析 WiFi 万能钥匙这个软件是如何「破解」密码的，主要从使用这个软件后的感受出发，分析它可能会用到的手段以及可能存在的风险。">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2016/02/27/about-cc/" title="谈一谈博客的著作版权问题" />
+  <link rel="next" href="http://www.barretlee.com/blog/2016/02/20/navigator-beacon-api/" title="页面跳转时，统计数据丢失问题探讨" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">WiFi 万能钥匙原理和危害探究</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2016-02-23 23:21:11</time>
+          <span class="aria-readonly">本文发布时间为2016年02月23日23时21分11秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/网络交互/">网络交互</a>,<a class="category-link" href="/blog/categories/网络交互/网络安全/">网络安全</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/WiFi万能钥匙/">WiFi万能钥匙</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="wifi-key"
+                      data-disqus-identifier="wifi-key"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2016/02/23/wifi-key/">http://www.barretlee.com/blog/2016/02/23/wifi-key/</a>，<a href="http://www.barretlee.com/blog/2016/02/23/wifi-key/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <p>本文不会从代码角度分析 WiFi 万能钥匙这个软件是如何「破解」密码的，主要从使用这个软件后的感受出发，分析它可能会用到的手段以及可能存在的风险。</p>
+<a id="more"></a>
+<p>以前因为好奇，安装了 WiFi 万能钥匙，但是从来没有打开过，当时我心里很清楚，蹭网的前提就是自己家被蹭。晚上刷微博看到一张图片，iphone 设备的 WiFi 列表中竟然出现了「🔑一键免费连接🔑」相关的提示，我用自己的手机测试了下，果真如此：</p>
+<p><img src="http://ww2.sinaimg.cn/mw690/6c0378f8gw1f1a96kbjacj20ku112who.jpg" alt="WiFi 破解效果列表" style="width:300px;"><!-- ![WiFi 破解效果列表](http://www.barretlee.com/blogimgs/2016/02/20160203_82a6609a.png) --></p>
+<h3 id="软件对-WiFi-密码的攫取"><a href="#软件对-WiFi-密码的攫取" class="headerlink" title="软件对 WiFi 密码的攫取"></a>软件对 WiFi 密码的攫取</h3><p>获取安装该软件用户连接过的 WiFi 的密码，这是 WiFi 万能钥匙需要攻克的第一个难题，攻克之后，从一个用户身上可以挖到 1-10 个 WiFi id 和 WiFi 密码。攻克的方式嘛，可以去网上搜罗下，很多保存下来的密码都是明文的，或者是只经过了简单的加密操作，如果用户 root 了自己的手机，软件可以随意获取。</p>
+<p>显然，WiFi 万能钥匙有一个自己的云端，储存了大量从用户手机里攫取到的 WiFi 信息，每个储存单元应该包含了如下信息（按照重要性从上往下依次排列）：</p>
+<ul>
+<li>WiFi 容器的物理地址（MAC 信息）</li>
+<li>WiFi 的密码</li>
+<li>WiFi 名称</li>
+<li>WiFi 容器的区域信息</li>
+<li>WiFi 容器的 IP 地址</li>
+</ul>
+<p>由于民众对快速上网的极度渴望，偶然听到或者看到有这么个神器，当机立断将其下载到了手机上，在这两年时间间，该软件的用户量达到了 5 亿之多，月活跃用户在 2.3 亿（数据来自网络），其用户量之多、粘性之强，恐怕只有社交类的软件可以比拟了。由此，也可以想象 WiFi 万能钥匙的云端数据库有多么庞大。</p>
+<h3 id="WiFi-的连接"><a href="#WiFi-的连接" class="headerlink" title="WiFi 的连接"></a>WiFi 的连接</h3><p>初次打开软件的时候，你应该看到了它会向你申请「获取位置信息」的请求，目的有两个，第一是获取你所在区域的大概位置，然后将该位置附近的 WiFi 信息全部缓存到你的客户端，这样做可以大大地减少对服务器的压力，其二，目前 WiFi 万能钥匙也会做一些商品/商家的推广，拿到位置信息方便个性化投放。</p>
+<p><strong>1. 密码匹配</strong></p>
+<p>以前手机没有提供权限给它获取 WiFi 列表，所以软件会引导用户将 WiFi 列表界面截图，然后通过图片分析拿到 WiFi 名称。而如今，iOS 设备不仅提供了获取周边 WiFi 列表的权限，而且还允许软件对每个 WiFi 进行文字备注，如最上面破解效果列表图所示。</p>
+<p>所以我猜测，以前软件只能通过 WiFi 名称进行匹配，而现在可以使用 WiFi 的其他信息如（MAC 地址）进行匹配，匹配度更高，因为 WiFi 名称可能会存在重复问题。</p>
+<p><strong>2. 撞库分析</strong></p>
+<p>拿到了几个亿的数据，自然少不了对数据进行统计和分析，拿到一些常用的弱口令，如八个8、四个123、八个0等，了解路由设置和 WiFi 设置的人本来就不多，很多上门服务的师傅一般就将密码设置成简单好记的，这也很大程度提高了撞库的成功率。对于拿不到密码的 WiFi，软件毫无疑问会作出这种尝试，成本低、成功率还高。</p>
+<p><strong>3. 暴力破解</strong></p>
+<p>暴破应该不会用于实时的密码获取，而是会在沉默状态下，对未知 WiFi 进行暴力破解，破解成功的 WiFi 上传到云端服务器。这种方式可能在软件上线的初期使用，只是我的一种猜测。</p>
+<h3 id="被蹭网存在的危害"><a href="#被蹭网存在的危害" class="headerlink" title="被蹭网存在的危害"></a>被蹭网存在的危害</h3><p>如果家里的网络被小白用户蹭了，无非就是大家同时上网的时候，网速会慢一点，而如果你家网络被一个具备黑客素质的人蹭上了，这个时候可能需要引起注意了。</p>
+<p>如果你家里有 WiFi，那么一定会有一个路由器吧，路由器的密码还是初始状态的 guest/admin 么，或者被你设置成了六个8？如果我是这个攻击者，一定会想各种办法拿到你们家路由器的密码，如果运气好进去了，下一步要做的事情就是把路由器的网关设置成我自己的电脑，然后各种截获和注入。</p>
+<p>如果没有攻克路由器，也可以利用在一个局域网内的条件，通过共享、网络广播等各种欺骗手段忽悠小白用户上当，方法总是很多的。只要打开一个口子，基本上你的手机/电脑就被控制了，投毒、欺骗、诱骗等，能用上的都会用上。</p>
+<h3 id="如何防止被蹭"><a href="#如何防止被蹭" class="headerlink" title="如何防止被蹭"></a>如何防止被蹭</h3><p>你手机上没有安装 WiFi 万能钥匙，也没有将密码告诉旁边的邻居、路人，结果发现自己的网络还是被蹭到了。为啥呢？回想下，原来上个月你家外甥过来了，然后他手机上有这个软件…</p>
+<p>防止被蹭的最好的方式就是，密码不告诉任何人，即便是外甥。现在的路由器默认可以设置两个 WiFi，并且可以对 sub-WiFi 进行流量限制。当然，有些 WiFi 做的比较成熟，可以通过自己的手机监控连接的设备，然后设置白名单和黑名单。不过估计用这种 WiFi 的人不会很多，一般的 WiFi 也支持在 Web 界面上控制上网设备。</p>
+<p>还有一种方式是，在路由器中，将无线设置的 SSID 广播改为「隐藏」，周边设备就没办法找到你家的 WiFi 网络了。</p>
+<h3 id="常规的-WiFi-热点设置原理"><a href="#常规的-WiFi-热点设置原理" class="headerlink" title="常规的 WiFi 热点设置原理"></a>常规的 WiFi 热点设置原理</h3><p>分享一段跑题的内容。</p>
+<p>以前使用 Window/Linux 系统的时候，尝试过将自己的电脑作为热点把网络分享给其他同学，刚开始使用了叫做 猎豹WiFi 的软件，后来自己也开始敲代码折腾，事实上，在 window 下一行代码就能产生一个无线热点：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">netsh wlan <span class="built_in">set</span> myWiFi mode=allow ssid=YOUR_WiFi_NAME key=WiFi_PASSWORD</span><br></pre></td></tr></table></figure>
+<p>上述命令会在系统的某个位置生成一个文件，其中 key 是明文保存的，然后通过如下命令就能开启 WiFi：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 开启 WiFi</span></span><br><span class="line">net wlan start myWiFi </span><br><span class="line"><span class="comment"># 关闭 WiFi</span></span><br><span class="line">net wlan stop myWiFi</span><br></pre></td></tr></table></figure>
+<p>Linux 下稍微费劲些，配合 hostpd 和 dnsmasq，不过也是差不多几行代码的事情。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>本文主要是对 WiFi 万能钥匙这个软件相关功能的一些猜测，具体如何实现，可以去网上观摩下骇客们对软件代码的反编译。</p>
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2016/02/23/wifi-key/">http://www.barretlee.com/blog/2016/02/23/wifi-key/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2016/02/23/wifi-key/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2016-02-23 23:21:11</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/网络交互/">网络交互</a>,<a class="category-link" href="/blog/categories/网络交互/网络安全/">网络安全</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/WiFi万能钥匙/">WiFi万能钥匙</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-04-06 14:58:58</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="wifi-key" data-title="WiFi 万能钥匙原理和危害探究" data-images="" data-content="本文不会从代码角度分析 WiFi 万能钥匙这个软件是如何「破解」密码的，主要从使用这个软件后的感受出发，分析它可能会用到的手段以及可能存在的风险。" data-url="http://www.barretlee.com/blog/2016/02/23/wifi-key/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2016/02/27/about-cc/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>谈一谈博客的著作版权问题</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2016/02/20/navigator-beacon-api/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>页面跳转时，统计数据丢失问题探讨</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2016/02/27/about-cc/" class="prev" title="谈一谈博客的著作版权问题">
+    <i class="icon">&#xe600;</i>
+    
+    <b>谈一谈博客的著作版权问题</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2016/02/20/navigator-beacon-api/" class="next" title="页面跳转时，统计数据丢失问题探讨">
+    <i class="icon">&#x261e;</i>
+    <b>页面跳转时，统计数据丢失问题探讨</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="wifi-key"
+	   data-disqus-identifier="wifi-key" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="wifi-key" data-title="WiFi 万能钥匙原理和危害探究" data-url="http://www.barretlee.com/blog/2016/02/23/wifi-key/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-24 »</font> </span>
+				<a href="/blog/2016/04/24/detail-about-ca-and-certs/">细说 CA 和证书</a>
+				<span class="aria-readonly">发表时间为2016年04月24日</span>
+				<div><span class="aria-readonly">文章概要 </span>CA，Catificate Authority，它的作用就是提供证书（即服务器证书，由域名、公司信息、序列号和签名信息组成）加强服务端和客户端之间信息交互的安全性，以及证书运维相关服务。任何个体/组织都可以扮演 CA 的角色，只不过难以得到客户端的信任，能够受浏览器默认信任的 CA 大厂商有很多，其中 TOP5 是 Symantec、Comodo、Godaddy、GolbalSign 和 Digicert。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-19 »</font> </span>
+				<a href="/blog/2016/03/19/problem-debugging/">对系统链路问题排查的一些看法</a>
+				<span class="aria-readonly">发表时间为2016年03月19日</span>
+				<div><span class="aria-readonly">文章概要 </span>页面上发现几个模块展示比较缓慢，白了大约 5s 之后展示兜底，显然，是接口请求超时了，打开控制台一看，果然，接口挂了。看了下相关页面，因为大量用到这个接口，模块也都加载超时了。换一台电脑看了下，存在一样的问题，确认是接口挂了。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-09 »</font> </span>
+				<a href="/blog/2016/03/09/config-in-ssh-after-troubling-git-connection/">多 SSH Key 管理技巧与 Git 多账户登录问题</a>
+				<span class="aria-readonly">发表时间为2016年03月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>对很多开发者，尤其是手握几台甚至几十台机器的同学而言，登录到远程机器处理事务应该是家常便饭。如果你也是其中一员，悄悄问一句，你平时是如何记住一堆帐号、机器地址以及一些附加登录选项的呢？或许你也是这么干的：</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-03-05 »</font> </span>
+				<a href="/blog/2016/03/05/steps-of-web-content-accessibility/">认识网页无障碍</a>
+				<span class="aria-readonly">发表时间为2016年03月05日</span>
+				<div><span class="aria-readonly">文章概要 </span>最近忙里偷闲坚持了好几个星期网页无障碍相关的学习和研究，看了很多文档，也在 Google 中寻觅了不少博客文章，总的来说就一个感受：规范文档太细节太长，博客指导性不强。</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

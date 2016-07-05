@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery对象与dom对象相互转换 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.刚开始学习jQuery时可能一时会分不清楚哪些是jQuery对象、哪些是DOM对象。至于DOM对象不多解释，我们接触的太多了，下面重点介绍一下jQuery，以及两者相互间的转换。什么是jQuery对象？—就是通过jQuery包装DOM对象后产生的对象。jQuery">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="jQuery对象与dom对象相互转换 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2013/05/16/cb-jQuery-object-to-DOM-object/">
+  <meta property="og:site_name" content="jQuery对象与dom对象相互转换">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.刚开始学习jQuery时可能一时会分不清楚哪些是jQuery对象、哪些是DOM对象。至于DOM对象不多解释，我们接触的太多了，下面重点介绍一下jQuery，以及两者相互间的转换。什么是jQuery对象？—就是通过jQuery包装DOM对象后产生的对象。jQuery">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2013/05/24/cb-canvas-clock/" title="HTML5学习随笔（1）" />
+  <link rel="next" href="http://www.barretlee.com/blog/2013/05/14/cb-four-method-to-Asynchronous/" title="实现Javascript异步编程的4种方法" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">jQuery对象与dom对象相互转换</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2013-05-16 01:02:00</time>
+          <span class="aria-readonly">本文发布时间为2013年05月16日01时02分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="cb-jQuery-object-to-DOM-object"
+                      data-disqus-identifier="cb-jQuery-object-to-DOM-object"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2013/05/16/cb-jQuery-object-to-DOM-object/">http://www.barretlee.com/blog/2013/05/16/cb-jQuery-object-to-DOM-object/</a>，<a href="http://www.barretlee.com/blog/2013/05/16/cb-jQuery-object-to-DOM-object/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/05/16/jQuery-object-to-DOM-object.html" target="_blank">博客园</a>.</div>
+
+<p>刚开始学习jQuery时可能一时会分不清楚哪些是jQuery对象、哪些是DOM对象。至于DOM对象不多解释，我们接触的太多了，下面重点介绍一下jQuery，以及两者相互间的转换。</p><br><h3><strong>什么是jQuery对象？</strong></h3><br><p>—就是通过jQuery包装DOM对象后产生的对象。jQuery对象是jQuery独有的，其可以使用jQuery里的方法。</p><br><p>比如：</p>
+
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$(<span class="string">"#test"</span>).<span class="function"><span class="title">html</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>意思是指：获取ID为test的元素内的html代码。其中html()是jQuery里的方法</p><br><p>这段代码等同于用DOM实现代码：</p>
+
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"id"</span>).innerHTML;</span><br></pre></td></tr></table></figure>
+<p>虽然jQuery对象是包装DOM对象后产生的，但是jQuery无法使用DOM对象的任何方法，同理DOM对象也不能使用jQuery里的方法.乱使用会报错。比如：</p>
+
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$(<span class="string">"#test"</span>)<span class="class">.innerHTML</span> <span class="comment">//错误写法</span></span><br><span class="line">document.<span class="function"><span class="title">getElementById</span><span class="params">(<span class="string">"id"</span>)</span></span>.<span class="function"><span class="title">html</span><span class="params">()</span></span>  <span class="comment">//错误写法</span></span><br></pre></td></tr></table></figure>
+<p>还有一个要注意的是：用#id作为选择符取得的是jQuery对象与document.getElementById(“id”)得到的DOM对象，这两者并不等价。</p><br><p>jQuery对象与DOM对象也可以相互转换。在两者转换前首先我们给一个约定：如果一个获取的是 jQuery对象，那么我们在变量前面加上$，如：var $variab = jQuery对象；如果获取的是DOM对象，则与习惯普通一样：var variab = DOM对象；这么约定只是便于讲解与区别，实际使用中并不规定。</p>
+
+
+<p></p><h3><strong>jQuery对象转成DOM对象</strong></h3><p></p>
+<p>两种转换方式将一个jQuery对象转换成DOM对象：[index]和.get(index);</p><br><p><strong>(1)jQuery对象是一个数据对象，可以通过[index]的方法，来得到相应的DOM对象。</strong></p>
+
+<figure class="highlight xquery"><table><tr><td class="code"><pre><span class="line">var <span class="variable">$v</span> =$(<span class="string">"#v"</span>) ; //jQuery对象</span><br><span class="line">var v=<span class="variable">$v</span>[<span class="number">0</span>]; //DOM对象</span><br><span class="line">alert(v.checked) //检测这个checkbox是否被选中</span><br></pre></td></tr></table></figure>
+<p><strong>(2)jQuery本身提供，通过.get(index)方法，得到相应的DOM对象</strong></p>
+
+<figure class="highlight xquery"><table><tr><td class="code"><pre><span class="line">var <span class="variable">$v</span>=$(<span class="string">"#v"</span>); //jQuery对象</span><br><span class="line">var v=<span class="variable">$v</span>.get(<span class="number">0</span>); //DOM对象</span><br><span class="line">alert(v.checked) //检测这个checkbox是否被选中</span><br></pre></td></tr></table></figure>
+<p></p><h3><strong>DOM对象转成jQuery对象</strong></h3><p></p>
+<p>对于已经是一个DOM对象，只需要用$()把DOM对象包装起来，就可以获得一个jQuery对象了。$(DOM对象)</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> v=<span class="built_in">document</span>.getElementById(<span class="string">"v"</span>); <span class="comment">//DOM对象</span></span><br><span class="line"><span class="keyword">var</span> $v=$(v); <span class="comment">//jQuery对象</span></span><br></pre></td></tr></table></figure>
+<p>转换后，就可以任意使用jQuery的方法了。</p><br><p>通过以上方法，可以任意的相互转换jQuery对象和DOM对象。</p><br><p><span><em><span>注：DOM对象才能使用DOM中的方法，jQuery对象是不可以用DOM中的方法。</span></em></span></p>
+
+
+<p><span><span>* 参考链接：<em><a href="http://www.chinaz.com/design/2010/0309/108144.shtml" target="_blank" rel="external">http://www.chinaz.com/design/2010/0309/108144.shtml</a></em></span></span></p>
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/05/16/cb-jQuery-object-to-DOM-object/">http://www.barretlee.com/blog/2013/05/16/cb-jQuery-object-to-DOM-object/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/05/16/cb-jQuery-object-to-DOM-object/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+<div class="old-article-warning">
+	本文在 <b>1147</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
+</div>
+
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-05-16 01:02:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/杂物间/">杂物间</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="cb-jQuery-object-to-DOM-object" data-title="jQuery对象与dom对象相互转换" data-images="" data-content="本文为归档内容,原始地址在 博客园.刚开始学习jQuery时可能一时会分不清楚哪些是jQuery对象、哪些是DOM对象。至于DOM对象不多解释，我们接触的太多了，下面重点介绍一下jQuery，以及两者相互间的转换。什么是..." data-url="http://www.barretlee.com/blog/2013/05/16/cb-jQuery-object-to-DOM-object/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/05/24/cb-canvas-clock/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>HTML5学习随笔（1）</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/05/14/cb-four-method-to-Asynchronous/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>实现Javascript异步编程的4种方法</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2013/05/24/cb-canvas-clock/" class="prev" title="HTML5学习随笔（1）">
+    <i class="icon">&#xe600;</i>
+    
+    <b>HTML5学习随笔（1）</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/05/14/cb-four-method-to-Asynchronous/" class="next" title="实现Javascript异步编程的4种方法">
+    <i class="icon">&#x261e;</i>
+    <b>实现Javascript异步编程的4种方法</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="cb-jQuery-object-to-DOM-object"
+	   data-disqus-identifier="cb-jQuery-object-to-DOM-object" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="cb-jQuery-object-to-DOM-object" data-title="jQuery对象与dom对象相互转换" data-url="http://www.barretlee.com/blog/2013/05/16/cb-jQuery-object-to-DOM-object/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-18 »</font> </span>
+				<a href="/blog/2016/04/18/javascript-detail/">JavaScript 被忽视的细节</a>
+				<span class="aria-readonly">发表时间为2016年04月18日</span>
+				<div><span class="aria-readonly">文章概要 </span>《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在 微博 上，稍微整理了一番，放在这里，方便阅读。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-02-20 »</font> </span>
+				<a href="/blog/2016/02/20/navigator-beacon-api/">页面跳转时，统计数据丢失问题探讨</a>
+				<span class="aria-readonly">发表时间为2016年02月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>为了更好地了解用户对产品的使用情况，业务中，我们经常会收到埋点统计的需求，比如：收集一段时间内用户光标在页面中的运动情况，包括光标移动、点击等行为统计用户滚屏行为统计用户在站点的停留时长收集页面链接的点击数量等</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>

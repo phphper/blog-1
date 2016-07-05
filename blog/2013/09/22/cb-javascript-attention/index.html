@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript中需要注意的几个问题 | 小胡子哥的个人网站</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,user-scalable=0">
+  <meta name="author" content="https://plus.google.com/112634278852964994392?hl=zh-cn">
+  <meta name="email" content="barret.china@gmail.com">
+  <meta name="description" content="本文为归档内容,原始地址在 博客园.　　JavaScript是一门弱语言，她使用起来不像C/C++那样有十分繁琐的内存管理、类型定义等，所以学习JavaScript的门槛相对来说也比较低。门槛低并不意味着这门语言很简单，我们在使用的时候会遇到各种千奇百怪的问题，有些是因为浏览器的兼容性引起的，有些是">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="JavaScript中需要注意的几个问题 | 小胡子哥的个人网站">
+  <meta property="og:url" content="http://www.barretlee.com/blog/2013/09/22/cb-javascript-attention/">
+  <meta property="og:site_name" content="JavaScript中需要注意的几个问题">
+  <meta property="og:description" content="本文为归档内容,原始地址在 博客园.　　JavaScript是一门弱语言，她使用起来不像C/C++那样有十分繁琐的内存管理、类型定义等，所以学习JavaScript的门槛相对来说也比较低。门槛低并不意味着这门语言很简单，我们在使用的时候会遇到各种千奇百怪的问题，有些是因为浏览器的兼容性引起的，有些是">
+  <meta name="generator" content="https://hexo.io" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <link href="http://www.barretlee.com/blogimgs/app-icon.png" rel="apple-touch-icon-precomposed">
+  <link rel="shoticon" href="http://www.barretlee.com/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" href="http://www.barretlee.com/rss2.xml" title="小胡子哥的个人网站" />
+  <link rel="prev" href="http://www.barretlee.com/blog/2013/09/23/cb-javascript-closure/" title="对闭包机制的深入理解" />
+  <link rel="next" href="http://www.barretlee.com/blog/2013/08/14/cb-javascript-spec/" title="前端编码规范之JavaScript" />
+  <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
+  <link rel="stylesheet" href="/public/css/style.css?v=20160223">
+  <script src="/public/js/jquery.js"></script>
+  <script src="/public/js/aplayer.js"></script>
+  <script src="/public/js/main.js?v=20160705"></script>
+</head>
+<span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
+
+
+<body>
+    <div class="rainbow"></div>
+    <div class="container">
+  <div class="article" itemscope itemtype="http://schema.org/Article">
+    <div class="post">
+      <div class="post-title-wrapper">
+        <h1 class="post-title" itemprop="name">JavaScript中需要注意的几个问题</h1>
+        <a href="/entry/"><img src="/blogimgs/avatar150.png" alt="小胡子哥" /></a>
+      </div>
+      <div class="post-info">
+        <span>作者: <a href="/about/" itemprop="author">小胡子哥</a></span>
+        <span>
+          <time itemprop="timeCreated" aria-hidden="true">2013-09-22 03:40:00</time>
+          <span class="aria-readonly">本文发布时间为2013年09月22日03时40分00秒</span>
+        </span>
+        <span>分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</span>
+        <span tabindex="0" aria-hidden="true">标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</span>
+        <span class="aria-readonly">下面是正文内容</span>
+        <span tabindex="0" aria-hidden="true">评论数: <a href="#comments"
+                      class="ds-thread-count hash-to-comments disqus-comment-count"
+                      data-thread-key="cb-javascript-attention"
+                      data-disqus-identifier="cb-javascript-attention"></a></span>
+      </div>
+      <div class="post-content" itemprop="articleBody">
+        <div class="shit-spider" title="防爬虫不注明出处" tabindex="0" aria-hidden="true">
+          <p>原文地址：<a href="http://www.barretlee.com/blog/2013/09/22/cb-javascript-attention/">http://www.barretlee.com/blog/2013/09/22/cb-javascript-attention/</a>，<a href="http://www.barretlee.com/blog/2013/09/22/cb-javascript-attention/#comments">参与评论</a></p>
+          <img src="http://www.barretlee.com/blogimgs/avatar150.png">
+        </div>
+        <div class="history-article">本文为归档内容,原始地址在 <a href="http://www.cnblogs.com/hustskyking/archive/2013/09/22/javascript-attention.html" target="_blank">博客园</a>.</div>
+
+<p>　　JavaScript是一门弱语言，她使用起来不像C/C++那样有十分繁琐的内存管理、类型定义等，所以学习JavaScript的门槛相对来说也比较低。门槛低并不意味着这门语言很简单，我们在使用的时候会遇到各种千奇百怪的问题，有些是因为浏览器的兼容性引起的，有些是因为JS语法本身所引起的，还有些是因为ECMAScript标准的改变而引起的，总之，这样的问题很多，下面列举</p><br><h3>几个比较容易忽略的点</h3><br><p>　　<strong>1. switch的case判断</strong></p>
+
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> t = <span class="keyword">event</span>.keyCode;</span><br><span class="line"><span class="keyword">switch</span> (t) &#123;</span><br><span class="line">   <span class="keyword">case</span> <span class="string">'65'</span>:</span><br><span class="line">      alert(<span class="string">"Yay!"</span>);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　当keycode为65时，你会发现，咦？怎么木有alert！ 这里需要明确的是，switch在判断的时候使用的是全等号\===”，全等号在比较的时候首先看数据类型是不是一样的，而在这里，t是Number类型，而’65’是String。</p>
+
+
+<p>　　<strong>2. 严格模式下this&ne;window</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> global = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">//undefined</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>　　有时候我们需要用global来缓存this这个全局环境（可能是window，也可能是其他的，比如在Worker中没有window对象，用self代表Global），但是在严格模式下函数作用域返回的this为undefined，一般，我们可以采用如下方式获取到Global对象：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> global = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> t = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">"return this"</span>)();</span><br><span class="line">    <span class="built_in">console</span>.log(t);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>或者：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> global = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> t = <span class="built_in">window</span>.eval(<span class="string">"this"</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(t);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p>　　因为new Function是在全局作用域上执行的，所以返回的是Global对象，下面的eval需要一起注意，eval前如果不交window，那它便处于function作用域中（javascript利用function里分隔作用域），自然不会返回window或者全局对象。使用Function要注意一点：</p>
+
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> local = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">new</span> <span class="function"><span class="keyword">Function</span><span class="params">(<span class="string">"console.log(typeof local);"</span>)</span><span class="params">()</span></span>; <span class="comment">// logs undefined</span></span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<p>　　new Function工作在Global作用域链下，所以是访问不到匿名函数中local的~</p>
+
+
+<p>　　<strong>3. 变量提升（Hoisting）</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> t = <span class="string">"global"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(t); <span class="comment">//undefined</span></span><br><span class="line">    <span class="keyword">return</span>; 　　 <span class="keyword">var</span> t = <span class="string">"local"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　这是一个老生常谈的问题，var最好不好到处散布。所谓的变量提升，在这里存在两个作用域，一个是Global作用域，他下面有t和foo这两个变量，而foo指向的是foo作用域，foo作用域下有一个t变量，画个图演示下吧</p>
+
+<figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line"><span class="string">[Global Scope]</span></span><br><span class="line">    |----- t   <span class="string">[String]</span> undefined -&gt; <span class="string">"global"</span></span><br><span class="line">    |----- foo <span class="string">[Reference]</span> <span class="string">[foo Scope]</span></span><br><span class="line"></span><br><span class="line"><span class="string">[foo Scope]</span></span><br><span class="line">    |----- t   <span class="string">[String]</span> undefined -&gt; <span class="string">"local"</span></span><br></pre></td></tr></table></figure>
+<p>　　刚进入全局作用域链的时候，程序扫描到t和foo两个变量，于是给这个t赋值为undefined，扫面完了之后，看到t有值，于是给赋值”global\，foo指向[foo Scope]，于是进入[foo Scope]，继续扫描函数作用域链下的变量，发现目标t之后，赋值为undefined，在console.log时，是这样的：</p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> t = <span class="string">"global"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> t; <span class="comment">// 等同于 -&gt; var t = undefined;</span></span><br><span class="line">    <span class="built_in">console</span>.log(t); <span class="comment">//undefined     return; 　     var t = "local"; &#125;</span></span><br></pre></td></tr></table></figure>
+<p>　　上面的例子写不写return结果都是一样的，加return，只是为了更好的表达变量提升这个动作的存在。一般比较推荐的变量定义方式：</p>
+
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(a, b, c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = <span class="number">1</span>,</span><br><span class="line">        bar,</span><br><span class="line">        baz = <span class="string">"something"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　　一个var，后边连着一串变量的定义。</p>
+
+
+<p></p><h3>附：javascript严格模式下要注意的地方（转自<a href="http://www.web-tinker.com/article/20125.html" target="_blank">次碳酸钴</a>）</h3><p></p>
+<p>&nbsp;<strong>1. 变量必须声明才能使用</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line">a=<span class="number">1</span>; <span class="comment">//缺少var语句做声明，因此报错</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> a=b=<span class="number">1</span>; <span class="comment">//错误 b未声明</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;<strong>2. 函数声明语句（不包括表达式）不允许在普通代码块（不包括闭包）中使用</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">//闭包中是允许使用函数声明语句的</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">&#125;)();</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">var</span> f=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;; <span class="comment">//函数声明表达式允许</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;&#125;; <span class="comment">//函数声明语句在普通闭包中，错误</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>3. 闭包内的this不指向Global对象</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  alert(<span class="keyword">this</span>); <span class="comment">//输出undefined</span></span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p><strong>4. 对象属性和函数形参不能重复声明</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> o=&#123;a:<span class="number">1</span>,a:<span class="number">1</span>&#125;;</span><br><span class="line"><span class="comment">//这个对象定义了两个a属性，因此报错</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">a,a</span>)</span>&#123;&#125;;</span><br><span class="line"><span class="comment">//这个函数的两个形参都是a，因此报错</span></span><br></pre></td></tr></table></figure>
+<p><strong>5. eval拥有类似闭包的作用域</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> a=<span class="number">1</span>,b=<span class="number">1</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"var a=2"</span>);</span><br><span class="line"><span class="built_in">window</span>.eval(<span class="string">"var b=2"</span>);</span><br><span class="line">alert(a); <span class="comment">//输出1 因为运行的a变成了eval作用域的局部变量</span></span><br><span class="line">alert(b); <span class="comment">//输出2 window.eval依然是全局作用域</span></span><br></pre></td></tr></table></figure>
+<p><strong>6. callee和caller属性无法使用</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">arguments</span>.callee; <span class="comment">//错误 callee无法使用</span></span><br><span class="line">&#125;;</span><br><span class="line">func();</span><br></pre></td></tr></table></figure>
+<p><strong>7. with语句无法使用</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">with</span>(&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>8. 八进制数字常量无法使用</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> a=<span class="number">0999</span>; <span class="comment">//十进制，可以使用</span></span><br><span class="line"><span class="keyword">var</span> b=<span class="number">0123</span>; <span class="comment">//八禁止，无法使用</span></span><br></pre></td></tr></table></figure>
+<p><strong>9. 普通模式下的一些无效操作变成错误</strong></p>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> a=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">delete</span> a;</span><br><span class="line"><span class="comment">//错误 无法删除var声明的变量</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="pi">"use strict"</span>;</span><br><span class="line"><span class="keyword">var</span> o=&#123;get a()&#123;&#125;&#125;;</span><br><span class="line">o.a=<span class="number">1</span>;</span><br><span class="line"><span class="comment">//错误 给只读属性赋值</span></span><br></pre></td></tr></table></figure>
+<p>简单总结这么多，推荐\<a title="次碳酸钴" href="http://www.web-tinker.com/" target="_blank">次碳酸钴</a>“童鞋的博客，细致入微、内容深刻，博客入口：<a title="次碳酸钴" href="http://www.web-tinker.com/" target="_blank">http://www.web-tinker.com</a></p><br><p>关于JavaScript strict mode的详细介绍，请移步：<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/Strict_mode" rel="nofollow" target="_blank">MDN Strict_mode</a></p>
+
+
+
+
+        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/09/22/cb-javascript-attention/">http://www.barretlee.com/blog/2013/09/22/cb-javascript-attention/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/09/22/cb-javascript-attention/#comments" aria-hidden="true">☞ 参与评论</a></p>
+      </div>
+    </div>
+    
+<div class="old-article-warning">
+	本文在 <b>1018</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
+</div>
+
+    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+	<ul>
+		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
+		<li>发表日期:  2013-09-22 03:40:00</li>
+		<li>文章分类: 
+	<a class="category-link" href="/blog/categories/JavaScript/">JavaScript</a>,<a class="category-link" href="/blog/categories/JavaScript/前端杂烩/">前端杂烩</a>
+
+</li>
+		<li>文章标签: 
+<a class="article-tag-link" href="/blog/tags/cnblogs/">cnblogs</a>, <a class="article-tag-link" href="/blog/tags/tech/">tech</a>
+</li>
+		<li>版权声明: 署名-非商业性使用-禁止演绎 3.0 国际（<a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">CC BY-NC-ND 3.0</a>）</li>
+		<li>最后编辑时间: 2016-03-31 15:20:07</li>
+		<li>Feed订阅: <a href="/rss2.xml"><i class="icon">&#x25c8;</i></a></li>
+	</ul>
+	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
+</div>
+    <div class="share-article clearfix">
+    
+    <div class="ds-share" data-thread-key="cb-javascript-attention" data-title="JavaScript中需要注意的几个问题" data-images="" data-content="本文为归档内容,原始地址在 博客园.　　JavaScript是一门弱语言，她使用起来不像C/C++那样有十分繁琐的内存管理、类型定义等，所以学习JavaScript的门槛相对来说也比较低。门槛低并不意味着这门语言很简单，..." data-url="http://www.barretlee.com/blog/2013/09/22/cb-javascript-attention/">
+      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+    </div>
+    </div>
+    <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
+      <ul>
+        <li><a href="/entry/">博客</a></li>
+        <li><a href="/message/">留言</a></li>
+        <li><a href="/about/">关于</a></li>
+        <li><a href="/demo/">实验室</a></li>
+        <li><a href="/comments/">最近评论</a></li>
+        <li><a href="/friends/">友情链接</a></li>
+      </ul>
+    </em>
+  </div>
+  <div class="post-relative">
+<div class="page-relative">
+  
+    <a href="/blog/2013/09/23/cb-javascript-closure/" class="post-prev">
+      <i class="icon" tabindex="0" aria-hidden="true">&#x261c;</i>
+      <span class="aria-readonly">上一篇文章</span>
+      
+        <b>对闭包机制的深入理解</b>
+      
+    </a>
+  
+  
+    <a href="/blog/2013/08/14/cb-javascript-spec/" class="post-next">
+      <span class="aria-readonly">下一篇文章</span>
+      <b>前端编码规范之JavaScript</b>
+      <i class="icon" tabindex="0" aria-hidden="true">&#xe602;</i>
+    </a>
+  
+</div>
+
+
+<div class="page-relative-fixed" tabindex="0" aria-hidden="true">
+  
+  <a href="/blog/2013/09/23/cb-javascript-closure/" class="prev" title="对闭包机制的深入理解">
+    <i class="icon">&#xe600;</i>
+    
+    <b>对闭包机制的深入理解</b>
+    
+  </a>
+  
+  
+  <a href="/blog/2013/08/14/cb-javascript-spec/" class="next" title="前端编码规范之JavaScript">
+    <i class="icon">&#x261e;</i>
+    <b>前端编码规范之JavaScript</b>
+  </a>
+  
+</div>
+</div>
+</div>
+<div class="sidebar" tabindex="0" aria-hidden="true">
+	<div class="func-btns func-btns-up">
+    <span class="func-item">
+        <i class="func-nav icon">&#xe618;<span>目录</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="javascript:void(0);" onclick="return false;">显示目录</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-font icon">&#xe604;<span>设置</span></i>
+        <div class="font-choose-box">
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <div class="font-choose bg-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-sun font-type-song"><i class="icon">&#xe61a;</i></a>
+            <a href="javascript:void(0)" onclick="return false;" class="bg-type bg-type-moon font-type-hei"><i class="icon">&#xe619;</i></a>
+          </div>
+          <div class="font-choose">
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-song">黑体</a>
+            <a href="javascript:void(0)" onclick="return false;" class="font-type font-type-hei">宋体</a>
+          </div>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="http://weibo.com/173248656" target="_blank"><i class="func-fb icon">博<span>分享</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator sharecanvas"><a href="javascript: void(0);">截屏分享</a></p>
+          <p><a href="http://weibo.com/173248656" target="_blank">微博关注</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-about icon">&#x263b;<span>关于</span></i>
+        <div>
+          <i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p><a href="/about/" class="func-about-link" target="_blank">关于作者</a></p>
+          <div id="followMeOnWeibo"></div>
+        </div>
+    </span>
+	</div>
+	<div class="func-btns">
+    <span class="func-item">
+        <a href="http://demo.barretlee.com" target="_blank"><i class="func-rss icon">&#xe603;<span>实验</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="http://demo.barretlee.com" target="_blank">Demo平台</a></p>
+          <p><a href="http://snippets.barretlee.com" target="_blank">Snippet应用</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <i class="func-fb icon">&#x2121;<span>留言</span></i>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <p class="seperator"><a href="/message/" target="_blank">给我留言</a></p>
+          <p><a href="/comments/" target="_blank">近期留言</a></p>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/friends/" target="_blank"><i class="func-rss icon">&#xe601;<span>友链</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i>
+          <a href="/friends/" target="_blank">友情链接</a>
+        </div>
+    </span>
+    <span class="func-item">
+        <a href="/rss2.xml" target="_blank"><i class="func-rss icon">&#x25c8;<span>订阅</span></i></a>
+        <div><i class="left-arrow"></i><i class="left-arrow-clone"></i><a href="/rss2.xml" target="_blank">订阅我吧！</a></div>
+    </span>
+	</div>
+</div>
+
+<div class="single-page-footer">
+<div class="footer">
+	<div class="footer-wraper">
+		<div class="footer-content">
+			<div class="footer-nav">
+	<a href="javascript: void(0);" class="ds-thread-count disqus-comment-count"
+	   data-thread-key="cb-javascript-attention"
+	   data-disqus-identifier="cb-javascript-attention" tabindex="0" aria-hidden="true">评论内容</a>
+	<a href="javascript: void(0);" id="comments">相关文章</a>
+	<a href="/friends/" tabindex="0" aria-hidden="true">友情链接</a>
+</div>
+<div class="nav-detail">
+	<div tabindex="0" aria-hidden="true">
+		
+
+
+
+<div class="ds-thread" tabindex="0" aria-hidden="true" data-thread-key="cb-javascript-attention" data-title="JavaScript中需要注意的几个问题" data-url="http://www.barretlee.com/blog/2013/09/22/cb-javascript-attention/" data-name="barretlee">
+	<div class="ds-loading">
+		<img src="/blogimgs/loading.gif" alt="loading..."/>
+		<p>这网速真是弱爆了...客官稍等,评论还在加载~</p>
+	</div>
+</div>
+
+
+
+
+
+	</div>
+	<div style="display:block;">
+		<!--<div class="relative-to-comment" tabindex="0" aria-hidden="true"><span>（点击评论）</span>古今多少事，都付笑谈中！</div>-->
+		<div class="relative-wrapper">
+	<div class="relative-article">
+		
+		<ul>
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>寥寥几行代码，实现一个简单的元素选择器，兼容低版本 IE。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-28 »</font> </span>
+				<a href="/blog/2016/04/28/javascript-performance-tester/">JavaScript 代码执行效率对比工具</a>
+				<span class="aria-readonly">发表时间为2016年04月28日</span>
+				<div><span class="aria-readonly">文章概要 </span>平时写些小页面小程序，一般不会出现性能问题，但是在大的工程，或者在写一个框架、类库的时候，代码的性能就需要提高一个优先级了。测试代码的性能有多种方案：在 https://jsperf.com 上测试使用 console.time 来收集代码执行的时间console.time('Name');// code here...console.timeEnd('Name');自己写一个时间控制器</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-04-18 »</font> </span>
+				<a href="/blog/2016/04/18/javascript-detail/">JavaScript 被忽视的细节</a>
+				<span class="aria-readonly">发表时间为2016年04月18日</span>
+				<div><span class="aria-readonly">文章概要 </span>《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在 微博 上，稍微整理了一番，放在这里，方便阅读。</div>
+			</li>
+			
+			<li>
+				<span><font aria-hidden="true">2016-02-20 »</font> </span>
+				<a href="/blog/2016/02/20/navigator-beacon-api/">页面跳转时，统计数据丢失问题探讨</a>
+				<span class="aria-readonly">发表时间为2016年02月20日</span>
+				<div><span class="aria-readonly">文章概要 </span>为了更好地了解用户对产品的使用情况，业务中，我们经常会收到埋点统计的需求，比如：收集一段时间内用户光标在页面中的运动情况，包括光标移动、点击等行为统计用户滚屏行为统计用户在站点的停留时长收集页面链接的点击数量等</div>
+			</li>
+			
+		</ul>
+	</div>
+</div>
+		<a href="/entry/" class="relative-to-comment-wrapper" tabindex="0" aria-hidden="true"><div class="relative-to-comment">回到首页</div></a>
+	</div>
+	<div class="friends-box">
+		<ul>
+			
+			<li><a href="http://hustskyking.cnblogs.com" target="_blank">旧博客</a> <font aria-hidden="true">»</font> <span>我的旧博客（博客园荣誉博客）</span></li>
+			
+			<li><a href="http://www.zhangmengxue.com" target="_blank">大额</a> <font aria-hidden="true">»</font> <span>大额大额哼歌等日落</span></li>
+			
+			<li><a href="http://www.zhangxinxu.com" target="_blank">张鑫旭</a> <font aria-hidden="true">»</font> <span>原来大学我俩一个团队的~</span></li>
+			
+			<li><a href="http://web-tinker.com" target="_blank">次碳酸钴</a> <font aria-hidden="true">»</font> <span>深度交流的一个好朋友</span></li>
+			
+			<li><a href="http://imququ.com" target="_blank">屈屈</a> <font aria-hidden="true">»</font> <span>好吧，蛐蛐同学</span></li>
+			
+			<li><a href="http://www.ruanyifeng.com" target="_blank">阮一峰</a> <font aria-hidden="true">»</font> <span>阮老师,哈哈,第一次设计博客就是抄的你的样式</span></li>
+			
+			<li><a href="http://annn.me" target="_blank">安记</a> <font aria-hidden="true">»</font> <span>阿安同学</span></li>
+			
+			<li><a href="http://mouto.org/" target="_blank">卜卜口</a> <font aria-hidden="true">»</font> <span>二次元化身</span></li>
+			
+			<li><a href="/friends/">更多列表 <font aria-hidden="true">»</font></a></li>
+		</ul>
+	</div>
+</div>
+			<div class="website-info" aria-hidden="true">
+	<span>Copyright &copy;2013-2016 <small><a href="http://www.miitbeian.gov.cn/" about="_blank">湘ICP备14007107号-1</a></small></span>
+	本站由 <a href="/">小胡子哥</a> 纯手工打造 | <a href="/about#contact">联系方式</a>
+</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tools-wrapper" tabindex="0" aria-hidden="true">
+	<a class="gotop icon" href="#" title="回到顶部">&#x2191;</a>
+	<a class="wechart icon">&#xe60d;<span><img src="/wechart.png" title="扫码添加小胡子哥微信"/> </span></a>
+	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
+</div>
+<div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+</body>
+</html>
