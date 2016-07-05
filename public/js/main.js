@@ -1378,11 +1378,22 @@ $(function() {
 
 
 ;typeof history.pushState === 'function' && (function() {
+    if(!$('html').attr('loaded')) {
+        history.pushState({
+            url: window.location.href
+        }, '', window.location.href);
+    }
     var pageCache = window.pageCache = window.pageCache || {};
     function pjax(url) {
+
         if(pageCache[url]) {
             return render(pageCache[url]);
         }
+
+        history.pushState({
+            url: url
+        }, '', url);
+
         // var loadingWords = ['伸个懒腰再来~', '打个呵欠再来~', '加载中...', '玩命加载中...', '同学，你很帅！', '这是 Pjax 效果；）', '不要问我这是啥!', '我在加载...', '客官稍等~', '欢迎继续踩点！', '我认识你！', '咱们是不是认识？', '这玩意儿有点意思！', '出 bug 了', '是否有帮到你？', '大家好，我是小胡子', '吃饭了么？'];
         // var word = loadingWords[Math.floor(Math.random() * loadingWords.length)];
         var loadLayer = '<div id="loadLayer" style="position:fixed;left:0;right:0;top:0;bottom:0;background:rgba(255,255,255,0.8);text-align:center;line-height:400px;font-size:30px;z-index:82;display:none;">' + '玩命加载中...' + '</div>';
@@ -1403,10 +1414,6 @@ $(function() {
                 title: title,
                 body: body
             };
-            history.pushState({
-                title: title,
-                url: url
-            }, title, url);
             render(pageCache[url]);
         }).fail(function() {
             window.location.href = url;
