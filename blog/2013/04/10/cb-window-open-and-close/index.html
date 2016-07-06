@@ -113,8 +113,8 @@
 
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>测试<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="comment">//&lt;![[</span></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="comment">//window.opener = null</span></span><br><span class="line">            <span class="keyword">var</span> b = <span class="built_in">window</span>.open(<span class="string">""</span>,<span class="string">"asdfs"</span>,<span class="string">"width=300,height=400"</span>);</span><br><span class="line">            <span class="comment">//window.showModalDialog("http://www.baidu.com","","dialogHeight=200,dialogWidth=300");</span></span><br><span class="line">            b.location.href = <span class="string">"./jQueryDemo.html"</span>;</span><br><span class="line">            <span class="comment">//alert(a.name)</span></span><br><span class="line">            b.opener.getElmentById(<span class="string">"i"</span>).focus();</span><br><span class="line">            <span class="comment">//window.close();</span></span><br><span class="line">            <span class="comment">//第一步，如果该窗口是被他爸爸打开的，先断绝父子关系</span></span><br><span class="line">            <span class="comment">//window.opener = null; </span></span><br><span class="line">            <span class="comment">//window.close()只允许关系自己打开的窗口</span></span><br><span class="line">            <span class="comment">//用一个空页面替换掉现在的页面</span></span><br><span class="line">            <span class="comment">//var a = window.open("", "_self");</span></span><br><span class="line">            <span class="comment">//然后关闭自己打开的页面</span></span><br><span class="line">            <span class="comment">//a.close();</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">//]]&gt;</span></span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">ul</span> <span class="attribute">onclick</span>=<span class="value">"a()"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span>11111<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span>22222<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span>33333<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">li</span>&gt;</span>44444<span class="tag">&lt;/<span class="title">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"i"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/04/10/cb-window-open-and-close/">http://www.barretlee.com/blog/2013/04/10/cb-window-open-and-close/</a></p>
-        <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/04/10/cb-window-open-and-close/#comments" aria-hidden="true">☞ 参与评论</a></p>
+        <!-- <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/04/10/cb-window-open-and-close/">http://www.barretlee.com/blog/2013/04/10/cb-window-open-and-close/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/04/10/cb-window-open-and-close/#comments" aria-hidden="true">☞ 参与评论</a></p> -->
       </div>
     </div>
     
@@ -123,6 +123,21 @@
 	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
 </div>
 
+    <div class="share-article clearfix">
+      
+      <div class="ds-share" data-thread-key="cb-window-open-and-close" data-title="打开窗口，关闭窗口" data-images="" data-content="本文为归档内容,原始地址在 博客园.关键词：window.open() window.close() showModalDialog() 兼容性 测试等。　　　　本文默认你对以上函数参数有基本了解。window.open..." data-url="http://www.barretlee.com/blog/2013/04/10/cb-window-open-and-close/">
+        <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+      </div>
+    </div>
     <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
 	<ul>
 		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
@@ -140,21 +155,6 @@
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
 </div>
-    <div class="share-article clearfix">
-    
-    <div class="ds-share" data-thread-key="cb-window-open-and-close" data-title="打开窗口，关闭窗口" data-images="" data-content="本文为归档内容,原始地址在 博客园.关键词：window.open() window.close() showModalDialog() 兼容性 测试等。　　　　本文默认你对以上函数参数有基本了解。window.open..." data-url="http://www.barretlee.com/blog/2013/04/10/cb-window-open-and-close/">
-      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
-  <ul  class="ds-share-icons-16">
-    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
-    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
-    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
-  </ul>
-  <div class="ds-share-icons-more">
-  </div>
-</div>
-    </div>
-    </div>
     <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
       <ul>
         <li><a href="/entry/">博客</a></li>

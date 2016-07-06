@@ -77,11 +77,26 @@
 </blockquote>
 <p>按照 w3c 的解释，title 元素下有且只有一个 text node，除 IE 外，其他浏览器都能正确打印 getTagName(“title”).item(0).childNodes == 1; 而 IE 他不认为 title 元素有 childNode，你可以当他是没有实现规范的 bug。IE9+ 修复了这个问题。</p>
 
-        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2014/08/21/IE-bug-in-title-element/">http://www.barretlee.com/blog/2014/08/21/IE-bug-in-title-element/</a></p>
-        <p><a class="to-comments" href="http://www.barretlee.com/blog/2014/08/21/IE-bug-in-title-element/#comments" aria-hidden="true">☞ 参与评论</a></p>
+        <!-- <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2014/08/21/IE-bug-in-title-element/">http://www.barretlee.com/blog/2014/08/21/IE-bug-in-title-element/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2014/08/21/IE-bug-in-title-element/#comments" aria-hidden="true">☞ 参与评论</a></p> -->
       </div>
     </div>
     
+    <div class="share-article clearfix">
+      
+      <div class="ds-share" data-thread-key="IE-bug-in-title-element" data-title="IE下title没有childNodes" data-images="" data-content="问题：IE 8下 document.getElementsByTagName(‘title’)[0].firstChild为毛是null啊 而document.getElementsByTagName(‘title’)[..." data-url="http://www.barretlee.com/blog/2014/08/21/IE-bug-in-title-element/">
+        <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+      </div>
+    </div>
     <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
 	<ul>
 		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
@@ -99,21 +114,6 @@
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
 </div>
-    <div class="share-article clearfix">
-    
-    <div class="ds-share" data-thread-key="IE-bug-in-title-element" data-title="IE下title没有childNodes" data-images="" data-content="问题：IE 8下 document.getElementsByTagName(‘title’)[0].firstChild为毛是null啊 而document.getElementsByTagName(‘title’)[..." data-url="http://www.barretlee.com/blog/2014/08/21/IE-bug-in-title-element/">
-      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
-  <ul  class="ds-share-icons-16">
-    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
-    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
-    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
-  </ul>
-  <div class="ds-share-icons-more">
-  </div>
-</div>
-    </div>
-    </div>
     <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
       <ul>
         <li><a href="/entry/">博客</a></li>

@@ -92,11 +92,26 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">funtion loadMainContent()&#123;</span><br><span class="line">  <span class="comment">// 引导用户执行操作，操作一次加载点东西</span></span><br><span class="line">  leadUserDoSomething();</span><br><span class="line">  <span class="comment">// 或者悄悄地缓慢的加载需要的数据</span></span><br><span class="line">  loadDataInQuickMode();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当然，通过 cookie 或者 pageshow 事件属性判断用户浏览器是否有缓存数据不是最终的解决方案，但这是一种思考模式，可以发散思维~</p>
 
-        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/">http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/</a></p>
-        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/#comments" aria-hidden="true">☞ 参与评论</a></p>
+        <!-- <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/">http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/#comments" aria-hidden="true">☞ 参与评论</a></p> -->
       </div>
     </div>
     
+    <div class="share-article clearfix">
+      
+      <div class="ds-share" data-thread-key="detect-first-visit-usr" data-title="根据访问属性进行差异化数据加载" data-images="" data-content="判断用户是否第一次访问页面，先不说怎么做，想想什么场景下会用到？如果我们页面的体积过大，用户第一次访问，会消耗大量的时间(2-5s)去下载页面所需要的资源，给用户带来的体验是很不好的，尤其是移动端的用户。如果我们可以在用..." data-url="http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/">
+        <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+      </div>
+    </div>
     <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
 	<ul>
 		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
@@ -114,21 +129,6 @@
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
 </div>
-    <div class="share-article clearfix">
-    
-    <div class="ds-share" data-thread-key="detect-first-visit-usr" data-title="根据访问属性进行差异化数据加载" data-images="" data-content="判断用户是否第一次访问页面，先不说怎么做，想想什么场景下会用到？如果我们页面的体积过大，用户第一次访问，会消耗大量的时间(2-5s)去下载页面所需要的资源，给用户带来的体验是很不好的，尤其是移动端的用户。如果我们可以在用..." data-url="http://www.barretlee.com/blog/2015/04/03/detect-first-visit-usr/">
-      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
-  <ul  class="ds-share-icons-16">
-    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
-    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
-    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
-  </ul>
-  <div class="ds-share-icons-more">
-  </div>
-</div>
-    </div>
-    </div>
     <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
       <ul>
         <li><a href="/entry/">博客</a></li>

@@ -128,11 +128,26 @@
 <p>会发现，网页 URL 地址框左边已经多出了一个小绿锁。当然，部署好了之后可以去<a href="https://www.ssllabs.com/ssltest/analyze.html" target="_blank" rel="external">这个网站</a>看看测评分数，如果分数是 A+，说明你的 HTTPS 的各项配置都还不错，速度也很快。</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>好吧，我也是初次尝试，本地测试是 ok 的，由于买的阿里云服务器到期了也没续费，就没远程折腾，其实本地 Nginx + Nodejs，然后 Hosts 配置域名也是可以较好模拟的。文中很多地方描述的可能不是十分准确，提到的点也不够全面，如果有错误，还请斧正！</p>
 
-        <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/10/05/how-to-build-a-https-server/">http://www.barretlee.com/blog/2015/10/05/how-to-build-a-https-server/</a></p>
-        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/10/05/how-to-build-a-https-server/#comments" aria-hidden="true">☞ 参与评论</a></p>
+        <!-- <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2015/10/05/how-to-build-a-https-server/">http://www.barretlee.com/blog/2015/10/05/how-to-build-a-https-server/</a></p>
+        <p><a class="to-comments" href="http://www.barretlee.com/blog/2015/10/05/how-to-build-a-https-server/#comments" aria-hidden="true">☞ 参与评论</a></p> -->
       </div>
     </div>
     
+    <div class="share-article clearfix">
+      
+      <div class="ds-share" data-thread-key="how-to-build-a-https-server" data-title="HTTPS证书生成原理和部署细节" data-images="" data-content="今天摸索了下 HTTPS 的证书生成，以及它在 Nginx 上的部署。由于博客托管在 github 上，没办法部署证书，先记录下，后续有需要方便快捷操作。本文的阐述不一定完善，但是可以让一个初学者了解大致的原理，同时跟着操作可以为自己的博客/网站部署一个 HTTPS 证书。" data-url="http://www.barretlee.com/blog/2015/10/05/how-to-build-a-https-server/">
+        <div class="ds-share-inline" tabindex="0" aria-hidden="true">
+  <ul  class="ds-share-icons-16">
+    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
+    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
+    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
+  </ul>
+  <div class="ds-share-icons-more">
+  </div>
+</div>
+      </div>
+    </div>
     <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
 	<ul>
 		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
@@ -150,21 +165,6 @@
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
 </div>
-    <div class="share-article clearfix">
-    
-    <div class="ds-share" data-thread-key="how-to-build-a-https-server" data-title="HTTPS证书生成原理和部署细节" data-images="" data-content="今天摸索了下 HTTPS 的证书生成，以及它在 Nginx 上的部署。由于博客托管在 github 上，没办法部署证书，先记录下，后续有需要方便快捷操作。本文的阐述不一定完善，但是可以让一个初学者了解大致的原理，同时跟着操作可以为自己的博客/网站部署一个 HTTPS 证书。" data-url="http://www.barretlee.com/blog/2015/10/05/how-to-build-a-https-server/">
-      <div class="ds-share-inline" tabindex="0" aria-hidden="true">
-  <ul  class="ds-share-icons-16">
-    <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-    <li> <a class="ds-google" href="javascript:void(0);" data-service="google">Google+</a> </li>
-    <li> <a class="ds-weibo" href="javascript:void(0);" data-service="weibo">新浪微博</a> </li>
-    <li> <a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a> </li>
-  </ul>
-  <div class="ds-share-icons-more">
-  </div>
-</div>
-    </div>
-    </div>
     <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
       <ul>
         <li><a href="/entry/">博客</a></li>
