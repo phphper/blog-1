@@ -2235,7 +2235,7 @@ div#ds-thread #ds-reset .ds-post-options {
   }
   .ds-post-self:hover .ds-post-repost,
   .ds-post-self:hover .ds-post-report,
-  .ds-post-self:hover .ds-post-delete {
+  .ds-post-self:hover .ds-post-reply {
     display: none !important;
   }
 }
