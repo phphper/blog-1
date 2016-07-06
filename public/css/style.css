@@ -5822,6 +5822,8 @@ br {
   white-space: nowrap;
   -webkit-user-select: none;
   font-weight: bold;
+  width: 100%;
+  z-index: 104;
 }
 .ds-loading {
   padding: 20px 0;
