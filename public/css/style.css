@@ -3449,6 +3449,12 @@ table th {
 }
 .share-article .ds-share {
   float: right;
+  transition: all 0.2s;
+  -webkit-filter: grayscale(1);
+}
+.share-article .ds-share:hover {
+  transition: all 0.2s;
+  -webkit-filter: grayscale(0);
 }
 .share-article h2 {
   font-family: Simsun, "Microsoft Yahei";
