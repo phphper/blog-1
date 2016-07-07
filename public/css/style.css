@@ -3216,7 +3216,7 @@ h1 img {
   border: 1px solid #ccc;
   padding: 2px;
   font-size: 0;
-  margin-top: 16px;
+  margin-top: 8px;
   opacity: 1 !important;
   z-index: 1;
 }
@@ -3227,7 +3227,8 @@ h1:hover img {
   cursor: none;
   box-shadow: 1px 1px 2px #eee;
   background: #fff;
-  transition: all 0.1s;
+  margin-left: -164px;
+  transition: height 0.1s;
 }
 .article {
   padding: 90px 40px 60px;
