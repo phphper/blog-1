@@ -6116,7 +6116,8 @@ span.line {
   }
 }
 @media screen and (max-width: 800px) {
-  .sidebar-toggler {
+  .sidebar-toggler,
+  h1 img {
     display: none;
   }
   .entry-wrapper {
