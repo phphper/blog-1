@@ -3217,14 +3217,15 @@ h1 img {
   padding: 2px;
   font-size: 0;
   margin-top: 16px;
+  opacity: 1 !important;
+  z-index: 1;
 }
 h1:hover img {
   width: 200px;
   height: 200px;
   z-index: 20;
   cursor: none;
-  box-shadow: 1px 1px 2px #ccc;
-  border-radius: 2px;
+  box-shadow: 1px 1px 2px #eee;
   background: #fff;
   transition: all 0.1s;
 }
@@ -3295,6 +3296,9 @@ h1:hover img {
   color: #808080;
   font-weight: bold;
   margin-bottom: 25px;
+  position: relative;
+  z-index: 10;
+  background: #fff;
 }
 .post-info span {
   display: inline-block;
@@ -3442,6 +3446,9 @@ table th {
   *overflow: hidden;
   margin: 40px 0;
 }
+.share-article .ds-share {
+  float: right;
+}
 .share-article h2 {
   font-family: Simsun, "Microsoft Yahei";
 }
@@ -3518,7 +3525,7 @@ table th {
   border-bottom: 1px dashed #ccc;
   padding: 30px 55px;
   background: #f8f8f8;
-  margin-top: 45px;
+  margin-top: 65px;
   position: relative;
   font-size: 14px;
   margin-left: -40px;
@@ -3720,6 +3727,75 @@ table th {
   padding: 3px;
   border: 1px solid #ccc;
   margin: 10px 0;
+}
+.aboutme .pay span {
+  display: inline-block;
+  vertical-align: middle;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+  margin-right: 40px;
+  padding: 2px 6px 20px;
+  margin-bottom: 10px;
+}
+.aboutme .pay img {
+  height: 200px;
+  background: #eee;
+  text-align: center;
+}
+.aboutme .pay b,
+.aboutme .pay i {
+  display: block;
+  margin-top: -18px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: normal;
+  font-family: consolas;
+  font-style: normal;
+}
+.aboutme .wechatpay b {
+  display: none;
+}
+.aboutme .wechatpay b,
+.aboutme .wechatpay i {
+  color: #008000;
+}
+.aboutme .alipay b,
+.aboutme .alipay i {
+  margin-top: -16px;
+  color: #01aaef;
+}
+.supportme {
+  position: absolute;
+  left: 50%;
+  top: -32px;
+  font-size: 30px;
+  line-height: 60px;
+  width: 60px;
+  height: 60px;
+  -webkit-user-select: none;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff;
+  border: 1px solid #f1b60e;
+  border-radius: 50%;
+  background: #fccd60; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #fccd60 0%, #fbae12 100%, #207cca 100%, #2989d8 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #fccd60 0%, #fbae12 100%, #207cca 100%, #2989d8 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #fccd60 0%, #fbae12 100%, #207cca 100%, #2989d8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: quote("progid:DXImageTransform.Microsoft.gradient( startColorstr='#fccd60', endColorstr='#2989d8',GradientType=1 )"); /* IE6-9 fallback on horizontal gradient */
+  margin-left: -30px;
+  transition: all 0.3s;
+}
+.supportme:hover {
+  text-decoration: none;
+  color: #fff;
+  background: #2989d8; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #2989d8 0%, #207cca 0%, #fbae12 0%, #fccd60 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #2989d8 0%, #207cca 0%, #fbae12 0%, #fccd60 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #2989d8 0%, #207cca 0%, #fbae12 0%, #fccd60 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: quote("progid:DXImageTransform.Microsoft.gradient( startColorstr='#2989d8', endColorstr='#fccd60',GradientType=1 )"); /* IE6-9 fallback on horizontal gradient */
+  transition: all 0.3s;
 }
 .footer {
   background: #3f3f3f;
@@ -4562,6 +4638,9 @@ body.body-bg-moon {
   color: #ccc;
 }
 .body-bg-moon .post {
+  background: #222;
+}
+.body-bg-moon .post-info {
   background: #222;
 }
 .body-bg-moon table th {
@@ -6386,11 +6465,18 @@ span.line {
     margin-right: 0;
     margin-left: 0;
     border: 1px dashed #ccc;
-    padding: 20px;
+    padding: 40px 20px 20px;
   }
   .copyright img {
     top: 20px;
     right: 15px;
+  }
+  .copyright .supportme {
+    top: -30px;
+    font-size: 24px;
+    line-height: 50px;
+    width: 50px;
+    height: 50px;
   }
   .home-box {
     width: 310px;
