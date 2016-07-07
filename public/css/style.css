@@ -3220,7 +3220,7 @@ h1 img {
   opacity: 1 !important;
   z-index: 1;
 }
-h1:hover img {
+h1 img:hover {
   width: 200px;
   height: 200px;
   z-index: 20;
