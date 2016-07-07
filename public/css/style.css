@@ -5988,6 +5988,14 @@ span.line {
   height: 18px;
   line-height: 18px;
 }
+@media screen and (max-width: 1260px) {
+  .bread {
+    display: none;
+  }
+  .article {
+    paddint-top: 70px;
+  }
+}
 @media screen and (max-width: 991px) {
   .article em.arrow-expend,
   .share-article {
