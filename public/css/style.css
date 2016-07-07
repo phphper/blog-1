@@ -5814,6 +5814,7 @@ br {
   background-color: #fafafa;
   border-bottom: 1px solid #eee;
   color: #ff5900;
+  position: relative;
   min-height: 40px;
   background-image: none;
   overflow: hidden;
