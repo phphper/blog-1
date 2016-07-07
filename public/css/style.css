@@ -3451,6 +3451,8 @@ table th {
   float: right;
   transition: all 0.2s;
   -webkit-filter: grayscale(1);
+  height: 30px;
+  overflow: hidden;
 }
 .share-article .ds-share:hover {
   transition: all 0.2s;
