@@ -3225,6 +3225,7 @@ h1:hover img {
   box-shadow: 1px 1px 2px #ccc;
   border-radius: 2px;
   background: #fff;
+  transition: all 0.1s;
 }
 .article {
   padding: 90px 40px 60px;
