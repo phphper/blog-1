@@ -23,16 +23,13 @@
   <link rel="next" href="http://www.barretlee.com/blog/2015/11/20/new-input-methed-rime/" title="换新的输入法，Rime" />
   <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
   <link rel="stylesheet" href="/public/css/style.css?v=20160223">
-  <script src="/public/js/jquery.js"></script>
-  <script src="/public/js/aplayer.js"></script>
-  <script src="/public/js/main.js?v=20160705"></script>
 </head>
 <span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
 
 
 <body>
-    <div class="rainbow"></div>
-    <div class="container">
+  <div class="rainbow"></div>
+  <div class="container">
   <div class="article" itemscope itemtype="http://schema.org/Article">
     <div class="post">
       <div class="bread">
@@ -165,7 +162,7 @@
 <li><a href="http://www.csdn.net/article/1970-01-01/2815164" target="_blank" rel="external">http://www.csdn.net/article/1970-01-01/2815164</a> By 李晶</li>
 <li><a href="http://cnberg.com/archive/2013-fe/" target="_blank" rel="external">http://cnberg.com/archive/2013-fe/</a> By Berg</li>
 <li><a href="http://www.infoq.com/cn/articles/2014-review-front-end-part" target="_blank" rel="external">http://www.infoq.com/cn/articles/2014-review-front-end-part</a> By 黄丹</li>
-<li><a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#x68;&#x74;&#116;&#x70;&#x73;&#58;&#x2f;&#x2f;&#109;&#x65;&#100;&#105;&#117;&#x6d;&#x2e;&#99;&#x6f;&#x6d;&#x2f;&#64;&#x73;&#x68;&#105;&#106;&#117;&#118;&#x61;&#x72;&#x2f;&#119;&#101;&#98;&#x2d;&#100;&#101;&#x76;&#x65;&#x6c;&#111;&#112;&#109;&#x65;&#110;&#x74;&#45;&#116;&#114;&#101;&#x6e;&#100;&#115;&#x2d;&#102;&#111;&#114;&#45;&#x32;&#48;&#49;&#x35;&#x2d;&#x61;&#x6e;&#100;&#45;&#x62;&#x65;&#121;&#x6f;&#x6e;&#x64;&#45;&#x63;&#x32;&#100;&#x33;&#99;&#x31;&#101;&#x66;&#x35;&#x37;&#49;&#x38;">&#x68;&#x74;&#116;&#x70;&#x73;&#58;&#x2f;&#x2f;&#109;&#x65;&#100;&#105;&#117;&#x6d;&#x2e;&#99;&#x6f;&#x6d;&#x2f;&#64;&#x73;&#x68;&#105;&#106;&#117;&#118;&#x61;&#x72;&#x2f;&#119;&#101;&#98;&#x2d;&#100;&#101;&#x76;&#x65;&#x6c;&#111;&#112;&#109;&#x65;&#110;&#x74;&#45;&#116;&#114;&#101;&#x6e;&#100;&#115;&#x2d;&#102;&#111;&#114;&#45;&#x32;&#48;&#49;&#x35;&#x2d;&#x61;&#x6e;&#100;&#45;&#x62;&#x65;&#121;&#x6f;&#x6e;&#x64;&#45;&#x63;&#x32;&#100;&#x33;&#99;&#x31;&#101;&#x66;&#x35;&#x37;&#49;&#x38;</a> By Shiju Varghese</li>
+<li><a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#104;&#116;&#x74;&#x70;&#115;&#x3a;&#47;&#47;&#x6d;&#101;&#x64;&#x69;&#117;&#x6d;&#46;&#x63;&#x6f;&#109;&#x2f;&#x40;&#115;&#104;&#x69;&#106;&#117;&#x76;&#x61;&#x72;&#x2f;&#x77;&#101;&#x62;&#x2d;&#100;&#101;&#118;&#101;&#x6c;&#x6f;&#112;&#x6d;&#101;&#x6e;&#116;&#45;&#x74;&#114;&#x65;&#110;&#100;&#115;&#x2d;&#102;&#x6f;&#x72;&#x2d;&#50;&#48;&#x31;&#x35;&#x2d;&#97;&#x6e;&#x64;&#x2d;&#98;&#x65;&#121;&#111;&#x6e;&#100;&#45;&#x63;&#x32;&#100;&#51;&#x63;&#x31;&#101;&#102;&#x35;&#x37;&#x31;&#56;">&#104;&#116;&#x74;&#x70;&#115;&#x3a;&#47;&#47;&#x6d;&#101;&#x64;&#x69;&#117;&#x6d;&#46;&#x63;&#x6f;&#109;&#x2f;&#x40;&#115;&#104;&#x69;&#106;&#117;&#x76;&#x61;&#x72;&#x2f;&#x77;&#101;&#x62;&#x2d;&#100;&#101;&#118;&#101;&#x6c;&#x6f;&#112;&#x6d;&#101;&#x6e;&#116;&#45;&#x74;&#114;&#x65;&#110;&#100;&#115;&#x2d;&#102;&#x6f;&#x72;&#x2d;&#50;&#48;&#x31;&#x35;&#x2d;&#97;&#x6e;&#x64;&#x2d;&#98;&#x65;&#121;&#111;&#x6e;&#100;&#45;&#x63;&#x32;&#100;&#51;&#x63;&#x31;&#101;&#102;&#x35;&#x37;&#x31;&#56;</a> By Shiju Varghese</li>
 <li><a href="https://github.com/kuitos/kuitos.github.io/issues/32" target="_blank" rel="external">https://github.com/kuitos/kuitos.github.io/issues/32</a> By Kuitos</li>
 </ul>
 
@@ -429,4 +426,13 @@
 </div>
 <div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
 </body>
+<script src="/public/js/jquery.js"></script>
+<script>
+  window.onerror = function(e) {
+    window.console && window.console.log && window.console.log(e);
+    return true;
+  };
+</script>
+<script src="/public/js/aplayer.js"></script>
+<script src="/public/js/main.js?v=20160707"></script>
 </html>

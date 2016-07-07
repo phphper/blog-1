@@ -23,16 +23,13 @@
   <link rel="next" href="http://www.barretlee.com/blog/2014/05/13/cb-personal-website-design-part-1/" title="个人网站架构设计(一)" />
   <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
   <link rel="stylesheet" href="/public/css/style.css?v=20160223">
-  <script src="/public/js/jquery.js"></script>
-  <script src="/public/js/aplayer.js"></script>
-  <script src="/public/js/main.js?v=20160705"></script>
 </head>
 <span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
 
 
 <body>
-    <div class="rainbow"></div>
-    <div class="container">
+  <div class="rainbow"></div>
+  <div class="container">
   <div class="article" itemscope itemtype="http://schema.org/Article">
     <div class="post">
       <div class="bread">
@@ -345,4 +342,13 @@
 </div>
 <div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
 </body>
+<script src="/public/js/jquery.js"></script>
+<script>
+  window.onerror = function(e) {
+    window.console && window.console.log && window.console.log(e);
+    return true;
+  };
+</script>
+<script src="/public/js/aplayer.js"></script>
+<script src="/public/js/main.js?v=20160707"></script>
 </html>
