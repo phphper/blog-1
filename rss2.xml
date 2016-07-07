@@ -8,8 +8,22 @@
     <script xmlns="http://www.w3.org/1999/xhtml" src="/public/js/rss.js"></script>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[想法，随笔，思考，感叹，瞬间，笔记...]]></description>
-    <pubDate>Tue Jun 28 2016 20:13:17 GMT+0800 (CST)</pubDate>
+    <pubDate>Thu Jul 07 2016 20:12:23 GMT+0800 (CST)</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[招行香港一卡通办理和使用]]></title>
+      <link>http://www.barretlee.com/blog/2016/07/07/hongkong-cmbchina/</link>
+      <guid>http://www.barretlee.com/blog/2016/07/07/hongkong-cmbchina/</guid>
+      <pubDate>Thu Jul 07 2016 19:44:39 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[最近办了一张招行香港一卡通，流程比较长，遇到的问题也很多，趁着自己还记得比较清楚，写下来备忘。]]>
+      
+      </description>
+      <content:encoded><![CDATA[最近办了一张招行香港一卡通，流程比较长，遇到的问题也很多，趁着自己还记得比较清楚，写下来备忘。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/07/07/hongkong-cmbchina/#disqus_thread</comments>
+    </item>
     
     <item>
       <title><![CDATA[谈一谈越来越难做的前端]]></title>
@@ -415,20 +429,6 @@
       <content:encoded><![CDATA[很多人买电脑半年一年之后，都会遇到这样一个问题：硬盘已经装不下？尤其是有些爱折腾的朋友喜欢安装多个系统，或者爱把各种美剧批量下载到本地，渐渐地，也只好去网上搜罗个硬盘。现在四五百就能买到一个 1TB 的硬盘，也不算很贵，可是电脑边上总挂着一坨东西，不仅不方便也不好看。]]>
       </content:encoded>
       <comments>http://www.barretlee.com/blog/2015/11/07/put-your-computer-to-internet/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[你所不知道的 HSTS]]></title>
-      <link>http://www.barretlee.com/blog/2015/10/22/hsts-intro/</link>
-      <guid>http://www.barretlee.com/blog/2015/10/22/hsts-intro/</guid>
-      <pubDate>Thu Oct 22 2015 17:48:26 GMT+0800 (CST)</pubDate>
-      <description>
-      <![CDATA[本文简单说明了 HSTS 的基本原理和相关内容，他在全站 https 下有一个较大的正向作用，推荐使用。]]>
-      
-      </description>
-      <content:encoded><![CDATA[本文简单说明了 HSTS 的基本原理和相关内容，他在全站 https 下有一个较大的正向作用，推荐使用。]]>
-      </content:encoded>
-      <comments>http://www.barretlee.com/blog/2015/10/22/hsts-intro/#disqus_thread</comments>
     </item>
     
   </channel>

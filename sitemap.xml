@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.barretlee.com/blog/2016/07/07/hongkong-cmbchina/</loc>
+    <lastmod>2016-07-07T12:12:23.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.barretlee.com/music/nmlist.js</loc>
     <lastmod>2016-07-07T07:07:47.000Z</lastmod>
   </url>
@@ -12,7 +17,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/85731479.js</loc>
+    <loc>http://www.barretlee.com/music/9441723.js</loc>
     <lastmod>2016-07-04T11:54:17.000Z</lastmod>
   </url>
   
@@ -22,7 +27,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/9441723.js</loc>
+    <loc>http://www.barretlee.com/music/85731479.js</loc>
     <lastmod>2016-07-04T11:54:17.000Z</lastmod>
   </url>
   
@@ -32,72 +37,12 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/837456.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/80535405.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/49242031.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/7993654.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/71623818.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.barretlee.com/music/63733309.js</loc>
     <lastmod>2016-07-04T11:54:16.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/3696034.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/37426351.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/377030704.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/377712670.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/396359016.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/4046727.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.barretlee.com/music/4142084.js</loc>
-    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/4378013.js</loc>
     <lastmod>2016-07-04T11:54:16.000Z</lastmod>
   </url>
   
@@ -117,7 +62,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/6180953.js</loc>
+    <loc>http://www.barretlee.com/music/49242031.js</loc>
     <lastmod>2016-07-04T11:54:16.000Z</lastmod>
   </url>
   
@@ -127,7 +72,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/53833481.js</loc>
+    <loc>http://www.barretlee.com/music/3696034.js</loc>
     <lastmod>2016-07-04T11:54:16.000Z</lastmod>
   </url>
   
@@ -137,27 +82,92 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/148561936.js</loc>
+    <loc>http://www.barretlee.com/music/6180953.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/4378013.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/71623818.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/7993654.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/80535405.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/837456.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/4046727.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/396359016.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/377712670.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/377030704.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/37426351.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/53833481.js</loc>
+    <lastmod>2016-07-04T11:54:16.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/2535961.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/24716501.js</loc>
+    <loc>http://www.barretlee.com/music/26434035.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/34794933.js</loc>
+    <loc>http://www.barretlee.com/music/2783240.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/33969334.js</loc>
+    <loc>http://www.barretlee.com/music/2892108.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/250819.js</loc>
+    <loc>http://www.barretlee.com/music/32040661.js</loc>
+    <lastmod>2016-07-04T11:54:15.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/3309010.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
@@ -167,7 +177,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/3309010.js</loc>
+    <loc>http://www.barretlee.com/music/33969334.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
@@ -187,7 +197,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/362197741.js</loc>
+    <loc>http://www.barretlee.com/music/148561936.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
@@ -197,7 +207,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/32040661.js</loc>
+    <loc>http://www.barretlee.com/music/34794933.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
@@ -207,27 +217,22 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/music/2892108.js</loc>
-    <lastmod>2016-07-04T11:54:15.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/2783240.js</loc>
-    <lastmod>2016-07-04T11:54:15.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/26434035.js</loc>
-    <lastmod>2016-07-04T11:54:15.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.barretlee.com/music/2535961.js</loc>
+    <loc>http://www.barretlee.com/music/362197741.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
   <url>
     <loc>http://www.barretlee.com/music/23169019.js</loc>
+    <lastmod>2016-07-04T11:54:15.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/24716501.js</loc>
+    <lastmod>2016-07-04T11:54:15.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/music/250819.js</loc>
     <lastmod>2016-07-04T11:54:15.000Z</lastmod>
   </url>
   
@@ -322,11 +327,6 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/09/22/ok-today-its-my-birthday/</loc>
-    <lastmod>2016-03-31T07:37:28.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.barretlee.com/blog/2015/11/16/lazyload-component/</loc>
     <lastmod>2016-03-31T07:37:28.000Z</lastmod>
   </url>
@@ -352,11 +352,6 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/11/07/put-your-computer-to-internet/</loc>
-    <lastmod>2016-03-31T07:37:28.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.barretlee.com/blog/2015/09/30/confusion-about-for-loop-var/</loc>
     <lastmod>2016-03-31T07:37:28.000Z</lastmod>
   </url>
@@ -368,6 +363,16 @@
   
   <url>
     <loc>http://www.barretlee.com/blog/2015/10/07/debug-nodejs-in-command-line/</loc>
+    <lastmod>2016-03-31T07:37:28.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/10/22/hsts-intro/</loc>
+    <lastmod>2016-03-31T07:37:28.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.barretlee.com/blog/2015/09/22/ok-today-its-my-birthday/</loc>
     <lastmod>2016-03-31T07:37:28.000Z</lastmod>
   </url>
   
@@ -397,7 +402,7 @@
   </url>
   
   <url>
-    <loc>http://www.barretlee.com/blog/2015/10/22/hsts-intro/</loc>
+    <loc>http://www.barretlee.com/blog/2015/11/07/put-your-computer-to-internet/</loc>
     <lastmod>2016-03-31T07:37:28.000Z</lastmod>
   </url>
   
