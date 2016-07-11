@@ -22,7 +22,7 @@
   <link rel="prev" href="http://www.barretlee.com/blog/2013/04/27/cb-garbage-collection/" title="JavaScript垃圾回收机制" />
   <link rel="next" href="http://www.barretlee.com/blog/2013/04/24/cb-ie6-bugs/" title="IE6 bug集" />
   <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
-  <link rel="stylesheet" href="/public/css/style.css?v=20160707">
+  <link rel="stylesheet" href="/public/css/style.css?v=20160708">
 </head>
 <span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
 
@@ -72,7 +72,7 @@
 
 <p>我们来看看闭包的用途。事实上，通过使用闭包，我们可以做很多事情。比如模拟面向对象的代码风格；更优雅，更简洁的表达出代码；在某些方面提升代码的执行效率。</p><br><p><strong>1. 匿名自执行函数</strong></p><br><p>我们知道所有的变量，如果不加上var关键字，则默认的会添加到全局对象的属性上去，这样的临时变量加入全局对象有很多坏处，比如：别的函数可能误用这些变量；造成全局对象过于庞大，影响访问速度(因为变量的取值是需要从原型链上遍历的)。除了每次使用变量都是用var关键字外，我们在实际情况下经常遇到这样一种情况，即有的函数只需要执行一次，其内部变量无需维护，比如UI的初始化，那么我们可以使用闭包：</p>
 
-<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> datamodel = <span class="comment">&#123;</span><br><span class="line">    table : [],</span><br><span class="line">    tree : &#123;&#125;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">(dm)</span><span class="comment">&#123;</span><br><span class="line">    for(var i = 0; i &lt; dm.table.rows; i++)&#123;</span><br><span class="line">       var row = dm.table.rows[i];</span><br><span class="line">       for(var j = 0; j &lt; row.cells; i++)&#123;</span><br><span class="line">           drawCell(i, j);</span><br><span class="line">       &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//build dm.tree    </span></span><br><span class="line">&#125;)<span class="params">(datamodel)</span>;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> datamodel = &#123;</span><br><span class="line">    table : [],</span><br><span class="line">    tree : &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span><span class="params">(dm)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; dm.table.rows; i++)&#123;</span><br><span class="line">       <span class="keyword">var</span> row = dm.table.rows[i];</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; row.cells; i++)&#123;</span><br><span class="line">           drawCell(i, j);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//build dm.tree    </span></span><br><span class="line">&#125;)(datamodel);</span><br></pre></td></tr></table></figure>
 <p>我们创建了一个匿名的函数，并立即执行它，由于外部无法引用它内部的变量，因此在执行完后很快就会被释放，关键是这种机制不会污染全局对象。<strong>2.缓存</strong></p><br><p>再来看一个例子，设想我们有一个处理过程很耗时的函数对象，每次调用都会花费很长时间，那么我们就需要将计算出来的值存储起来，当调用这个函数的时候，首先在缓存中查找，如果找不到，则进行计算，然后更新缓存并返回值，如果找到了，直接返回查找到的值即可。闭包正是可以做到这一点，因为它不会释放外部的引用，从而函数内部的值可以得以保留。</p>
 
 <figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> CachedSearchBox = (<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;,  </span><br><span class="line">       count = [];  </span><br><span class="line">    <span class="keyword">return</span> &#123;  </span><br><span class="line">       attachSearchBox : <span class="function"><span class="keyword">function</span><span class="params">(dsid)</span></span>&#123;  </span><br><span class="line">           <span class="keyword">if</span>(dsid <span class="keyword">in</span> cache)&#123;<span class="comment">//如果结果在缓存中  </span></span><br><span class="line">              <span class="keyword">return</span> cache[dsid];<span class="comment">//直接返回缓存中的对象  </span></span><br><span class="line">           &#125;  </span><br><span class="line">           <span class="keyword">var</span> fsb = <span class="keyword">new</span> uikit.webctrl.SearchBox(dsid);<span class="comment">//新建  </span></span><br><span class="line">           cache[dsid] = fsb;<span class="comment">//更新缓存  </span></span><br><span class="line">           <span class="keyword">if</span>(count.length &gt; <span class="number">100</span>)&#123;<span class="comment">//保正缓存的大小&lt;=100  </span></span><br><span class="line">              <span class="keyword">delete</span> cache[count.shift()];  </span><br><span class="line">           &#125;  </span><br><span class="line">           <span class="keyword">return</span> fsb;        </span><br><span class="line">       &#125;,  </span><br><span class="line">   </span><br><span class="line">       clearSearchBox : <span class="function"><span class="keyword">function</span><span class="params">(dsid)</span></span>&#123;  </span><br><span class="line">           <span class="keyword">if</span>(dsid <span class="keyword">in</span> cache)&#123;  </span><br><span class="line">              cache[dsid].clearSelection();    </span><br><span class="line">           &#125;  </span><br><span class="line">       &#125;  </span><br><span class="line">    &#125;;  </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
@@ -87,13 +87,13 @@
 
 
 <p>当然，除此之外，从不同的角度来看待闭包，他的作用也可以有不同的说法。</p><br><ul><br><li>闭包可以防止变量重名，保证变量不污染全局</li><br><li>闭包可以创建私有变量和私有方法</li><br><li>闭包可以….</li><br></ul><br><br><br><p>本文参考：<a href="http://blog.csdn.net/sunlylorn/article/details/6534610" target="_blank">sunlylorn的专栏</a></p>
-        <!-- <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/04/24/cb-javascript-closure-usages/">http://www.barretlee.com/blog/2013/04/24/cb-javascript-closure-usages/</a></p>
+        <!--<p class="article-info">文/<a href="/about/"><img src="/avatar150.png">李靖</a>　微信公众号：barretlee_com</p><p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/04/24/cb-javascript-closure-usages/">http://www.barretlee.com/blog/2013/04/24/cb-javascript-closure-usages/</a></p>
         <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/04/24/cb-javascript-closure-usages/#comments" aria-hidden="true">☞ 参与评论</a></p> -->
       </div>
     </div>
     
 <div class="old-article-warning">
-	本文在 <b>1171</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	本文在 <b>1175</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
 	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
 </div>
 
@@ -112,7 +112,9 @@
 </div>
       </div>
     </div>
-    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+    <div class="follow-wechat"><img src="/follow.jpg"></div>
+
+<div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
 	<a href="/about/#support" class="supportme">赏</a>
 	<ul>
 		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
@@ -130,6 +132,7 @@
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
 </div>
+
     <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
       <ul>
         <li><a href="/entry/">博客</a></li>
@@ -283,6 +286,13 @@
 		
 		<ul>
 			<li>
+				<span><font aria-hidden="true">2016-07-09 »</font> </span>
+				<a href="/blog/2016/07/09/a-kickstarter-guide-to-writing-es6/">ECMAScript 6 扫盲</a>
+				<span class="aria-readonly">发表时间为2016年07月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>ECMAScript 6 目前基本成为业界标准，它的普及速度比 ES5 要快很多，主要原因是现代浏览器对 ES6 的支持相当迅速，尤其是 Chrome 和 Firefox 浏览器，已经支持 ES6 中绝大多数的特性。本文译自 Github 上的一篇文章，目的是对还不太熟悉 ES6 语法的同学做一个简单的扫盲。</div>
+			</li>
+			
+			<li>
 				<span><font aria-hidden="true">2016-04-28 »</font> </span>
 				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
 				<span class="aria-readonly">发表时间为2016年04月28日</span>
@@ -301,13 +311,6 @@
 				<a href="/blog/2016/04/18/javascript-detail/">JavaScript 被忽视的细节</a>
 				<span class="aria-readonly">发表时间为2016年04月18日</span>
 				<div><span class="aria-readonly">文章概要 </span>《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在 微博 上，稍微整理了一番，放在这里，方便阅读。</div>
-			</li>
-			
-			<li>
-				<span><font aria-hidden="true">2016-02-20 »</font> </span>
-				<a href="/blog/2016/02/20/navigator-beacon-api/">页面跳转时，统计数据丢失问题探讨</a>
-				<span class="aria-readonly">发表时间为2016年02月20日</span>
-				<div><span class="aria-readonly">文章概要 </span>为了更好地了解用户对产品的使用情况，业务中，我们经常会收到埋点统计的需求，比如：收集一段时间内用户光标在页面中的运动情况，包括光标移动、点击等行为统计用户滚屏行为统计用户在站点的停留时长收集页面链接的点击数量等</div>
 			</li>
 			
 		</ul>
@@ -352,6 +355,7 @@
 	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
 </div>
 <div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+
 </body>
 <script src="/public/js/jquery.js"></script>
 <script>
@@ -361,5 +365,5 @@
   };
 </script>
 <script src="/public/js/aplayer.js"></script>
-<script src="/public/js/main.js?v=20160707"></script>
+<script src="/public/js/main.js?v=20160708"></script>
 </html>

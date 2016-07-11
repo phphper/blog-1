@@ -22,7 +22,7 @@
   <link rel="prev" href="http://www.barretlee.com/blog/2014/01/05/cb-javascript-asynchronous-programming/" title="JavaScript异步编程原理" />
   <link rel="next" href="http://www.barretlee.com/blog/2013/12/25/cb-websocket-with-php/" title="细说websocket - php篇" />
   <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
-  <link rel="stylesheet" href="/public/css/style.css?v=20160707">
+  <link rel="stylesheet" href="/public/css/style.css?v=20160708">
 </head>
 <span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
 
@@ -109,7 +109,7 @@
 <figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span><span class="params">(require, exports)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 对外提供 foo 属性</span></span><br><span class="line">  exports.foo = <span class="string">'bar'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 对外提供 doSomething 方法</span></span><br><span class="line">  exports.doSomething = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>剩下的工作就是针对 CMD 规范写一套符合标准的代码接口，这个比较琐碎，就不写了。</p><br><h3>二、额外的话题</h3><br><p>上面的代码中提到了关于 Event 的事件管理。在模块全部加在完毕之后，需要有个东西告诉你，所以顺手写了一个 Event 的事件管理器。</p>
 
-<figure class="highlight oxygene"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Event</span></span><br><span class="line"><span class="keyword">var</span> <span class="keyword">Event</span> = <span class="comment">&#123;&#125;</span>;</span><br><span class="line"><span class="keyword">Event</span>.events = [];</span><br><span class="line"><span class="keyword">Event</span>.<span class="keyword">on</span> = <span class="function"><span class="keyword">function</span><span class="params">(evt, func)</span><span class="comment">&#123;</span><br><span class="line">    for(var i = 0; i &lt; Event.events.length; i++)&#123;</span><br><span class="line">        if(Event.events[i].evt == evt)&#123;</span><br><span class="line">            Event.events[i].func.push(func);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title">Event</span>.<span class="title">events</span>.<span class="title">push</span><span class="params">(&#123;</span><br><span class="line">        evt: evt,</span><br><span class="line">        func: [func]</span><br><span class="line">    &#125;)</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">Event</span>.trigger = <span class="function"><span class="keyword">function</span><span class="params">(evt)</span><span class="comment">&#123;</span><br><span class="line">    for(var i = 0; i &lt; Event.events.length; i++)&#123;</span><br><span class="line">        if(Event.events[i].evt == evt)&#123;</span><br><span class="line">            for(var j = 0; j &lt; Event.events[i].func.length; j++)&#123;</span><br><span class="line">                Event.events[i].func[j]();</span><br><span class="line">            &#125;</span></span><br><span class="line">            <span class="title">return</span>;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">Event</span>.off = <span class="function"><span class="keyword">function</span><span class="params">(evt)</span><span class="comment">&#123;</span><br><span class="line">    for(var i = 0; i &lt; Event.events.length; i++)&#123;</span><br><span class="line">        Event.events.splice(i, 1);</span><br><span class="line">    &#125;</span></span><br><span class="line">&#125;;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Event</span></span><br><span class="line"><span class="keyword">var</span> <span class="type">Event</span> = &#123;&#125;;</span><br><span class="line"><span class="type">Event</span>.events = [];</span><br><span class="line"><span class="type">Event</span>.on = function(evt, <span class="func"><span class="keyword">func</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="type">Event</span>.events.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="type">Event</span>.events[i].evt == evt)&#123;</span><br><span class="line">            <span class="type">Event</span>.events[i].<span class="keyword">func</span>.push(<span class="func"><span class="keyword">func</span>);</span><br><span class="line">            <span class="title">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title">Event</span>.<span class="title">events</span>.<span class="title">push</span><span class="params">(&#123;</span><br><span class="line">        evt: evt,</span><br><span class="line">        <span class="keyword">func</span>: [<span class="keyword">func</span>]</span><br><span class="line">    &#125;)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">Event</span>.trigger = function(evt)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="type">Event</span>.events.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="type">Event</span>.events[i].evt == evt)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; <span class="type">Event</span>.events[i].<span class="keyword">func</span>.length; j++)&#123;</span><br><span class="line">                <span class="type">Event</span>.events[i].<span class="keyword">func</span>[j]();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">Event</span>.off = function(evt)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="type">Event</span>.events.length; i++)&#123;</span><br><span class="line">        <span class="type">Event</span>.events.splice(i, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p></p><p>我觉得 seajs 是一个很不错的模块加载器，如果感兴趣，可以去看看他的源码实现，代码不长，只有一千多行。模块的加载它采用的是创建文本节点，让文档去加载模块，实时查看状态为 interactive 的 script 标签，如果处于交互状态就拿到他的代码，接着删除节点。当节点数目为 0 的时候，加载工作完成。</p><p></p>
 <p></p><p>本文没有考虑 css 文件的加载问题，我们可以把它当做一个没有 require 关键词的 js 文件，或者把它匹配出来之后另作处理，因为他是不可能存在模块依赖关系的。</p><p></p>
 <p></p><p>然后就是很多很多细节，本文的目的并不是写一个类似 seajs 的模块管理工具，只是稍微说几句自己对这玩意儿的看法，如果说的有错，请多多吐槽！</p><p></p>
@@ -117,13 +117,13 @@
 <ul><br><li><a href="https://github.com/seajs/seajs/issues" target="_blank">https://github.com/seajs/issues</a> seajs issues</li><br></ul>
 
 
-        <!-- <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/12/29/cb-how-to-achieve-loading-module/">http://www.barretlee.com/blog/2013/12/29/cb-how-to-achieve-loading-module/</a></p>
+        <!--<p class="article-info">文/<a href="/about/"><img src="/avatar150.png">李靖</a>　微信公众号：barretlee_com</p><p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/12/29/cb-how-to-achieve-loading-module/">http://www.barretlee.com/blog/2013/12/29/cb-how-to-achieve-loading-module/</a></p>
         <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/12/29/cb-how-to-achieve-loading-module/#comments" aria-hidden="true">☞ 参与评论</a></p> -->
       </div>
     </div>
     
 <div class="old-article-warning">
-	本文在 <b>922</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	本文在 <b>926</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
 	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
 </div>
 
@@ -142,7 +142,9 @@
 </div>
       </div>
     </div>
-    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+    <div class="follow-wechat"><img src="/follow.jpg"></div>
+
+<div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
 	<a href="/about/#support" class="supportme">赏</a>
 	<ul>
 		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
@@ -160,6 +162,7 @@
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
 </div>
+
     <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
       <ul>
         <li><a href="/entry/">博客</a></li>
@@ -313,6 +316,13 @@
 		
 		<ul>
 			<li>
+				<span><font aria-hidden="true">2016-07-09 »</font> </span>
+				<a href="/blog/2016/07/09/a-kickstarter-guide-to-writing-es6/">ECMAScript 6 扫盲</a>
+				<span class="aria-readonly">发表时间为2016年07月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>ECMAScript 6 目前基本成为业界标准，它的普及速度比 ES5 要快很多，主要原因是现代浏览器对 ES6 的支持相当迅速，尤其是 Chrome 和 Firefox 浏览器，已经支持 ES6 中绝大多数的特性。本文译自 Github 上的一篇文章，目的是对还不太熟悉 ES6 语法的同学做一个简单的扫盲。</div>
+			</li>
+			
+			<li>
 				<span><font aria-hidden="true">2016-04-28 »</font> </span>
 				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
 				<span class="aria-readonly">发表时间为2016年04月28日</span>
@@ -331,13 +341,6 @@
 				<a href="/blog/2016/04/18/javascript-detail/">JavaScript 被忽视的细节</a>
 				<span class="aria-readonly">发表时间为2016年04月18日</span>
 				<div><span class="aria-readonly">文章概要 </span>《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在 微博 上，稍微整理了一番，放在这里，方便阅读。</div>
-			</li>
-			
-			<li>
-				<span><font aria-hidden="true">2016-02-20 »</font> </span>
-				<a href="/blog/2016/02/20/navigator-beacon-api/">页面跳转时，统计数据丢失问题探讨</a>
-				<span class="aria-readonly">发表时间为2016年02月20日</span>
-				<div><span class="aria-readonly">文章概要 </span>为了更好地了解用户对产品的使用情况，业务中，我们经常会收到埋点统计的需求，比如：收集一段时间内用户光标在页面中的运动情况，包括光标移动、点击等行为统计用户滚屏行为统计用户在站点的停留时长收集页面链接的点击数量等</div>
 			</li>
 			
 		</ul>
@@ -382,6 +385,7 @@
 	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
 </div>
 <div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+
 </body>
 <script src="/public/js/jquery.js"></script>
 <script>
@@ -391,5 +395,5 @@
   };
 </script>
 <script src="/public/js/aplayer.js"></script>
-<script src="/public/js/main.js?v=20160707"></script>
+<script src="/public/js/main.js?v=20160708"></script>
 </html>

@@ -8,8 +8,36 @@
     <script xmlns="http://www.w3.org/1999/xhtml" src="/public/js/rss.js"></script>
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[想法，随笔，思考，感叹，瞬间，笔记...]]></description>
-    <pubDate>Thu Jul 07 2016 21:22:01 GMT+0800 (CST)</pubDate>
+    <pubDate>Mon Jul 11 2016 12:04:44 GMT+0800 (CST)</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[谈谈我这三年在技术上的成长]]></title>
+      <link>http://www.barretlee.com/blog/2016/07/11/learning-recent-years/</link>
+      <guid>http://www.barretlee.com/blog/2016/07/11/learning-recent-years/</guid>
+      <pubDate>Mon Jul 11 2016 02:29:35 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[前些时候把微信 id 开放了出去，有很多朋友加我微信，其中大部分都是前端学习者。一些同学在学习的时候遇到了困难，或者说瓶颈吧，询问我处理办法，有的希望我讲述下学习经验。考虑到有些话题偏大，我没有详细回复，事实上我也不知道从何说起，今天思量了一番，记录下来。]]>
+      
+      </description>
+      <content:encoded><![CDATA[前些时候把微信 id 开放了出去，有很多朋友加我微信，其中大部分都是前端学习者。一些同学在学习的时候遇到了困难，或者说瓶颈吧，询问我处理办法，有的希望我讲述下学习经验。考虑到有些话题偏大，我没有详细回复，事实上我也不知道从何说起，今天思量了一番，记录下来。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/07/11/learning-recent-years/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[ECMAScript 6 扫盲]]></title>
+      <link>http://www.barretlee.com/blog/2016/07/09/a-kickstarter-guide-to-writing-es6/</link>
+      <guid>http://www.barretlee.com/blog/2016/07/09/a-kickstarter-guide-to-writing-es6/</guid>
+      <pubDate>Sat Jul 09 2016 14:30:40 GMT+0800 (CST)</pubDate>
+      <description>
+      <![CDATA[ECMAScript 6 目前基本成为业界标准，它的普及速度比 ES5 要快很多，主要原因是现代浏览器对 ES6 的支持相当迅速，尤其是 Chrome 和 Firefox 浏览器，已经支持 ES6 中绝大多数的特性。]]>
+      
+      </description>
+      <content:encoded><![CDATA[ECMAScript 6 目前基本成为业界标准，它的普及速度比 ES5 要快很多，主要原因是现代浏览器对 ES6 的支持相当迅速，尤其是 Chrome 和 Firefox 浏览器，已经支持 ES6 中绝大多数的特性。]]>
+      </content:encoded>
+      <comments>http://www.barretlee.com/blog/2016/07/09/a-kickstarter-guide-to-writing-es6/#disqus_thread</comments>
+    </item>
     
     <item>
       <title><![CDATA[招行香港一卡通办理和使用]]></title>
@@ -401,34 +429,6 @@
       <content:encoded><![CDATA[写了一个轻巧的小程序 - Lazyload，100 行代码。加上一个 `data-src` 属性，能够让页面中的图片懒加载、textarea 中的脚本懒执行，有需要的可以拿过去用用，代码逻辑比较简单，也可以自己增强点功能，比如动态添加懒加载监听等等。]]>
       </content:encoded>
       <comments>http://www.barretlee.com/blog/2015/11/16/lazyload-component/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[淘宝 UED 前端团队究竟好不好？值得去吗？]]></title>
-      <link>http://www.barretlee.com/blog/2015/11/13/taobao-fed-come-on/</link>
-      <guid>http://www.barretlee.com/blog/2015/11/13/taobao-fed-come-on/</guid>
-      <pubDate>Fri Nov 13 2015 14:44:26 GMT+0800 (CST)</pubDate>
-      <description>
-      <![CDATA[在知乎上回答了一个问题：『淘宝 UED 前端团队究竟好不好？值得去吗？』]]>
-      
-      </description>
-      <content:encoded><![CDATA[在知乎上回答了一个问题：『淘宝 UED 前端团队究竟好不好？值得去吗？』]]>
-      </content:encoded>
-      <comments>http://www.barretlee.com/blog/2015/11/13/taobao-fed-come-on/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[将你家里的电脑连上广域网]]></title>
-      <link>http://www.barretlee.com/blog/2015/11/07/put-your-computer-to-internet/</link>
-      <guid>http://www.barretlee.com/blog/2015/11/07/put-your-computer-to-internet/</guid>
-      <pubDate>Sat Nov 07 2015 12:12:14 GMT+0800 (CST)</pubDate>
-      <description>
-      <![CDATA[很多人买电脑半年一年之后，都会遇到这样一个问题：硬盘已经装不下？尤其是有些爱折腾的朋友喜欢安装多个系统，或者爱把各种美剧批量下载到本地，渐渐地，也只好去网上搜罗个硬盘。现在四五百就能买到一个 1TB 的硬盘，也不算很贵，可是电脑边上总挂着一坨东西，不仅不方便也不好看。]]>
-      
-      </description>
-      <content:encoded><![CDATA[很多人买电脑半年一年之后，都会遇到这样一个问题：硬盘已经装不下？尤其是有些爱折腾的朋友喜欢安装多个系统，或者爱把各种美剧批量下载到本地，渐渐地，也只好去网上搜罗个硬盘。现在四五百就能买到一个 1TB 的硬盘，也不算很贵，可是电脑边上总挂着一坨东西，不仅不方便也不好看。]]>
-      </content:encoded>
-      <comments>http://www.barretlee.com/blog/2015/11/07/put-your-computer-to-internet/#disqus_thread</comments>
     </item>
     
   </channel>

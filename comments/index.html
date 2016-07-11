@@ -22,7 +22,7 @@
   
   
   <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
-  <link rel="stylesheet" href="/public/css/style.css?v=20160707">
+  <link rel="stylesheet" href="/public/css/style.css?v=20160708">
 </head>
 <span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
 
@@ -138,7 +138,7 @@
 </div>
 
 <script>
-$(function(){
+window.onload = function() {
   try {
     var arr = JSON.parse(localStorage.getItem('__guests__'));
     var ret = {};
@@ -314,8 +314,10 @@ $(function(){
     }
   };
 
-  window.commentVisitor = new CommentVisitor();
-});
+  setTimeout(function() {
+    window.commentVisitor = new CommentVisitor();
+  }, 1E3);
+};
 </script>
 
 
@@ -328,5 +330,5 @@ $(function(){
   };
 </script>
 <script src="/public/js/aplayer.js"></script>
-<script src="/public/js/main.js?v=20160707"></script>
+<script src="/public/js/main.js?v=20160708"></script>
 </html>

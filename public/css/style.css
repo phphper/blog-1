@@ -3237,16 +3237,17 @@ h1 img:hover {
 .post ul,
 .post ol {
   margin: 25px 0 25px 35px;
+  list-style-type: square;
 }
 .post ul li,
 .post ol li {
   margin-bottom: 5px;
-  list-style: square;
+  list-style-type: square;
   line-height: 28px;
   font-size: 16px;
 }
 .post ol li {
-  list-style: decimal;
+  list-style-type: decimal;
 }
 .post h2 {
   font-size: 24px;
@@ -3448,7 +3449,6 @@ table th {
   margin: 40px 0;
 }
 .share-article .ds-share {
-  float: right;
   transition: all 0.2s;
   -webkit-filter: grayscale(1);
   height: 30px;
@@ -3624,6 +3624,25 @@ table th {
   background-color: #636363;
   transition: all 0.3s;
   box-shadow: none;
+}
+.follow-wechat {
+  text-align: center;
+}
+.follow-wechat img {
+  width: 200px;
+}
+.article-info {
+  font-size: 14px;
+}
+.article-info img {
+  border: none;
+  height: 24px;
+  width: 24px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2px;
+  position: relative;
+  top: -2px;
 }
 .cate-wraper {
   padding: 70px 40px 30px;
@@ -6437,7 +6456,7 @@ span.line {
     -webkit-text-size-adjust: none;
   }
   .post-content h3 {
-    font-size: 28px;
+    font-size: 22px;
     line-height: 48px;
     margin-top: 0;
   }

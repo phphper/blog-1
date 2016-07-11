@@ -22,7 +22,7 @@
   <link rel="prev" href="http://www.barretlee.com/blog/2013/05/14/cb-four-method-to-Asynchronous/" title="实现Javascript异步编程的4种方法" />
   <link rel="next" href="http://www.barretlee.com/blog/2013/05/05/cb-get-and-post/" title="浅谈HTTP中Get与Post的区别" />
   <link rel="start" href="http://www.barretlee.com/entry/" title="Blog Entry" />
-  <link rel="stylesheet" href="/public/css/style.css?v=20160707">
+  <link rel="stylesheet" href="/public/css/style.css?v=20160708">
 </head>
 <span class="aria-readonly" tabindex="0" aria-hidden="true">小胡子哥的博客良好支持读屏软件阅读，请放心使用。</span>
 
@@ -133,7 +133,7 @@
 <figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> evt = argument.callee.caller.argument[<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>4. for-in的问题</strong></p>
 
-<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">for<span class="comment">(i in csses)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span><span class="comment">(csses.hasOwnProperty(i)</span>)&#123;</span><br><span class="line">        cssList += i + <span class="string">":"</span> + csses[i] + <span class="string">";"</span>;　　　　 <span class="comment">//button.style[i] = csses[i];　　 &#125; &#125; button.style.cssText = cssList;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> csses)&#123;</span><br><span class="line">    <span class="keyword">if</span>(csses.hasOwnProperty(i))&#123;</span><br><span class="line">        cssList += i + <span class="string">":"</span> + csses[i] + <span class="string">";"</span>;　　　　 <span class="comment">//button.style[i] = csses[i];　　 &#125; &#125; button.style.cssText = cssList;</span></span><br></pre></td></tr></table></figure>
 <p>开始的时候，我用的是注释里的方法button.style[i] = csses[i]，但在IE下报错了，后来就用的上面方式实现，具体为什么我也不知道。。</p>
 
 
@@ -143,13 +143,13 @@
 <p><strong>6. JS一些常见的浏览器兼容问题</strong></p><br><p>这里提到的有：</p><br><ul><br><li>evt || window.event</li><br><li>evt.target || evt.srcElement</li><br><li>evt.x || evt.pageX || evt.layerX</li><br><li>evt.preventDefault() Vs window.event.returnValue = false</li><br><li>XMLHttpRequest ||&nbsp;ActiveXObject(“Microsoft.XMLHTTP”)</li><br><li>obj.innerText || obj.textContent</li><br><li>window.getSelection ||　document.selection</li><br></ul><br><br><br><p><strong>四、参考</strong></p><br><ul><br><li><a title="splice" href="http://www.w3school.com.cn/js/jsref_splice.asp" target="_blank">W3School splice</a></li><br></ul><br><br><br><p><strong>五、结语</strong></p><br><p><strong>我</strong>认为，对象里的数据，能单独提取出来尽量单独提出来，不要把所有的常量都当做字面量放置在有需求的地方，用一个变量缓存的话，修改起来也十分方便。对象里的方法，能分离的分离，尽量不要一个嵌套着一个，搞不好就是一个泄露内存的闭包，分离出来，作为对象的直接方法，既可以方便多次利用，又不至于搞的太复杂。</p><br><p>好吧，要学的东西真的很多很多，但是只要把看到的不明白弄明白，然后准备好下一个不明白到来，这样就行了。</p>
 
 
-        <!-- <p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/05/05/cb-getKeywords-2/">http://www.barretlee.com/blog/2013/05/05/cb-getKeywords-2/</a></p>
+        <!--<p class="article-info">文/<a href="/about/"><img src="/avatar150.png">李靖</a>　微信公众号：barretlee_com</p><p class="this-page-link" aria-hidden="true">本文链接：<a href="http://www.barretlee.com/blog/2013/05/05/cb-getKeywords-2/">http://www.barretlee.com/blog/2013/05/05/cb-getKeywords-2/</a></p>
         <p><a class="to-comments" href="http://www.barretlee.com/blog/2013/05/05/cb-getKeywords-2/#comments" aria-hidden="true">☞ 参与评论</a></p> -->
       </div>
     </div>
     
 <div class="old-article-warning">
-	本文在 <b>1160</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
+	本文在 <b>1163</b> 天之前发表，技术更替飞快，文中部分内容可能已经过时，如有疑问，
 	请在下方留言，或者联系 <a href="/about">小胡子哥</a>。
 </div>
 
@@ -168,7 +168,9 @@
 </div>
       </div>
     </div>
-    <div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
+    <div class="follow-wechat"><img src="/follow.jpg"></div>
+
+<div class="copyright" itemscope itemtype="http://schema.org/ProfilePage" tabindex="0" aria-hidden="true">
 	<a href="/about/#support" class="supportme">赏</a>
 	<ul>
 		<li>作者:  <a href="/about/" itemprop="name">小胡子哥 (Barret Lee)</a></li>
@@ -186,6 +188,7 @@
 	</ul>
 	<a href="/about/"><img src="/blogimgs/avatar150.png" /></a>
 </div>
+
     <em class="arrow-expend icon" tabindex="0" aria-hidden="true">&#xe618;
       <ul>
         <li><a href="/entry/">博客</a></li>
@@ -339,6 +342,13 @@
 		
 		<ul>
 			<li>
+				<span><font aria-hidden="true">2016-07-09 »</font> </span>
+				<a href="/blog/2016/07/09/a-kickstarter-guide-to-writing-es6/">ECMAScript 6 扫盲</a>
+				<span class="aria-readonly">发表时间为2016年07月09日</span>
+				<div><span class="aria-readonly">文章概要 </span>ECMAScript 6 目前基本成为业界标准，它的普及速度比 ES5 要快很多，主要原因是现代浏览器对 ES6 的支持相当迅速，尤其是 Chrome 和 Firefox 浏览器，已经支持 ES6 中绝大多数的特性。本文译自 Github 上的一篇文章，目的是对还不太熟悉 ES6 语法的同学做一个简单的扫盲。</div>
+			</li>
+			
+			<li>
 				<span><font aria-hidden="true">2016-04-28 »</font> </span>
 				<a href="/blog/2016/04/28/mini-query/">元素选择器 - Mini Query</a>
 				<span class="aria-readonly">发表时间为2016年04月28日</span>
@@ -357,13 +367,6 @@
 				<a href="/blog/2016/04/18/javascript-detail/">JavaScript 被忽视的细节</a>
 				<span class="aria-readonly">发表时间为2016年04月18日</span>
 				<div><span class="aria-readonly">文章概要 </span>《JavaScript 权威指南》这本书从第四版开始，一直到第六版，每个版本我都逐字逐句读过几遍，然而每一遍下来的感受却完全不一样。上上周的周一，再次翻开了这本犀牛书，这一次我是带着批判精神和研究精神过来的，所以看的时候也写下了一些感受和笔记，都是些容易被忽略的点，部分内容犀牛书上不一定有提到。之前都发在 微博 上，稍微整理了一番，放在这里，方便阅读。</div>
-			</li>
-			
-			<li>
-				<span><font aria-hidden="true">2016-02-20 »</font> </span>
-				<a href="/blog/2016/02/20/navigator-beacon-api/">页面跳转时，统计数据丢失问题探讨</a>
-				<span class="aria-readonly">发表时间为2016年02月20日</span>
-				<div><span class="aria-readonly">文章概要 </span>为了更好地了解用户对产品的使用情况，业务中，我们经常会收到埋点统计的需求，比如：收集一段时间内用户光标在页面中的运动情况，包括光标移动、点击等行为统计用户滚屏行为统计用户在站点的停留时长收集页面链接的点击数量等</div>
 			</li>
 			
 		</ul>
@@ -408,6 +411,7 @@
 	<a class="hash-to-comments icon" title="我要评论">&#x2121;</a>
 </div>
 <div class="fixerr" tabindex="0" aria-hidden="true">纠错模式</div>
+
 </body>
 <script src="/public/js/jquery.js"></script>
 <script>
@@ -417,5 +421,5 @@
   };
 </script>
 <script src="/public/js/aplayer.js"></script>
-<script src="/public/js/main.js?v=20160707"></script>
+<script src="/public/js/main.js?v=20160708"></script>
 </html>
